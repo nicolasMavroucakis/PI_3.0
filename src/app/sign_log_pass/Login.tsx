@@ -4,7 +4,7 @@ import style from "./style";
 import { Link } from "expo-router";
 
 
-export default function LogIn () {
+export default function Sign () {
     const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
     const inputWidth = screenWidth * 0.75
 
@@ -24,8 +24,11 @@ export default function LogIn () {
             <View style={[style.ButtonViewStyle,{width:inputWidth}]}>
                 <Button  title="Cadastrar" color={'white'} />
             </View>
-            <Text>Ja possui cadastro? <Link href={'./Login'} asChild ><Button title="Faça Login" /></Link></Text>
+            <Text>Ja possui cadastro? 
+                
+                    <Button title="Faça Login"/>
+                
+            </Text>
         </View>
     )
 }
-
