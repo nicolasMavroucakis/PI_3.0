@@ -10,6 +10,12 @@ export default function Exames() {
             <Link href={'/sign_log_pass'} asChild>
                 <Button title="Sing In"/>
             </Link>
+            <Link href={'/sign_log_pass/Login'} asChild>
+                <Button title="Log In"/>
+            </Link>
+            <Link href={'/sign_log_pass/Password_forget'} asChild>
+                <Button title="Forget Password"/>
+            </Link>
         </View>
     )
 }

@@ -39,6 +39,32 @@ const style = StyleSheet.create({
         backgroundColor:'#A1D5B0',
         borderRadius:10
     },   
+    ButtonLinkStyle:{
+        display:'flex',
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center', 
+        marginTop:10
+    },
+    Hr: {
+        borderColor:'black',
+        borderBottomWidth:2
+    },
+    ButtonGoogle: {
+        backgroundColor:'#E1DFDF'
+    },
+    Img: {
+        position:'relative',
+        top:10,
+        marginRight:6 
+    },
+    DisplaFlex:{
+        display:'flex',
+        alignItems:'center',
+        justifyContent:'center',
+        flexDirection:'row'
+    }
+    
 })
 
 export default style
