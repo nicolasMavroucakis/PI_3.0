@@ -4,7 +4,7 @@ import style from './style';
 import { Link } from 'expo-router';
 import { useState } from 'react';
 import StartFirebase from '../../crud/firebaseConfig';
-import { ref, set, update, remove, get, child } from 'firebase/database';
+import { ref, set } from 'firebase/database';
 
 export default function LogIn() {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
@@ -15,7 +15,7 @@ export default function LogIn() {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [name, setName] = useState('')
   const [birthDate, setBirthDate] = useState('')
-  const [db, setDb] = useState('')
+  const db = StartFirebase(); // Obtendo a instância do banco de dados
 
   const [passEmail,setPassEmail] = useState(false)
   const [passPassword,setPassPassword] = useState(false)
@@ -23,40 +23,45 @@ export default function LogIn() {
   const [passBirth,setPassBirth] = useState(false)
 
   const handleChange = (key, value) => {
-      if (key === 'email') {
-          setEmail(value) 
-          setPassEmail(true)
-      } else if (key === 'password') {
-          setPassword(value)
-          setPassPassword(true)
-      } else if (key === 'passwordConfirm') {
+    if (key === 'email') {
+      setEmail(value) 
+      setPassEmail(true)
+    } else if (key === 'password') {
+      setPassword(value)
+    } else if (key === 'passwordConfirm') {
+      if (password == value){
         setPasswordConfirm(value)
-      } else if (key === 'name') {
-        setName(value)
-        setPassName(true)
-      } 
-      if (key === 'birthDate') {
-        setBirthDate(value)
-        setPassBirth(true)
-      } 
-      console.warn(email, password, passwordConfirm, name, birthDate)
-
-      if (passEmail == true && passName == true && passPassword == true && passBirth && true) {
-        
+        setPassPassword(true)
+      } else {
+        console.warn("senha e confirmar senha nao batem")
       }
+    } else if (key === 'name') {
+      setName(value)
+      setPassName(true)
+    } 
+    if (key === 'birthDate') {
+      setBirthDate(value)
+      setPassBirth(true)
+    } 
+    console.warn(email, password, passwordConfirm, name, birthDate)
+
   }
-
-  const getAllInputs = () => {
-    const userneame = email
-    const nameUSer = name
-    const passwordUset = password
-    const birthUser = birthDate
+  const createUserInDatabase = (database) => {
+      const dbRef = db;
+      const userData = {
+        username: email,
+        name: name,
+        birthDate: birthDate
+      };
+    
+      set(ref(dbRef, 'users/' + email), userData)
+        .then(() => {
+          console.warn('Usuário criado com sucesso!');
+        })
+        .catch((error) => {
+          console.error('Erro ao criar usuário:', error);
+        });
   }
-
-//   const componentDidMount = () => {
-//     setDb(StartFirebase())
-// }
-
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
@@ -69,12 +74,12 @@ export default function LogIn() {
           <View>
             <TextInput placeholder="Nome" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('name', text)} />
             <TextInput placeholder="E-mail" textContentType="emailAddress" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('email', text)} />
-            <TextInput placeholder="Nascimento" textContentType="d" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('birthDate', text)} />
+            <TextInput placeholder="Nascimento" textContentType="birthdateYear" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('birthDate', text)} />
             <TextInput placeholder="Senha" textContentType="password" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('password', text)} />
             <TextInput placeholder="Confirmar Senha" textContentType="password" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
           </View>
           <View style={[style.ButtonViewStyle, { width: inputWidth }]}>
-            <Link href={"../(tabs)"} asChild style={{width:"100%", height:"100%"}}>
+            <Link href={"../(tabs)"} asChild style={{width:"100%", height:"100%"}} onPress={() => createUserInDatabase(db)}>
               <Button title="Cadastrar" color={'white'} />
             </Link>
           </View>
