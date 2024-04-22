@@ -1,8 +1,5 @@
 import { StyleSheet } from "react-native";
 
-
-
-
 const style = StyleSheet.create({
     TelaDisplay: {
         justifyContent:'space-between',

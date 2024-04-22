@@ -7,6 +7,11 @@ export default function Password_forget () {
     const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
     const inputWidth = screenWidth * 0.75
 
+    const handleChange = (text) => {
+        const email = text
+        console.warn(email)
+    }
+
     return (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent:'center' }}>
@@ -24,7 +29,7 @@ export default function Password_forget () {
                             <Image source={require('../../../assets/email.png')} style={{width:40, height:40}}/>
                         </View>
                         <View>
-                            <TextInput placeholder="E-mail" style={[style.InputStyle, { width: inputWidth }]}/>
+                            <TextInput placeholder="E-mail" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(e) => handleChange(e)}/>
                         </View>
                     </View>
                     <View style={[style.ButtonViewStyle, { width: inputWidth }]}>
