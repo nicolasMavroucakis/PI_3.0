@@ -9,9 +9,11 @@
     "web": "expo start --web"
   },
   "dependencies": {
+    "@expo/vector-icons": "^14.0.0",
     "@react-native-community/datetimepicker": "^7.6.3",
     "@react-navigation/bottom-tabs": "^6.5.20",
     "@react-navigation/native": "^6.1.17",
+    "@react-navigation/stack": "^6.3.29",
     "@types/react": "~18.2.45",
     "expo": "~50.0.14",
     "expo-constants": "~15.4.5",
@@ -19,14 +21,17 @@
     "expo-router": "~3.4.8",
     "expo-status-bar": "~1.11.1",
     "firebase": "^10.10.0",
+    "native-base": "^3.4.28",
     "react": "18.2.0",
     "react-native": "0.73.6",
     "react-native-calendars": "^1.1304.1",
     "react-native-datepicker": "^1.7.2",
+    "react-native-gesture-handler": "~2.14.0",
     "react-native-modal-datetime-picker": "^17.1.0",
     "react-native-modern-datepicker": "^1.0.0-beta.91",
     "react-native-safe-area-context": "4.8.2",
     "react-native-screens": "~3.29.0",
+    "react-native-svg": "^12.1.1",
     "typescript": "^5.3.0"
   },
   "devDependencies": {
