@@ -18,7 +18,6 @@ export default function Consultas() {
             data: consultaInfo.data,
             horario: consultaInfo.horario
         };
-
         // Adiciona a nova consulta à lista de consultas
         setConsultas([...consultas, novaConsulta]);
         setModalVisible(false);
