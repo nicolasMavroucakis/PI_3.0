@@ -26,7 +26,7 @@ export default function Consultas() {
     return (
         <View style={{ flex: 1 }}>
             <View style={styles.header}>
-                <Image style={styles.img} source={require('../../../assets/perfil.png')} />
+                <Image style={styles.img} source={require('../../../assets/user.png')} />
                 <Text style={styles.headerText}>Gustavo Peres</Text>
             </View>
             <View style={styles.container}>
@@ -49,7 +49,6 @@ export default function Consultas() {
                 ))}
             </View>
 
-            {/* Modal para adicionar consulta */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -115,6 +114,8 @@ const styles = StyleSheet.create({
         padding: 10,
         margin: 4,
         marginLeft: 270,
+        width:40, 
+        height:40
     },
     addButton: {
         backgroundColor: '#A1D5B0',
