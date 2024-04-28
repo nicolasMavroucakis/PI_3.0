@@ -85,7 +85,7 @@ export default function TabRoutesLayout() {
                     }}
                 />
                 <Tabs.Screen 
-                    name="Medicacao"
+                    name="medicacao/index"
                     options={{
                         title:"Medicação",
                         tabBarStyle:{

@@ -9,7 +9,7 @@ export const GeneralProvider = ({ children }) => {
     const [medicacao, setMedicacao] = useState([
         { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true }
     ])
-    const [exames, setExames] = useState([]);
+    const [exames, setExames] = useState();
     const [perfil, setPerfil] = useState([
         { nome: "Gustavo Prez", email: "gustavo@gmail.com", senha: "12345", peso: "40kg", altura: "1.85m" }
     ])
