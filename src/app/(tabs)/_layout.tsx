@@ -40,7 +40,7 @@ export default function TabRoutesLayout() {
                     }}
                 />
                 <Tabs.Screen 
-                    name="Consultas" 
+                    name="consultas/index" 
                     options={{
                         title:"Consultas",
                         tabBarStyle:{
@@ -133,7 +133,9 @@ export default function TabRoutesLayout() {
                             />
                         )
                         }}/>
-                
+                {/* <Tabs.Screen
+                    name=""
+                /> */}
             </Tabs>
     );
 }
