@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
-import { Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button, Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 
 export default function Consultas() {
@@ -11,6 +10,7 @@ export default function Consultas() {
         data: '',
         horario: ''
     });
+    const [consultaSelecionada, setConsultaSelecionada] = useState(null);
 
     const handleSalvarConsulta = () => {
         const novaConsulta = {
@@ -18,9 +18,12 @@ export default function Consultas() {
             data: consultaInfo.data,
             horario: consultaInfo.horario
         };
-        // Adiciona a nova consulta à lista de consultas
         setConsultas([...consultas, novaConsulta]);
         setModalVisible(false);
+    };
+
+    const toggleDetalhesConsulta = (consulta) => {
+        setConsultaSelecionada(consultaSelecionada === consulta ? null : consulta);
     };
 
     return (
@@ -38,18 +41,20 @@ export default function Consultas() {
                 </TouchableOpacity>
             </View>
 
-            {/* Lista de consultas */}
             <View style={styles.consultaList}>
                 {consultas.map((consulta, index) => (
-                    <View key={index} style={styles.consultaItem}>
+                    <TouchableOpacity key={index} onPress={() => toggleDetalhesConsulta(consulta)} style={styles.consultaItem}>
                         <Text>{consulta.nome}</Text>
-                        <Text>{consulta.data}</Text>
-                        <Text>{consulta.horario}</Text>
-                    </View>
+                        {consultaSelecionada === consulta && (
+                            <View style={styles.detalhesConsulta}>
+                                <Text>Data: {consulta.data}</Text>
+                                <Text>Horário: {consulta.horario}</Text>
+                            </View>
+                        )}
+                    </TouchableOpacity>
                 ))}
             </View>
 
-            {/* Modal para adicionar consulta */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -66,6 +71,7 @@ export default function Consultas() {
                             placeholder="Digite o nome da consulta"
                             onChangeText={(text) => setConsultaInfo({ ...consultaInfo, nome: text })}
                         />
+                        
                         <Text style={styles.label}>Data</Text>
                         <TextInput
                             style={styles.input}
@@ -79,6 +85,9 @@ export default function Consultas() {
                             onChangeText={(text) => setConsultaInfo({ ...consultaInfo, horario: text })}
                         />
                         <Button title="Salvar Consulta" onPress={handleSalvarConsulta} />
+                        <TouchableOpacity style={styles.arrowButton} onPress={() => setModalVisible(false)}>
+                            <AntDesign name="right" size={24} color="black" />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
@@ -101,20 +110,22 @@ const styles = StyleSheet.create({
         color: 'black',
     },
     container: {
-        flex: 1,
         marginTop: 20,
         display: 'flex',
         flexDirection: "row",
-        marginLeft: 130,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
     },
     title: {
         fontSize: 36,
         fontWeight: '500',
+        marginLeft: '28%'
     },
     img: {
         padding: 10,
         margin: 4,
-        marginLeft: 270,
+        marginLeft: '61%'
     },
     addButton: {
         backgroundColor: '#A1D5B0',
@@ -123,13 +134,13 @@ const styles = StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 60,
     },
     consultaList: {
         flex: 1,
         marginTop: 20,
         paddingHorizontal: 20,
         display: 'flex',
+        fontSize: 40
     },
     consultaItem: {
         marginBottom: 10,
@@ -138,6 +149,12 @@ const styles = StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 15,
         backgroundColor: "#c9c9c9",
+    },
+    detalhesConsulta: {
+        backgroundColor: "#c9c9c9",
+        padding: 10,
+        marginTop: 5,
+        borderRadius: 5,
     },
     modalBackground: {
         flex: 1,
@@ -168,5 +185,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
+        fontSize: 20,
+    },
+    arrowButton: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
     },
 });
