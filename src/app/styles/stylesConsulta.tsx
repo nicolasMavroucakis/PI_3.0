@@ -31,7 +31,9 @@ const stylesConsulta = StyleSheet.create({
     img: {
         padding: 10,
         margin: 4,
-        marginLeft: '61%'
+        marginLeft: '61%',
+        height:25,
+        width:25,
     },
     addButton: {
         backgroundColor: '#A1D5B0',

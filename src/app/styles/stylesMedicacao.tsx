@@ -60,6 +60,15 @@ const stylesMedicacao = StyleSheet.create({
         justifyContent:'space-around',
         fontSize: 15,
         padding: 10
+    },
+    arrowImage: {
+        height: 20,
+        width:20,
+        transform: 'rotate(90deg)',
+    },
+    a:{
+        display:'flex',
+        alignItems:'center'
     }
 })
 

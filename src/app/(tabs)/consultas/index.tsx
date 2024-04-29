@@ -31,7 +31,7 @@ export default function Consultas() {
     return (
         <View style={{ flex: 1 }}>
             <View style={stylesConsulta.header}>
-                <Image style={stylesConsulta.img} source={require('../../../assets/perfil.png')} />
+                <Image style={stylesConsulta.img} source={require('../../../../assets/user.png')} />
                 <Text style={stylesConsulta.headerText}>Gustavo Peres</Text>
             </View>
             <View style={stylesConsulta.container}>

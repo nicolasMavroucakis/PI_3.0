@@ -3,12 +3,13 @@ import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import stylesMedicacao from "../../styles/stylesMedicacao";
 import { useState } from "react";
+import { Image } from "react-native";
 
 export default function Medicacao() {
     const [medicacao, setMedicacao] = useState([
-        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso oral" },
-        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso oral" },
-        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso oral" }
+        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true },
+        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true },
+        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true }
     ]);
 
     return (
@@ -26,7 +27,7 @@ export default function Medicacao() {
                 </View>
             </View>
             <ScrollView>
-                <View style={stylesMedicacao.medicacaoesContainer}>
+                <View style={stylesMedicacao.medicacaoesContainer}>       
                     {medicacao.map((medicamento, index) => (
                         <View key={index} style={stylesMedicacao.containerTextActive}>
                             <View style={stylesMedicacao.textView}>
@@ -45,9 +46,11 @@ export default function Medicacao() {
                                 <View>
                                     <Text style={{ fontSize: 16 }}>Alarme: {medicamento.alarme ? "Ativo" : "Inativo"}</Text>
                                 </View>
-                                <TouchableOpacity>
-                                    <AntDesign name="arrowup"/>
-                                </TouchableOpacity>
+                                <View style={stylesMedicacao.a}>
+                                    <TouchableOpacity>
+                                        <Image source={require('../../../../assets/seta-direita.png')} style={stylesMedicacao.arrowImage}/>
+                                    </TouchableOpacity>
+                                </View>
                             </View>
                         </View>
                     ))}
