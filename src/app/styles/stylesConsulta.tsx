@@ -1,9 +1,7 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
 
-const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
-
-const stylesConsulta =  StyleSheet.create({
+const stylesConsulta = StyleSheet.create({
     header: {
         backgroundColor: '#c9c9c9',
         alignItems: 'center',
@@ -11,7 +9,6 @@ const stylesConsulta =  StyleSheet.create({
         flexDirection: "row",
         justifyContent: 'center',
         height: 60,
-        width: "100%"
     },
     headerText: {
         fontSize: 14,
@@ -19,22 +16,22 @@ const stylesConsulta =  StyleSheet.create({
         color: 'black',
     },
     container: {
-        flex: 1,
         marginTop: 20,
         display: 'flex',
         flexDirection: "row",
-        marginLeft: 130,
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: 20,
     },
     title: {
         fontSize: 36,
         fontWeight: '500',
+        marginLeft: '28%'
     },
     img: {
         padding: 10,
         margin: 4,
-        marginLeft: 270,
-        width:40, 
-        height:40
+        marginLeft: '61%'
     },
     addButton: {
         backgroundColor: '#A1D5B0',
@@ -43,13 +40,13 @@ const stylesConsulta =  StyleSheet.create({
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        marginLeft: 60,
     },
     consultaList: {
         flex: 1,
         marginTop: 20,
         paddingHorizontal: 20,
         display: 'flex',
+        fontSize: 40
     },
     consultaItem: {
         marginBottom: 10,
@@ -58,6 +55,12 @@ const stylesConsulta =  StyleSheet.create({
         borderColor: '#ccc',
         borderRadius: 15,
         backgroundColor: "#c9c9c9",
+    },
+    detalhesConsulta: {
+        backgroundColor: "#c9c9c9",
+        padding: 10,
+        marginTop: 5,
+        borderRadius: 5,
     },
     modalBackground: {
         flex: 1,
@@ -88,7 +91,13 @@ const stylesConsulta =  StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 5,
+        fontSize: 20,
     },
-})
+    arrowButton: {
+        position: 'absolute',
+        top: 10,
+        right: 10,
+    },
+});
 
 export default stylesConsulta
