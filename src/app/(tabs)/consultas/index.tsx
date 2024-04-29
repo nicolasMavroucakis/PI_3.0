@@ -13,6 +13,7 @@ export default function Consultas() {
         horario: ''
     });
     const [consultaSelecionada, setConsultaSelecionada] = useState(null);
+    const [editarConsulta, setEditarConsulta] = useState(false);
 
     const handleSalvarConsulta = () => {
         const novaConsulta = {
@@ -26,6 +27,25 @@ export default function Consultas() {
 
     const toggleDetalhesConsulta = (consulta) => {
         setConsultaSelecionada(consultaSelecionada === consulta ? null : consulta);
+    };
+
+    const handleEditarConsulta = (consulta) => {
+        setEditarConsulta(true);
+        setConsultaInfo(consulta);
+        setModalVisible(true);
+    };
+
+    const handleAtualizarConsulta = () => {
+        // Lógica para atualizar a consulta
+        setEditarConsulta(false);
+        setModalVisible(false);
+    };
+
+    const handleExcluirConsulta = () => {
+        // Lógica para excluir a consulta
+        setConsultas(consultas.filter(cons => cons !== consultaSelecionada));
+        setConsultaSelecionada(null);
+        setModalVisible(false);
     };
 
     return (
@@ -47,6 +67,9 @@ export default function Consultas() {
                 {consultas.map((consulta, index) => (
                     <TouchableOpacity key={index} onPress={() => toggleDetalhesConsulta(consulta)} style={stylesConsulta.consultaItem}>
                         <Text>{consulta.nome}</Text>
+                        <TouchableOpacity onPress={() => handleEditarConsulta(consulta)}>
+                            <AntDesign name="edit" size={24} color="black" />
+                        </TouchableOpacity>
                         {consultaSelecionada === consulta && (
                             <View style={stylesConsulta.detalhesConsulta}>
                                 <Text>Data: {consulta.data}</Text>
@@ -67,29 +90,58 @@ export default function Consultas() {
             >
                 <View style={stylesConsulta.modalBackground}>
                     <View style={stylesConsulta.modalContent}>
-                        <Text style={stylesConsulta.label}>Nome da Consulta</Text>
-                        <TextInput
-                            style={stylesConsulta.input}
-                            placeholder="Digite o nome da consulta"
-                            onChangeText={(text) => setConsultaInfo({ ...consultaInfo, nome: text })}
-                        />
-                        
-                        <Text style={stylesConsulta.label}>Data</Text>
-                        <TextInput
-                            style={stylesConsulta.input}
-                            placeholder="Digite a data da consulta"
-                            onChangeText={(text) => setConsultaInfo({ ...consultaInfo, data: text })}
-                        />
-                        <Text style={stylesConsulta.label}>Horário</Text>
-                        <TextInput
-                            style={stylesConsulta.input}
-                            placeholder="Digite o horário da consulta"
-                            onChangeText={(text) => setConsultaInfo({ ...consultaInfo, horario: text })}
-                        />
-                        <Button title="Salvar Consulta" onPress={handleSalvarConsulta} />
-                        <TouchableOpacity style={stylesConsulta.arrowButton} onPress={() => setModalVisible(false)}>
-                            <AntDesign name="right" size={24} color="black" />
-                        </TouchableOpacity>
+                        {editarConsulta ? (
+                            <>
+                                <Text style={stylesConsulta.label}>Nome da Consulta</Text>
+                                <TextInput
+                                    style={stylesConsulta.input}
+                                    placeholder="Digite o nome da consulta"
+                                    value={consultaInfo.nome}
+                                    onChangeText={(text) => setConsultaInfo({ ...consultaInfo, nome: text })}
+                                />
+                                <Text style={stylesConsulta.label}>Data</Text>
+                                <TextInput
+                                    style={stylesConsulta.input}
+                                    placeholder="Digite a data da consulta"
+                                    value={consultaInfo.data}
+                                    onChangeText={(text) => setConsultaInfo({ ...consultaInfo, data: text })}
+                                />
+                                <Text style={stylesConsulta.label}>Horário</Text>
+                                <TextInput
+                                    style={stylesConsulta.input}
+                                    placeholder="Digite o horário da consulta"
+                                    value={consultaInfo.horario}
+                                    onChangeText={(text) => setConsultaInfo({ ...consultaInfo, horario: text })}
+                                />
+                                <Button title="Atualizar Consulta" onPress={handleAtualizarConsulta} />
+                                <Button title="Excluir Consulta" onPress={handleExcluirConsulta} />
+                            </>
+                        ) : (
+                            <>
+                                <Text style={stylesConsulta.label}>Nome da Consulta</Text>
+                                <TextInput
+                                    style={stylesConsulta.input}
+                                    placeholder="Digite o nome da consulta"
+                                    onChangeText={(text) => setConsultaInfo({ ...consultaInfo, nome: text })}
+                                />
+                                <Text style={stylesConsulta.label}>Data</Text>
+                                <TextInput
+                                    style={stylesConsulta.input}
+                                    placeholder="Digite a data da consulta"
+                                    onChangeText={(text) => setConsultaInfo({ ...consultaInfo, data: text })}
+                                />
+                                <Text style={stylesConsulta.label}>Horário</Text>
+                                <TextInput
+                                    style={stylesConsulta.input}
+                                    placeholder="Digite o horário da consulta"
+                                    onChangeText={(text) => setConsultaInfo({ ...consultaInfo, horario: text })}
+                                />
+                                <Button title="Salvar Consulta" onPress={handleSalvarConsulta} />
+                                <TouchableOpacity style={stylesConsulta.arrowButton} onPress={() => setModalVisible(false)}>
+                                    <AntDesign name="right" size={24} color="black" />
+                                </TouchableOpacity>
+                            </>
+                        )}
                     </View>
                 </View>
             </Modal>
