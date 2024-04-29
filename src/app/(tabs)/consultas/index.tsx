@@ -5,13 +5,14 @@ import { AntDesign } from '@expo/vector-icons';
 import stylesConsulta from '../../styles/stylesConsulta';
 
 export default function Consultas() {
-    const [modalVisible, setModalVisible] = useState(false)
-    const [consultas, setConsultas] = useState([])
+    const [modalVisible, setModalVisible] = useState(false);
+    const [consultas, setConsultas] = useState([]);
     const [consultaInfo, setConsultaInfo] = useState({
         nome: '',
         data: '',
         horario: ''
     });
+    const [consultaSelecionada, setConsultaSelecionada] = useState(null);
 
     const handleSalvarConsulta = () => {
         const novaConsulta = {
@@ -19,15 +20,18 @@ export default function Consultas() {
             data: consultaInfo.data,
             horario: consultaInfo.horario
         };
+        setConsultas([...consultas, novaConsulta]);
+        setModalVisible(false);
+    };
 
-        setConsultas([...consultas, novaConsulta])
-        setModalVisible(false)
+    const toggleDetalhesConsulta = (consulta) => {
+        setConsultaSelecionada(consultaSelecionada === consulta ? null : consulta);
     };
 
     return (
-        <View>
+        <View style={{ flex: 1 }}>
             <View style={stylesConsulta.header}>
-                <Image style={stylesConsulta.img} source={require('../../../../assets/user.png')} />
+                <Image style={stylesConsulta.img} source={require('../../../assets/perfil.png')} />
                 <Text style={stylesConsulta.headerText}>Gustavo Peres</Text>
             </View>
             <View style={stylesConsulta.container}>
@@ -41,11 +45,15 @@ export default function Consultas() {
 
             <View style={stylesConsulta.consultaList}>
                 {consultas.map((consulta, index) => (
-                    <View key={index} style={stylesConsulta.consultaItem}>
+                    <TouchableOpacity key={index} onPress={() => toggleDetalhesConsulta(consulta)} style={stylesConsulta.consultaItem}>
                         <Text>{consulta.nome}</Text>
-                        <Text>{consulta.data}</Text>
-                        <Text>{consulta.horario}</Text>
-                    </View>
+                        {consultaSelecionada === consulta && (
+                            <View style={stylesConsulta.detalhesConsulta}>
+                                <Text>Data: {consulta.data}</Text>
+                                <Text>Horário: {consulta.horario}</Text>
+                            </View>
+                        )}
+                    </TouchableOpacity>
                 ))}
             </View>
 
@@ -54,7 +62,7 @@ export default function Consultas() {
                 transparent={true}
                 visible={modalVisible}
                 onRequestClose={() => {
-                    setModalVisible(!modalVisible)
+                    setModalVisible(!modalVisible);
                 }}
             >
                 <View style={stylesConsulta.modalBackground}>
@@ -65,6 +73,7 @@ export default function Consultas() {
                             placeholder="Digite o nome da consulta"
                             onChangeText={(text) => setConsultaInfo({ ...consultaInfo, nome: text })}
                         />
+                        
                         <Text style={stylesConsulta.label}>Data</Text>
                         <TextInput
                             style={stylesConsulta.input}
@@ -78,9 +87,12 @@ export default function Consultas() {
                             onChangeText={(text) => setConsultaInfo({ ...consultaInfo, horario: text })}
                         />
                         <Button title="Salvar Consulta" onPress={handleSalvarConsulta} />
+                        <TouchableOpacity style={stylesConsulta.arrowButton} onPress={() => setModalVisible(false)}>
+                            <AntDesign name="right" size={24} color="black" />
+                        </TouchableOpacity>
                     </View>
                 </View>
             </Modal>
         </View>
-    )
+    );
 }
