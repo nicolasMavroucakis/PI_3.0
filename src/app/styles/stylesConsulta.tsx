@@ -45,18 +45,27 @@ const stylesConsulta = StyleSheet.create({
     },
     consultaList: {
         flex: 1,
-        marginTop: 20,
-        paddingHorizontal: 20,
+        marginTop: 30,
+        paddingHorizontal: 30,
         display: 'flex',
-        fontSize: 40
+        fontSize: 50,
     },
     consultaItem: {
         marginBottom: 10,
-        padding: 10,
+        padding: 30,
         borderWidth: 1,
         borderColor: '#ccc',
         borderRadius: 15,
         backgroundColor: "#c9c9c9",
+    },
+    consultaExibition: {
+        display: 'flex',
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+    },
+    consultaTitle: {
+        fontSize: 18,
+        fontWeight: 'bold',
     },
     detalhesConsulta: {
         backgroundColor: "#c9c9c9",
@@ -64,6 +73,11 @@ const stylesConsulta = StyleSheet.create({
         marginTop: 5,
         borderRadius: 5,
     },
+    detalheText: {
+        fontSize: 14,
+        fontWeight: 'bold',
+    },
+        
     modalBackground: {
         flex: 1,
         backgroundColor: 'rgba(0, 0, 0, 0.5)',
@@ -100,6 +114,15 @@ const stylesConsulta = StyleSheet.create({
         top: 10,
         right: 10,
     },
-    
+    editIcon: {
+        width: 40,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    LixoImg: {
+        marginTop: 5,
+        height: 30,
+        width: 30,
+    }
 });
 export default stylesConsulta
