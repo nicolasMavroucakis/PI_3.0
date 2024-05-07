@@ -4,6 +4,8 @@ import { AntDesign } from '@expo/vector-icons';
 import stylesMedicacao from "../../styles/stylesMedicacao";
 import { useState } from "react";
 import { Image } from "react-native";
+import { useNavigation } from "expo-router";
+import { Link } from "expo-router";
 
 export default function Medicacao() {
     const [medicacao, setMedicacao] = useState([
@@ -20,12 +22,13 @@ export default function Medicacao() {
     }
 
     const handleDelete = (index) => {
-        console.log("Index a ser excluído:", index); // Verifica o índice
-        const updatedMedicacao = medicacao.filter((_, i) => i !== index);
-        console.log("Medicação atualizada:", updatedMedicacao); // Verifica o array de medicacao atualizado
-        setMedicacao(updatedMedicacao);
+        console.log("Index a ser excluído:", index)
+        const updatedMedicacao = medicacao.filter((_, i) => i !== index)
+        console.log("Medicação atualizada:", updatedMedicacao)
+        setMedicacao(updatedMedicacao)
     }
-    
+    const pagAdiciona = useNavigation()
+
     return (
         <View style={{ flex: 1 }}>
             <View style={stylesMedicacao.header}>
@@ -36,7 +39,9 @@ export default function Medicacao() {
                 </View>
                 <View style={stylesMedicacao.headerButton}>
                     <TouchableOpacity style={stylesMedicacao.buttonAdd}>
-                        <AntDesign name="plus" size={28} color="white" />
+                        <Link href={'../../medicacaoStack'}>
+                            <AntDesign name="plus" size={28} color="white" />
+                        </Link>
                     </TouchableOpacity>
                 </View>
             </View>

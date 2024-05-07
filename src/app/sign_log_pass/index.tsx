@@ -15,7 +15,7 @@ export default function LogIn() {
   const [passwordConfirm, setPasswordConfirm] = useState('')
   const [name, setName] = useState('')
   const [birthDate, setBirthDate] = useState('')
-  const db = StartFirebase(); // Obtendo a instância do banco de dados
+  const db = StartFirebase()
 
   const [passEmail,setPassEmail] = useState(false)
   const [passPassword,setPassPassword] = useState(false)

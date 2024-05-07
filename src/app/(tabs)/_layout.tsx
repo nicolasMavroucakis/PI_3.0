@@ -9,7 +9,6 @@ export default function TabRoutesLayout() {
                 screenOptions={{
                     headerShown:false,
                     tabBarActiveBackgroundColor: '#A1D5B0',
-
                 }}
                 >
                 <Tabs.Screen 
@@ -72,22 +71,24 @@ export default function TabRoutesLayout() {
                         tabBarStyle:{
                             height: 80,
                             paddingBottom:0,
-                            zIndex:-100
                         },
                         tabBarActiveTintColor:'black',
+                        tabBarActiveBackgroundColor: 'white',
                         tabBarLabelStyle: {
                             color:'black',
                             paddingBottom:10,
                         },
                         tabBarIconStyle: {
                             position: 'relative',
-                            top: 10,
+                            top: -30,
                         },
                         tabBarIcon:({color,size}) => (
+                        <View style={{borderRadius:50,backgroundColor:"#A1D5B0",padding:15,shadowColor:"black",shadowOpacity:0.8,shadowRadius:2,shadowOffset:{width:2,height:2}}}>
                             <Image
-                                source={require('../../../assets/mais-removebg-preview.png')}
-                                style={{width:280, height:280, zIndex: 1000}}
+                                source={require('../../../assets/plusSign.png')}
+                                style={{width:45, height:45,tintColor:"white"}}
                             />
+                            </View>
                         ),
                     }}
                 />

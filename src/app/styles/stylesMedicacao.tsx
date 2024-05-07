@@ -24,12 +24,15 @@ const stylesMedicacao = StyleSheet.create({
     headerButton: {
         width: widthHeaderButton,
         display: 'flex',
+        borderRadius:20,
         justifyContent:'center',
-        alignItems: 'center'
+        alignItems: 'center',
     },
     buttonAdd: {
         width: widthAddButton,
         height: widthAddButton,
+        display:'flex',
+        textAlign:'center',
         backgroundColor: '#A1D5B0',
         borderRadius: 50,
         justifyContent: 'center',
