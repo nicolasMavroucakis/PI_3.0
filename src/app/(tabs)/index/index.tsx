@@ -1,5 +1,7 @@
-import { Text, View, Image } from "react-native";
+import { Text, View, Image, } from "react-native";
+import { Link } from "expo-router";
 import styleHome from "../../styles/styleHome";
+import React from "react";
 
 export default function Home() {
     return (
@@ -7,13 +9,13 @@ export default function Home() {
             <View style={styleHome.divUsuario}>
                 <View style={styleHome.containerUsuario}>
                     <Image source={require('../../../../assets/user.png')} style={styleHome.imgUsuario} />
-                    <Text style={styleHome.nomeUsuario}>Nome do Usuário</Text>
+                    <Link href={"../../perfil"} style={styleHome.nomeUsuario} >Nome do Usuário</Link>
                 </View>
             </View>
             <View>
                 <View style={styleHome.divTotal}>
                     <Image source={require('../../../../assets/user.png')} style={styleHome.imgInfo}></Image>
-                    <Text style={styleHome.divInfo1} >Nome Usuário, Idade</Text>
+                    <Text style={styleHome.divInfo1}>Nome Usuário, Idade</Text>
                     <Text style={styleHome.divInfo2}>Altura, Peso</Text>
                 </View>
             </View>

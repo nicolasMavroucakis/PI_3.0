@@ -1,4 +1,5 @@
 import { Tabs } from "expo-router";
+import React from "react";
 import { Image, ImageComponent } from "react-native";
 import { View } from "react-native";
 
@@ -118,7 +119,7 @@ export default function TabRoutesLayout() {
                         
                         }}/>
                 <Tabs.Screen 
-                    name="Perfil"
+                    name="Exame"
                     options={{
                         title:"Exame",
                         tabBarStyle:{
@@ -141,9 +142,6 @@ export default function TabRoutesLayout() {
                             />
                         )
                         }}/>
-                {/* <Tabs.Screen
-                    name=""
-                /> */}
             </Tabs>
     );
 }

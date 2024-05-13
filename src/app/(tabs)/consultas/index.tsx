@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
 import { Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import stylesConsulta from '../../styles/stylesConsulta';

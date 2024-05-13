@@ -5,6 +5,7 @@ import { Link } from 'expo-router';
 import { useState } from 'react';
 import StartFirebase from '../../crud/firebaseConfig';
 import { ref, set } from 'firebase/database';
+import React from 'react';
 
 export default function LogIn() {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window')

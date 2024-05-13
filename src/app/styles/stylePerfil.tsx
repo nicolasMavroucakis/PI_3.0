@@ -3,11 +3,9 @@ const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 
 const stylePerfil = StyleSheet.create({
     TelaDisplay: {
-        justifyContent:'space-between',
         textAlign:'center',
         alignItems:'center',
-        display:'flex',
-        
+        display:'flex',  
     },
     title: {
         fontSize:20,
@@ -17,7 +15,7 @@ const stylePerfil = StyleSheet.create({
         justifyContent:'center',
         textAlign:'center',
         alignItems:'center',
-        marginTop:20
+        backgroundColor:'#A1D5B0'
     },
     InputStyle: {
         height:60,
@@ -50,11 +48,6 @@ const stylePerfil = StyleSheet.create({
     },
     ButtonGoogle: {
         backgroundColor:'#E1DFDF'
-    },
-    Img: {
-        position:'relative',
-        top:10,
-        marginRight:6 
     },
     DisplaFlex:{
         display:'flex',
