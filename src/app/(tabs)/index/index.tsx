@@ -1,4 +1,4 @@
-import { Text, View, Image, } from "react-native";
+import { Text, View, Image, TouchableOpacity, } from "react-native";
 import { Link } from "expo-router";
 import styleHome from "../../styles/styleHome";
 import React from "react";
@@ -9,7 +9,7 @@ export default function Home() {
             <View style={styleHome.divUsuario}>
                 <View style={styleHome.containerUsuario}>
                     <Image source={require('../../../../assets/user.png')} style={styleHome.imgUsuario} />
-                    <Link href={"../../perfil"} style={styleHome.nomeUsuario} >Nome do Usuário</Link>
+                    <Link href={"../../perfil"} style={styleHome.nomeUsuario}>Nome do Usuário</Link>
                 </View>
             </View>
             <View>

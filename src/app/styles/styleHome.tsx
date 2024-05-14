@@ -12,13 +12,13 @@ const styleHome = StyleSheet.create({
         alignItems:"flex-end",
     },
     imgUsuario:{
-        width:screenWidth * 0.045,
-        height:screenWidth * 0.045,
+        width:screenWidth * 0.055,
+        height:screenWidth * 0.055,
         textAlign:"right",
         marginRight: screenWidth * 0.015,
     },
     nomeUsuario:{
-        fontSize: screenWidth * 0.03,
+        fontSize: screenWidth * 0.035,
         fontStyle:"normal",
         fontWeight:"400",
         color:"#000000",

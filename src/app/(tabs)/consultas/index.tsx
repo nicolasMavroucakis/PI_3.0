@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, TextInput, Button } from 'react-native';
+import { View, Text, TouchableOpacity, Modal, TextInput, Button, } from 'react-native';
 import { Image } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import stylesConsulta from '../../styles/stylesConsulta';
+import { useNavigation } from '@react-navigation/native';
+import { Link } from 'expo-router';
 
 export default function Consultas() {
     const [modalVisible, setModalVisible] = useState(false);
@@ -36,11 +38,19 @@ export default function Consultas() {
         setMostrarDetalhes(null); 
     };
 
+    const navigation = useNavigation();
+
+    const handleVoltar = () => {
+      navigation.goBack();
+    };
+    
     return (
         <View style={{ flex: 1 }}>
-            <View style={stylesConsulta.header}>
-                <Image style={stylesConsulta.img} source={require('../../../../assets/user.png')} />
-                <Text style={stylesConsulta.headerText}>Gustavo Peres</Text>
+            <View style={stylesConsulta.divUsuario}>
+                <View style={stylesConsulta.containerUsuario}>
+                    <Image source={require('../../../../assets/user.png')} style={stylesConsulta.imgUsuario} />
+                    <Link href={"../../perfil"} style={stylesConsulta.nomeUsuario}>Nome do Usuário</Link>
+                </View>
             </View>
             <View style={stylesConsulta.container}>
                 <Text style={stylesConsulta.title}>

@@ -7,6 +7,16 @@ const stylePerfil = StyleSheet.create({
         alignItems:'center',
         display:'flex',  
     },
+    goBackDiv:{
+        backgroundColor:"white",
+        borderRadius:50,
+        padding: screenWidth * 0.02,
+    },
+    goBack:{
+        height:screenWidth * 0.05,
+        width:screenWidth * 0.05,
+        transform: 'rotate(180deg)',
+    },
     title: {
         fontSize:20,
         fontWeight: '700'
@@ -15,11 +25,12 @@ const stylePerfil = StyleSheet.create({
         justifyContent:'center',
         textAlign:'center',
         alignItems:'center',
-        backgroundColor:'#A1D5B0'
+        backgroundColor:'#A1D5B0',
+        paddingTop:screenHeight * 0.02
     },
     InputStyle: {
-        height:60,
-        width:300,
+        height:screenHeight * 0.07,
+        width:screenWidth * 0.1,
         borderBottomColor:'black',
         borderBottomWidth:3,
         marginTop:10,
