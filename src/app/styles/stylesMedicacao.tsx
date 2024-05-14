@@ -8,6 +8,30 @@ const widthAddButton = screenWidth * 0.15
 const gapText = screenWidth * 0.10
 
 const stylesMedicacao = StyleSheet.create({
+    divUsuario:{
+        backgroundColor:"#C9C9C9",
+        alignItems:"flex-end",
+    },
+    imgUsuario:{
+        width:screenWidth * 0.055,
+        height:screenWidth * 0.055,
+        textAlign:"right",
+        marginRight: screenWidth * 0.015,
+    },
+    nomeUsuario:{
+        fontSize: screenWidth * 0.035,
+        fontStyle:"normal",
+        fontWeight:"400",
+        color:"#000000",
+        textAlign: "right",
+        marginRight: screenWidth * 0.01,
+    },
+    containerUsuario: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding:screenWidth * 0.03,
+        display:"flex",
+    },
     header: {
         display: 'flex',
         flexDirection:'row',

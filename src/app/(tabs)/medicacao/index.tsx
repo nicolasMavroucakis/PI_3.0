@@ -31,6 +31,12 @@ export default function Medicacao() {
 
     return (
         <View style={{ flex: 1 }}>
+            <View style={stylesMedicacao.divUsuario}>
+                <View style={stylesMedicacao.containerUsuario}>
+                    <Image source={require('../../../../assets/user.png')} style={stylesMedicacao.imgUsuario} />
+                    <Link href={"../../perfil"} style={stylesMedicacao.nomeUsuario}>Nome do Usuário</Link>
+                </View>
+            </View>
             <View style={stylesMedicacao.header}>
                 <View style={stylesMedicacao.headerText}>
                     <Text style={{ fontSize: 30 }}>

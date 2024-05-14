@@ -1,19 +1,33 @@
 import { StyleSheet } from "react-native";
 import { Dimensions } from "react-native";
 
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
+
+
 const stylesConsulta = StyleSheet.create({
-    header: {
-        backgroundColor: '#c9c9c9',
-        alignItems: 'center',
-        display: 'flex',
-        flexDirection: "row",
-        justifyContent: 'center',
-        height: 60,
+    divUsuario:{
+        backgroundColor:"#C9C9C9",
+        alignItems:"flex-end",
     },
-    headerText: {
-        fontSize: 14,
-        fontWeight: 'bold',
-        color: 'black',
+    imgUsuario:{
+        width:screenWidth * 0.055,
+        height:screenWidth * 0.055,
+        textAlign:"right",
+        marginRight: screenWidth * 0.015,
+    },
+    nomeUsuario:{
+        fontSize: screenWidth * 0.035,
+        fontStyle:"normal",
+        fontWeight:"400",
+        color:"#000000",
+        textAlign: "right",
+        marginRight: screenWidth * 0.01,
+    },
+    containerUsuario: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        padding:screenWidth * 0.03,
+        display:"flex",
     },
     container: {
         marginTop: 20,
@@ -27,13 +41,6 @@ const stylesConsulta = StyleSheet.create({
         fontSize: 36,
         fontWeight: '500',
         marginLeft: '28%'
-    },
-    img: {
-        padding: 10,
-        margin: 4,
-        marginLeft: '61%',
-        height:25,
-        width:25,
     },
     addButton: {
         backgroundColor: '#A1D5B0',
