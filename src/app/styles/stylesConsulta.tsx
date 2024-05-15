@@ -130,6 +130,21 @@ const stylesConsulta = StyleSheet.create({
         marginTop: 5,
         height: 30,
         width: 30,
+    },
+    modalButton: {
+        backgroundColor: '#A1D5B0',
+        padding: 10,
+        margin: 5,
+        borderRadius: 5,
+    },
+    modalButtons: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+    },
+    botaoSalvar: {
+        padding: 10,
+        borderRadius: 10,
+        alignItems: 'center',
     }
 });
 export default stylesConsulta
