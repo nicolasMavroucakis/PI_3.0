@@ -17,6 +17,9 @@ export default function Consultas() {
     const [consultaSelecionada, setConsultaSelecionada] = useState(null);
     const [mostrarDetalhes, setMostrarDetalhes] = useState(false);
 
+    const [excluirModalVisible, setExcluirModalVisible] = useState(false);
+    const [consultaParaExcluir, setConsultaParaExcluir] = useState(null);
+
     const handleSalvarConsulta = () => {
         const novaConsulta = {
             nome: consultaInfo.nome,
@@ -32,10 +35,19 @@ export default function Consultas() {
     };
 
     const handleExcluirConsulta = (index) => {
+        setConsultaParaExcluir(index);
+        setExcluirModalVisible(true);
+    };
+
+    const confirmarExclusaoConsulta = () => {
         const novasConsultas = [...consultas];
-        novasConsultas.splice(index, 1);
+        novasConsultas.splice(consultaParaExcluir, 1);
         setConsultas(novasConsultas);
-        setMostrarDetalhes(null); 
+        setExcluirModalVisible(false);
+    };
+
+    const cancelarExclusaoConsulta = () => {
+        setExcluirModalVisible(false);
     };
 
     const navigation = useNavigation();
@@ -114,10 +126,35 @@ export default function Consultas() {
                             placeholder="Digite o horário da consulta"
                             onChangeText={(text) => setConsultaInfo({ ...consultaInfo, horario: text })}
                         />
-                        <Button title="Salvar Consulta" onPress={handleSalvarConsulta} />
+                        <TouchableOpacity onPress={handleSalvarConsulta} style={[stylesConsulta.botaoSalvar, { backgroundColor: '#A1D5B0' }]}>
+                            <Text style={{ color: 'white', textAlign: 'center', fontSize: 16, }}>Salvar Consulta</Text>
+                        </TouchableOpacity>
                         <TouchableOpacity style={stylesConsulta.arrowButton} onPress={() => setModalVisible(false)}>
                             <AntDesign name="right" size={24} color="black" />
                         </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
+
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={excluirModalVisible}
+                onRequestClose={() => {
+                    setExcluirModalVisible(false);
+                }}
+            >
+                <View style={stylesConsulta.modalBackground}>
+                    <View style={stylesConsulta.modalContent}>
+                        <Text>Deseja realmente excluir esta consulta?</Text>
+                        <View style={stylesConsulta.modalButtons}>
+                            <TouchableOpacity style={stylesConsulta.modalButton} onPress={cancelarExclusaoConsulta}>
+                                <Text>Não</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={stylesConsulta.modalButton} onPress={confirmarExclusaoConsulta}>
+                                <Text>Sim</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
                 </View>
             </Modal>
