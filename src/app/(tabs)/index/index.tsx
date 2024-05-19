@@ -7,6 +7,13 @@ export default function Home() {
     return (
         <View>
             <View style={styleHome.divUsuario}>
+                <View style={{marginLeft:10}}>
+                    <Link href={"../../configuracoes"}>
+                        <View>
+                            <Image style={{width:30, height:30}} source={require("../../../../assets/configuracoes.png")}/>
+                        </View>
+                    </Link>
+                </View>
                 <View style={styleHome.containerUsuario}>
                     <Image source={require('../../../../assets/user.png')} style={styleHome.imgUsuario} />
                     <Link href={"../../perfil"} style={styleHome.nomeUsuario}>Nome do Usuário</Link>

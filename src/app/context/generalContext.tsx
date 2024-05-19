@@ -1,37 +1,19 @@
-import React, { createContext, useState } from "react";
+import React, { createContext, useState } from 'react';
 
-export const GeneralContext = createContext({});
+const MedicacaoContext = createContext()
 
-export const GeneralProvider = ({ children }) => {
-    const [consultas, setConsultas] = useState([
-        { id: "consulta1", nome: "Clínico Geral", data: "15/02/2024", hora: "14:30" }
-    ]);
+const MedicacaoProvider = ({ children }) => {
     const [medicacao, setMedicacao] = useState([
-        {hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao:"Remedio de uso oral"}
+        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: false },
+        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true },
+        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true }
     ]);
-    const [exames, setExames] = useState([]);
-    const [perfil, setPerfil] = useState({
-        nome: "Gustavo Prez",
-        email: "gustavo@gmail.com",
-        senha: "12345",
-        peso: "40kg",
-        altura: "1.85m"
-    });
-
-    const contextValues = {
-        perfil,
-        setPerfil,
-        exames,
-        setExames,
-        medicacao,
-        setMedicacao,
-        consultas,
-        setConsultas
-    };
 
     return (
-        <GeneralContext.Provider value={contextValues}>
+        <MedicacaoContext.Provider value={{ medicacao, setMedicacao }}>
             {children}
-        </GeneralContext.Provider>
+        </MedicacaoContext.Provider>
     );
 };
+
+export { MedicacaoContext, MedicacaoProvider };

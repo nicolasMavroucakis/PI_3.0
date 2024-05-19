@@ -2,10 +2,14 @@ import { Tabs } from "expo-router";
 import React from "react";
 import { Image, ImageComponent } from "react-native";
 import { View } from "react-native";
+import { MedicacaoContext } from "../context/generalContext";
+import { MedicacaoProvider } from "../context/generalContext";
 
 
 export default function TabRoutesLayout() {
     return (
+        <MedicacaoProvider>
+
             <Tabs 
                 screenOptions={{
                     headerShown:false,
@@ -143,5 +147,6 @@ export default function TabRoutesLayout() {
                         )
                         }}/>
             </Tabs>
+        </MedicacaoProvider>
     );
 }

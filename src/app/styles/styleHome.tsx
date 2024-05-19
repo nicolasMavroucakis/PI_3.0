@@ -9,7 +9,11 @@ const statusHeight = screenHeight * 0.08
 const styleHome = StyleSheet.create({
     divUsuario:{
         backgroundColor:"#C9C9C9",
-        alignItems:"flex-end",
+        display:"flex",
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-between"
+
     },
     imgUsuario:{
         width:screenWidth * 0.055,

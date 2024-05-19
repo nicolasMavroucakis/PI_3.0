@@ -13,7 +13,7 @@ const styleMedicacaoAdiciona = StyleSheet.create({
     center: {
         display: "flex",
         alignItems: "center",
-        paddingTop: screenHeight * 0.1,
+        paddingTop: screenHeight * 0.05,
         height: screenHeight,
         gap: 10
     },
@@ -56,6 +56,13 @@ const styleMedicacaoAdiciona = StyleSheet.create({
         backgroundColor:'#A1D5B0',
         borderRadius:10
     },  
+    ButtonVolta: {
+        width:40,
+        height: 40,
+        marginTop:30,
+        marginLeft:20,
+        transform:"rotate(180deg)"
+    }
 })
 
 export default styleMedicacaoAdiciona

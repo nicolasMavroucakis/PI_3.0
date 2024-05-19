@@ -10,7 +10,10 @@ const gapText = screenWidth * 0.10
 const stylesMedicacao = StyleSheet.create({
     divUsuario:{
         backgroundColor:"#C9C9C9",
-        alignItems:"flex-end",
+        flexDirection:"row",
+        alignItems:"center",
+        display:"flex",
+        justifyContent:"space-between"
     },
     imgUsuario:{
         width:screenWidth * 0.055,
