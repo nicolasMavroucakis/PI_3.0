@@ -25,15 +25,20 @@ export default function MedicacaoAdd() {
 
     const handleAddMedicacao = () => {
         const novoMedicamento = {
-            nome,
-            quantidade,
-            hora,
-            descricao,
+            nome: nome,
+            quantidade: quantidade,
+            hora: hora,
+            discricao: descricao,
             alarme: onOff,
-            grande: false
+            grande: false,
+            key: Date.now().toString()
         };
-        setMedicacao([...medicacao, novoMedicamento]);
-        handleVoltar()
+        setMedicacao(prevMedicacao => {
+            const updatedMedicacao = [...prevMedicacao, novoMedicamento];
+            console.log("Medicação atualizada:", updatedMedicacao);
+            return updatedMedicacao;
+        })
+        handleVoltar();
     }
 
     return (

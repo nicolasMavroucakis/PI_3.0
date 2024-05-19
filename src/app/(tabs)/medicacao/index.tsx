@@ -1,37 +1,36 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
 import stylesMedicacao from "../../styles/stylesMedicacao";
-import { useState } from "react";
 import { Image } from "react-native";
-import { useNavigation } from "expo-router";
+import { useNavigation } from "@react-navigation/native"; 
 import { Link } from "expo-router";
-import stylePerfil from "../../styles/stylePerfil";
-import { MedicacaoContext, MedicacaoProvider } from "../../context/generalContext";
-import { useContext } from "react";
+import { MedicacaoContext } from "../../context/generalContext";
 
 export default function Medicacao() {
-    // const [medicacao, setMedicacao] = useState([
-    //     { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: false },
-    //     { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true },
-    //     { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true }
-    // ]);
     const { medicacao, setMedicacao } = useContext(MedicacaoContext);
+    const [reload, setReload] = useState(false);
+    const navigation = useNavigation()
+
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            setReload(prevState => !prevState);
+        });
+
+        return unsubscribe;
+    }, [navigation]);
 
     const handlePress = (index) => {
-        const updatedMedicacao = [...medicacao]
-        const novoValorGrande = !updatedMedicacao[index].grande
-        updatedMedicacao[index] = { ...updatedMedicacao[index], grande: novoValorGrande }
-        setMedicacao(updatedMedicacao)
-    }
+        const updatedMedicacao = [...medicacao];
+        const novoValorGrande = !updatedMedicacao[index].grande;
+        updatedMedicacao[index] = { ...updatedMedicacao[index], grande: novoValorGrande };
+        setMedicacao(updatedMedicacao);
+    };
 
     const handleDelete = (index) => {
-        console.log("Index a ser excluído:", index)
-        const updatedMedicacao = medicacao.filter((_, i) => i !== index)
-        console.log("Medicação atualizada:", updatedMedicacao)
-        setMedicacao(updatedMedicacao)
-    }
-    const pagAdiciona = useNavigation()
+        const updatedMedicacao = medicacao.filter((_, i) => i !== index);
+        setMedicacao(updatedMedicacao);
+    };
 
     return (
             <View style={{ flex: 1 }}>
@@ -67,7 +66,7 @@ export default function Medicacao() {
                         {medicacao.map((medicamento, index) => {  
                             if (medicamento.grande) {
                                 return (
-                                    <View key={index} style={stylesMedicacao.containerTextActive}>
+                                    <View key={medicamento.key} style={stylesMedicacao.containerTextActive}>
                                         <View style={stylesMedicacao.textView}>
                                             <Text style={{ fontSize: 20 }}>Remédio: {medicamento.nome}</Text>
                                         </View>
@@ -113,7 +112,6 @@ export default function Medicacao() {
                             }
                         })}
                     </View>
-
                 </ScrollView>
             </View>
     )

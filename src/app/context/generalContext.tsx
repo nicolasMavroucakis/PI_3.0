@@ -1,13 +1,34 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useState, Dispatch, SetStateAction, ReactNode, useEffect } from 'react';
 
-const MedicacaoContext = createContext()
+interface Medicamento {
+    hora: string
+    nome: string
+    quantidade: string
+    alarme: boolean
+    discricao: string
+    grande: boolean
+    key: string
+}
 
-const MedicacaoProvider = ({ children }) => {
-    const [medicacao, setMedicacao] = useState([
-        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: false },
-        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true },
-        { hora: "8:00", nome: "Losartana", quantidade: "150ml", alarme: true, discricao: "Remédio de uso anal", grande: true }
-    ]);
+interface MedicacaoContextType {
+    medicacao: Medicamento[]
+    setMedicacao: Dispatch<SetStateAction<Medicamento[]>>
+}
+
+const MedicacaoContext = createContext<MedicacaoContextType>({
+    medicacao: [],
+    setMedicacao: () => {}
+});
+
+interface MedicacaoProviderProps {
+    children: ReactNode
+}
+
+const MedicacaoProvider: React.FC<MedicacaoProviderProps> = ({ children }) => {
+    const [medicacao, setMedicacao] = useState<Medicamento[]>([]);
+    useEffect(() => {
+        console.log("Medicação atualizada:", medicacao);
+    }, [medicacao]);
 
     return (
         <MedicacaoContext.Provider value={{ medicacao, setMedicacao }}>
@@ -16,4 +37,4 @@ const MedicacaoProvider = ({ children }) => {
     );
 };
 
-export { MedicacaoContext, MedicacaoProvider };
+export { MedicacaoContext, MedicacaoProvider }

@@ -9,7 +9,6 @@ import { MedicacaoProvider } from "../context/generalContext";
 export default function TabRoutesLayout() {
     return (
         <MedicacaoProvider>
-
             <Tabs 
                 screenOptions={{
                     headerShown:false,
