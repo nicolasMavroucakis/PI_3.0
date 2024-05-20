@@ -6,6 +6,7 @@ import { useState } from 'react';
 import StartFirebase from '../../crud/firebaseConfig';
 import { ref, set } from 'firebase/database';
 import React from 'react';
+import { RadioButton } from 'react-native-paper';
 
 export default function LogIn() {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
