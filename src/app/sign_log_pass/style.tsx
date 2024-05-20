@@ -6,7 +6,6 @@ const style = StyleSheet.create({
         textAlign:'center',
         alignItems:'center',
         display:'flex',
-        
     },
     title: {
         fontSize:20,
@@ -41,7 +40,8 @@ const style = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center', 
-        marginTop:10
+        marginTop:10,
+        marginBottom:10
     },
     Hr: {
         borderColor:'black',
