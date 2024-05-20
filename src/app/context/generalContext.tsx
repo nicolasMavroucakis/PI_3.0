@@ -10,9 +10,23 @@ interface Medicamento {
     key: string
 }
 
+interface Usuario {
+    nome: string
+    e_mail: string
+    altura: string
+    peso: string
+    nascimento: string
+}
+
+
 interface MedicacaoContextType {
     medicacao: Medicamento[]
     setMedicacao: Dispatch<SetStateAction<Medicamento[]>>
+}
+
+interface UsuarioContextType {
+    usuario: Usuario
+    setUsuario: Dispatch<SetStateAction<Usuario>>
 }
 
 const MedicacaoContext = createContext<MedicacaoContextType>({
@@ -20,7 +34,16 @@ const MedicacaoContext = createContext<MedicacaoContextType>({
     setMedicacao: () => {}
 });
 
+const UsuarioContext = createContext<UsuarioContextType>({
+    usuario: { nome: "", e_mail: "", altura: "", peso: "", nascimento: "" },
+    setUsuario: () => {}
+})
+
 interface MedicacaoProviderProps {
+    children: ReactNode
+}
+
+interface UsuarioProviderProps {
     children: ReactNode
 }
 
@@ -37,4 +60,14 @@ const MedicacaoProvider: React.FC<MedicacaoProviderProps> = ({ children }) => {
     );
 };
 
-export { MedicacaoContext, MedicacaoProvider }
+const UsuarioProvider: React.FC<UsuarioProviderProps> = ({children}) => {
+    const [usuario, setUsuario] = useState<Usuario>({ nome: "Gusatvo Perez", e_mail: "vvvvvv", altura: "ccccccccc", peso: "aaaaa", nascimento: "aaaaaaa" })
+
+    return (
+        <UsuarioContext.Provider value={{usuario, setUsuario}}>
+            {children}
+        </UsuarioContext.Provider>
+    )
+}
+
+export { MedicacaoContext, MedicacaoProvider, UsuarioContext, UsuarioProvider }

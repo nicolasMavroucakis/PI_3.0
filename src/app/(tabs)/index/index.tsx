@@ -2,12 +2,16 @@ import { Text, View, Image, TouchableOpacity, } from "react-native";
 import { Link } from "expo-router";
 import styleHome from "../../styles/styleHome";
 import React from "react";
+import { useContext } from "react";
+import { UsuarioContext } from "../../context/generalContext";
 
 export default function Home() {
+    const {usuario, setUsuario} = useContext(UsuarioContext)
+
     return (
         <View>
             <View style={styleHome.divUsuario}>
-                <View style={{marginLeft:10}}>
+                <View style={{marginLeft:10,marginTop:5}}>
                     <Link href={"../../configuracoes"}>
                         <View>
                             <Image style={{width:30, height:30}} source={require("../../../../assets/configuracoes.png")}/>
@@ -16,7 +20,7 @@ export default function Home() {
                 </View>
                 <View style={styleHome.containerUsuario}>
                     <Image source={require('../../../../assets/user.png')} style={styleHome.imgUsuario} />
-                    <Link href={"../../perfil"} style={styleHome.nomeUsuario}>Nome do Usuário</Link>
+                    <Link href={"../../perfil"} style={styleHome.nomeUsuario}><Text>{usuario.nome}</Text></Link>
                 </View>
             </View>
             <View>
