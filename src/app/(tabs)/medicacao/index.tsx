@@ -6,11 +6,13 @@ import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native"; 
 import { Link } from "expo-router";
 import { MedicacaoContext } from "../../context/generalContext";
+import { UsuarioContext } from "../../context/generalContext";
 
 export default function Medicacao() {
     const { medicacao, setMedicacao } = useContext(MedicacaoContext);
     const [reload, setReload] = useState(false);
     const navigation = useNavigation()
+    const {usuario, setUsuario} = useContext(UsuarioContext)
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -44,7 +46,7 @@ export default function Medicacao() {
                     </View>
                     <View style={stylesMedicacao.containerUsuario}>
                         <Image source={require('../../../../assets/user.png')} style={stylesMedicacao.imgUsuario} />
-                        <Link href={"../../perfil"} style={stylesMedicacao.nomeUsuario}>Nome do Usuário</Link>
+                        <Link href={"../../perfil"} style={stylesMedicacao.nomeUsuario}><Text>{usuario.nome}</Text></Link>
                     </View>
                 </View>
                 <View style={stylesMedicacao.header}>

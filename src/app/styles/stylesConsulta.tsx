@@ -43,7 +43,7 @@ const stylesConsulta = StyleSheet.create({
     title: {
         fontSize: 36,
         fontWeight: '500',
-        marginLeft: '28%'
+        marginLeft: '25%'
     },
     addButton: {
         backgroundColor: '#A1D5B0',

@@ -3,7 +3,9 @@ import { View, Text, TouchableOpacity, Modal, TextInput, Switch, Image } from 'r
 import { AntDesign } from '@expo/vector-icons';
 import stylesConsulta from '../../styles/stylesConsulta';
 import { useNavigation } from '@react-navigation/native';
+import { UsuarioContext } from '../../context/generalContext';
 import { Link } from 'expo-router';
+import { useContext } from 'react';
 
 export default function Consultas({ modoEscuro, toggleModoEscuro }) {
     const [modalVisible, setModalVisible] = useState(false);
@@ -13,6 +15,8 @@ export default function Consultas({ modoEscuro, toggleModoEscuro }) {
         data: '',
         horario: ''
     });
+
+    const {usuario, setUsuario} =  useContext(UsuarioContext)
     const [mostrarDetalhes, setMostrarDetalhes] = useState(false);
 
     const [excluirModalVisible, setExcluirModalVisible] = useState(false);
@@ -66,17 +70,11 @@ export default function Consultas({ modoEscuro, toggleModoEscuro }) {
                 </View>
                 <View style={stylesConsulta.containerUsuario}>
                     <Image source={require('../../../../assets/user.png')} style={stylesConsulta.imgUsuario} />
-                    <Link href="../../perfil" style={stylesConsulta.nomeUsuario}>Nome do Usuário</Link>
+                    <Link href="../../perfil" style={stylesConsulta.nomeUsuario}><Text>{usuario.nome}</Text></Link>
                 </View>
             </View>
             <View style={stylesConsulta.container}>
-                <Switch
-                    value={modoEscuro}
-                    onValueChange={toggleModoEscuro}
-                    thumbColor="#A1D5B0"
-                    trackColor={{ false: "#CCCCCC", true: "#A1D5B0" }}
-                />
-                <Text style={[stylesConsulta.title, modoEscuro && stylesConsulta.titleDarkMode]}>
+                <Text style={[stylesConsulta.title]}>
                     Consultas
                 </Text>
                 <TouchableOpacity style={stylesConsulta.addButton} onPress={() => setModalVisible(true)}>

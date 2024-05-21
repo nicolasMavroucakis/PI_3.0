@@ -18,6 +18,10 @@ interface Usuario {
     nascimento: string
 }
 
+interface ModoEscuro {
+    modoEscuro: boolean
+}
+
 
 interface MedicacaoContextType {
     medicacao: Medicamento[]
@@ -27,6 +31,10 @@ interface MedicacaoContextType {
 interface UsuarioContextType {
     usuario: Usuario
     setUsuario: Dispatch<SetStateAction<Usuario>>
+}
+
+interface ModoEscuroContextType {
+    ModoEscuro: ModoEscuro
 }
 
 const MedicacaoContext = createContext<MedicacaoContextType>({
@@ -61,7 +69,7 @@ const MedicacaoProvider: React.FC<MedicacaoProviderProps> = ({ children }) => {
 };
 
 const UsuarioProvider: React.FC<UsuarioProviderProps> = ({children}) => {
-    const [usuario, setUsuario] = useState<Usuario>({ nome: "Gusatvo Perez", e_mail: "vvvvvv", altura: "ccccccccc", peso: "aaaaa", nascimento: "aaaaaaa" })
+    const [usuario, setUsuario] = useState<Usuario>({ nome: "Gusatvo Perez", e_mail: "gustavo.perez@gmail.com", altura: "1.85", peso: "65", nascimento: "10/05/1995" })
 
     return (
         <UsuarioContext.Provider value={{usuario, setUsuario}}>

@@ -65,7 +65,31 @@ const stylePerfil = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         flexDirection:'row'
-    }
+    }, 
+    TextPrincipalStyle: {
+        fontSize: 20
+    },
+    TextStyle: {
+        fontSize: 15
+    },
+    TelaDisplayText: {
+        paddingTop: 30,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 20
+    },
+    ViewTextStyle: {
+        display:"flex",
+        justifyContent:"flex-start",
+        alignItems: "center",
+        flexDirection: "row",
+        gap: 20,   
+    },
+    editPen:{
+        height:screenWidth * 0.05,
+        width:screenWidth * 0.05,
+    },
 })
 
 export default stylePerfil
