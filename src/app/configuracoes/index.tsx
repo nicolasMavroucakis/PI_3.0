@@ -1,18 +1,19 @@
 import { Text, View, TouchableOpacity, Image } from "react-native";
 import styleMedicacaoAdiciona from "../styles/styleMedicacaoAdiciona";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link } from "expo-router";
 import stylesMedicacao from "../styles/stylesMedicacao";
 import styleConfiguracao from "../styles/styleConfigura";
 import { useRouter } from "expo-router";
+import { ModoEscuroContext } from "../context/generalContext";
 
 export default function Configuracoes() {
-    const [onOff, setOnOff] = useState(true);
+    const {modoEscuro, setModoEscuro} = useContext(ModoEscuroContext);
 
     const toggleAlarm = () => {
-        setOnOff(!onOff); 
+        setModoEscuro(!modoEscuro); 
     }
-
+    
     const router = useRouter();
 
     const handleVoltar = () => {
@@ -43,7 +44,7 @@ export default function Configuracoes() {
                     <View style={styleMedicacaoAdiciona.esquerda}>
                         <Text style={{fontSize:20}}>Modo Escuro</Text>
                         <TouchableOpacity style={styleMedicacaoAdiciona.alarme} onPress={toggleAlarm}>
-                            {onOff ? (
+                            {modoEscuro ? (
                                 <>
                                     <View style={styleMedicacaoAdiciona.alarmeOn}/>
                                     <Text style={{marginRight:10}}>ON</Text>
