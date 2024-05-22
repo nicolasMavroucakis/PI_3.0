@@ -2,6 +2,7 @@ import { TextInput, View, Button, Text, Dimensions, ScrollView, KeyboardAvoiding
 import { Image } from "react-native";
 import style from "./style";
 import { Link } from "expo-router";
+import React from "react";
 
 export default function Password_forget () {
     const { width: screenWidth, height: screenHeight } = Dimensions.get('window')

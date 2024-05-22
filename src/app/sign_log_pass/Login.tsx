@@ -6,6 +6,14 @@ import { Link } from "expo-router";
 import StartFirebase from "../../crud/firebaseConfig";
 import { ref, set, update, remove, get, child } from 'firebase/database';
 import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
+import {GoogleSignin,GoogleSigninButton,statusCodes,} from '@react-native-google-signin/google-signin';
+
+GoogleSignin.configure({
+    webClientId: 'YOUR_WEB_CLIENT_ID', // Cole o Web Client ID obtido do console do Firebase.
+    offlineAccess: true,
+});
+
+
 
 export default function Log_In() {
     const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
@@ -22,6 +30,25 @@ export default function Log_In() {
             setPassword(value)
         }
         console.warn(email, password)
+    };
+
+    const _signIn = async () => {
+        try {
+            await GoogleSignin.hasPlayServices();
+            const userInfo = await GoogleSignin.signIn();
+            console.log('User Info:', userInfo);
+        } catch (error) {
+            console.error('Sign in error:', error);
+            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+                // Usuário cancelou o login
+            } else if (error.code === statusCodes.IN_PROGRESS) {
+                // Login em andamento
+            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+                // Serviços do Google Play não estão disponíveis
+            } else {
+                // Outro erro ocorreu
+            }
+        }
     };
 
     const handleLogin = () => {
@@ -94,11 +121,13 @@ export default function Log_In() {
                         </View>
                         <View style={[style.Hr, { width: hrWidth }]}></View>
                     </View>
-                    <View style={[style.ButtonViewStyle, style.ButtonGoogle, { width: inputWidth, display: 'flex', flexDirection: 'row', gap: 10 }]}>
-                        <Image source={require('../../../assets/google.png')} style={{ width: 40, height: 40 }} />
-                        <Link href={'../(tabs)'} asChild>
-                            <Button title="Log In" color={'black'} />
-                        </Link>
+                    <View style={{ alignItems: 'center', marginTop: 10 }}>
+                        <GoogleSigninButton
+                            style={{ width: inputWidth, height: 48 }}
+                            size={GoogleSigninButton.Size.Wide}
+                            color={GoogleSigninButton.Color.Dark}
+                            onPress={_signIn}
+                        />
                     </View>
                     <View style={style.ButtonLinkStyle}>
                         <View>
