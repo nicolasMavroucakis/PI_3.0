@@ -1,53 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { TextInput, View, Button, Text, Dimensions, ScrollView, KeyboardAvoidingView, Alert } from "react-native";
 import { Image } from "react-native";
 import style from "./style";
 import { Link } from "expo-router";
 import StartFirebase from "../../crud/firebaseConfig";
 import { ref, set, update, remove, get, child } from 'firebase/database';
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth';
-import {GoogleSignin,GoogleSigninButton,statusCodes,} from '@react-native-google-signin/google-signin';
+import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
+import * as Google from 'expo-auth-session/providers/google';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-GoogleSignin.configure({
-    webClientId: 'YOUR_WEB_CLIENT_ID', // Cole o Web Client ID obtido do console do Firebase.
-    offlineAccess: true,
-});
+export default function Login() {
+    const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+    const inputWidth = screenWidth * 0.75;
+    const hrWidth = screenWidth * 0.25;
 
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [user, setUser] = useState(null);  // Adiciona o estado para o usuário
 
+    // Configure the Google ID token auth request
+    const [request, response, promptAsync] = Google.useIdTokenAuthRequest({
+        clientId: '590527240592-06dab1ijvft1meo0sgdte3auv2t5j7pu.apps.googleusercontent.com', // Insira o seu clientId aqui
+    });
 
-export default function Log_In() {
-    const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
-    const inputWidth = screenWidth * 0.75
-    const hrWidth = screenWidth * 0.25
-
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+    useEffect(() => {
+        if (response?.type === 'success') {
+            const { id_token } = response.params;
+            (async () => {
+                const userInfoResponse = await fetch(`https://www.googleapis.com/oauth2/v3/tokeninfo?id_token=${id_token}`);
+                const userInfo = await userInfoResponse.json();
+                setUser(userInfo);
+                await AsyncStorage.setItem('user', JSON.stringify(userInfo));
+            })();
+        }
+    }, [response]);
 
     const handleChange = (key, value) => {
         if (key === 'email') {
-            setEmail(value)   
+            setEmail(value);
         } else if (key === 'password') {
-            setPassword(value)
-        }
-        console.warn(email, password)
-    };
-
-    const _signIn = async () => {
-        try {
-            await GoogleSignin.hasPlayServices();
-            const userInfo = await GoogleSignin.signIn();
-            console.log('User Info:', userInfo);
-        } catch (error) {
-            console.error('Sign in error:', error);
-            if (error.code === statusCodes.SIGN_IN_CANCELLED) {
-                // Usuário cancelou o login
-            } else if (error.code === statusCodes.IN_PROGRESS) {
-                // Login em andamento
-            } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
-                // Serviços do Google Play não estão disponíveis
-            } else {
-                // Outro erro ocorreu
-            }
+            setPassword(value);
         }
     };
 
@@ -55,18 +47,23 @@ export default function Log_In() {
         const auth = getAuth();
         signInWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
-                // Usuário autenticado com sucesso
                 const user = userCredential.user;
                 console.log("Usuário autenticado:", user);
-                // Faça a navegação para a próxima tela ou execute outras ações necessárias
             })
             .catch((error) => {
-                // Houve um erro durante a autenticação
-                const errorCode = error.code;
                 const errorMessage = error.message;
                 console.warn("Erro ao autenticar:", errorMessage);
                 Alert.alert('Erro', 'Credenciais inválidas. Por favor, verifique seu e-mail e senha.');
             });
+    };
+
+    const handleGoogleLogin = async () => {
+        try {
+            await promptAsync();
+        } catch (error) {
+            console.warn("Erro ao autenticar com o Google:", error.message);
+            Alert.alert('Erro', 'Houve um erro ao autenticar com o Google.');
+        }
     };
 
     return (
@@ -98,6 +95,7 @@ export default function Log_In() {
                                 <TextInput
                                     placeholder="Senha"
                                     textContentType="password"
+                                    secureTextEntry={true}
                                     style={[style.InputStyle, { width: inputWidth }]}
                                     onChangeText={(text) => handleChange('password', text)}
                                 />
@@ -122,12 +120,7 @@ export default function Log_In() {
                         <View style={[style.Hr, { width: hrWidth }]}></View>
                     </View>
                     <View style={{ alignItems: 'center', marginTop: 10 }}>
-                        <GoogleSigninButton
-                            style={{ width: inputWidth, height: 48 }}
-                            size={GoogleSigninButton.Size.Wide}
-                            color={GoogleSigninButton.Color.Dark}
-                            onPress={_signIn}
-                        />
+                        <Button title="Login com o Google" onPress={handleGoogleLogin} />
                     </View>
                     <View style={style.ButtonLinkStyle}>
                         <View>
@@ -142,5 +135,5 @@ export default function Log_In() {
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
-    )
+    );
 }

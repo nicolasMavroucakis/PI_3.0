@@ -8,7 +8,7 @@ import { ref, set } from 'firebase/database';
 import React from 'react';
 import { RadioButton } from 'react-native-paper';
 
-export default function LogIn() {
+export default function Cadastro() {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
   const inputWidth = screenWidth * 0.75
 
@@ -85,23 +85,6 @@ export default function LogIn() {
         });
   }
 
-  const renderGenderButton = (gender) => {
-    return (
-      <TouchableOpacity
-        key={gender}
-        style={{
-          padding: 10,
-          marginHorizontal: 5,
-          backgroundColor: gender === 'Masculino' || gender === 'Feminino' ? (gender === 'Masculino' ? 'blue' : 'pink') : 'white',
-          borderRadius: 5,
-        }}
-        onPress={() => handleChange('gender', gender)}
-      >
-        <Text style={{ color: gender === 'Masculino' || gender === 'Feminino' ? 'white' : 'black' }}>{gender}</Text>
-      </TouchableOpacity>
-    );
-  };
-
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent:'center'  }}>
@@ -120,11 +103,8 @@ export default function LogIn() {
             <TextInput placeholder="Peso" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('weight', text)} />
             <View>
               <View style={{borderBottomColor:'black',borderBottomWidth:3, display:"flex", flexDirection:"row"}}>
-                <Text style={{marginTop:25,fontSize:20,marginBottom:20,color:'gray'}}>Gênero:</Text>
-                <View style={{display:"flex", flexDirection:"row"}}>
-                  {renderGenderButton('Masculino')}
-                  {renderGenderButton('Feminino')}
-                </View>
+                <Text style={{marginTop:25,fontSize:20,marginBottom:20,color:'black'}}>Gênero:</Text>
+                {/* Escolha Genero */}
               </View>
             </View>
           </View>
@@ -138,8 +118,8 @@ export default function LogIn() {
                 <Text>Já possui cadastro?</Text>
             </View>
             <View>
-                <Link href={'./Login'} asChild >
-                        <Button title="Faça Login" />
+                <Link href={'./Login'} asChild>
+                    <Button title="Faça Login" />
                 </Link>
             </View>
           </View>
