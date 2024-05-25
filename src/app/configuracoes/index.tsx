@@ -5,13 +5,17 @@ import { Link } from "expo-router";
 import stylesMedicacao from "../styles/stylesMedicacao";
 import styleConfiguracao from "../styles/styleConfigura";
 import { useRouter } from "expo-router";
-import { ModoEscuroContext } from "../context/generalContext";
+import { GlobalContext } from "../context/aaaa";
 
 export default function Configuracoes() {
-    const {modoEscuro, setModoEscuro} = useContext(ModoEscuroContext);
+    const {modoEscuro, setModoEscuro} = useContext(GlobalContext)
 
     const toggleAlarm = () => {
-        setModoEscuro(!modoEscuro); 
+        if (modoEscuro == false) {
+            setModoEscuro(true)
+        } else {
+            setModoEscuro(false)
+        }
     }
     
     const router = useRouter();

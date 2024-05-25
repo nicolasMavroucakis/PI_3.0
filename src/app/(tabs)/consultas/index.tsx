@@ -3,24 +3,24 @@ import { View, Text, TouchableOpacity, Modal, TextInput, Switch, Image } from 'r
 import { AntDesign } from '@expo/vector-icons';
 import stylesConsulta from '../../styles/stylesConsulta';
 import { useNavigation } from '@react-navigation/native';
-import { UsuarioContext } from '../../context/generalContext';
 import { Link } from 'expo-router';
 import { useContext } from 'react';
+import { GlobalContext } from '../../context/aaaa';
 
 export default function Consultas({ modoEscuro, toggleModoEscuro }) {
-    const [modalVisible, setModalVisible] = useState(false);
-    const [consultas, setConsultas] = useState([]);
+    const [modalVisible, setModalVisible] = useState(false)
+    const [consultas, setConsultas] = useState([])
     const [consultaInfo, setConsultaInfo] = useState({
         nome: '',
         data: '',
         horario: ''
     });
 
-    const {usuario, setUsuario} =  useContext(UsuarioContext)
-    const [mostrarDetalhes, setMostrarDetalhes] = useState(false);
+    const {usuario, setUsuario} =  useContext(GlobalContext)
+    const [mostrarDetalhes, setMostrarDetalhes] = useState(false)
 
-    const [excluirModalVisible, setExcluirModalVisible] = useState(false);
-    const [consultaParaExcluir, setConsultaParaExcluir] = useState(null);
+    const [excluirModalVisible, setExcluirModalVisible] = useState(false)
+    const [consultaParaExcluir, setConsultaParaExcluir] = useState(null)
 
     const handleSalvarConsulta = () => {
         const novaConsulta = {
@@ -28,7 +28,7 @@ export default function Consultas({ modoEscuro, toggleModoEscuro }) {
             data: consultaInfo.data,
             horario: consultaInfo.horario
         };
-        setConsultas([...consultas, novaConsulta]);
+        setConsultas([...consultas, novaConsulta])
         setModalVisible(false);
     };
 
@@ -37,25 +37,25 @@ export default function Consultas({ modoEscuro, toggleModoEscuro }) {
     };
 
     const handleExcluirConsulta = (index) => {
-        setConsultaParaExcluir(index);
-        setExcluirModalVisible(true);
+        setConsultaParaExcluir(index)
+        setExcluirModalVisible(true)
     };
 
     const confirmarExclusaoConsulta = () => {
-        const novasConsultas = [...consultas];
-        novasConsultas.splice(consultaParaExcluir, 1);
-        setConsultas(novasConsultas);
-        setExcluirModalVisible(false);
+        const novasConsultas = [...consultas]
+        novasConsultas.splice(consultaParaExcluir, 1)
+        setConsultas(novasConsultas)
+        setExcluirModalVisible(false)
     };
 
     const cancelarExclusaoConsulta = () => {
-        setExcluirModalVisible(false);
+        setExcluirModalVisible(false)
     };
 
-    const navigation = useNavigation();
+    const navigation = useNavigation()
 
     const handleVoltar = () => {
-        navigation.goBack();
+        navigation.goBack()
     };
 
     return (

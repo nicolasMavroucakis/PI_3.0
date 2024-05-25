@@ -30,6 +30,20 @@ const stylesExame = StyleSheet.create({
         padding:screenWidth * 0.03,
         display:"flex",
     },
+    divUsuarioDark: {
+        backgroundColor:"black",
+        flexDirection:"row",
+        alignItems:"center",
+        display:"flex",
+        justifyContent:"space-between"
+    },
+    viewPrincipalDark: {
+        backgroundColor:'black',
+        color:"white"
+    },
+    viewPrincipal: {
+        backgroundColor:'transparent'
+    }
 })
 
 export default stylesExame

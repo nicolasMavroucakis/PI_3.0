@@ -5,14 +5,13 @@ import stylesMedicacao from "../../styles/stylesMedicacao";
 import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native"; 
 import { Link } from "expo-router";
-import { MedicacaoContext } from "../../context/generalContext";
-import { UsuarioContext } from "../../context/generalContext";
+import { GlobalContext } from "../../context/aaaa";
 
 export default function Medicacao() {
-    const { medicacao, setMedicacao } = useContext(MedicacaoContext);
+    const { medicacao, setMedicacao } = useContext(GlobalContext)
     const [reload, setReload] = useState(false);
     const navigation = useNavigation()
-    const {usuario, setUsuario} = useContext(UsuarioContext)
+    const {usuario, setUsuario} = useContext(GlobalContext)
 
     useEffect(() => {
         const unsubscribe = navigation.addListener('focus', () => {
@@ -77,7 +76,7 @@ export default function Medicacao() {
                                                 <Text style={{ fontSize: 16 }}>Hora: {medicamento.hora}</Text>
                                             </View>
                                             <View>
-                                                <Text style={{ fontSize: 16 }}>Discrição: {medicamento.discricao}</Text>
+                                                <Text style={{ fontSize: 16 }}>Discrição: {medicamento.descricao}</Text>
                                             </View>
                                             <View>
                                                 <Text style={{ fontSize: 16 }}>Quantidade: {medicamento.quantidade}</Text>

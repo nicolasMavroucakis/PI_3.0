@@ -5,13 +5,14 @@ import stylePerfil from "../styles/stylePerfil";
 import auth from 'firebase/database';
 import StartFirebase from '../../crud/firebaseConfig';
 import { useNavigation } from '@react-navigation/native';
-import { UsuarioContext } from "../context/generalContext";
 import style from "../sign_log_pass/style";
+import { GlobalContext } from "../context/aaaa";
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
 
 export default function Perfil() {
-    const { usuario, setUsuario } = useContext(UsuarioContext)
+    // const { usuario, setUsuario } = useUsuarioContext()
+    const {usuario, setUsuario} = useContext(GlobalContext);
     const navigation = useNavigation();
     const [bottomPadding, setBottomPadding] = useState(0)
     const [editar, setEditar] = useState(false)

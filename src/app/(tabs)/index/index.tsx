@@ -3,10 +3,10 @@ import { Link } from "expo-router";
 import styleHome from "../../styles/styleHome";
 import React from "react";
 import { useContext } from "react";
-import { UsuarioContext } from "../../context/generalContext";
+import { GlobalContext } from "../../context/aaaa";
 
 export default function Home() {
-    const {usuario, setUsuario} = useContext(UsuarioContext)
+    const {usuario, setUsuario} = useContext(GlobalContext)
 
     return (
         <View>

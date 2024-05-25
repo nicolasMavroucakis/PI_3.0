@@ -1,17 +1,17 @@
 import { Stack } from "expo-router";
 import React from "react";
-import { MedicacaoProvider } from "../context/generalContext";
+import { GlobalContextProvider } from "../context/aaaa";
 
 export default function StackLayout() {
     return (
-        <MedicacaoProvider>
-            <Stack 
-                screenOptions={{
-                    headerShown: false
-                }}
-            >
-                <Stack.Screen name="index" />
-            </Stack>
-        </MedicacaoProvider>
+        <GlobalContextProvider>
+                <Stack 
+                    screenOptions={{
+                        headerShown: false
+                    }}
+                >
+                    <Stack.Screen name="index" />
+                </Stack>
+        </GlobalContextProvider>
     );
 }
