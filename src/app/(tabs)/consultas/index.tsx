@@ -109,22 +109,25 @@ export default function Consultas({ modoEscuro, toggleModoEscuro }) {
                         <TextInput
                             style={stylesConsulta.input}
                             placeholder="Digite o nome da consulta"
+                            placeholderTextColor={'#C9C9C9'}
                             onChangeText={(text) => setConsultaInfo({ ...consultaInfo, nome: text })}
                         />
                         <Text style={stylesConsulta.label}>Data</Text>
                         <TextInput
                             style={stylesConsulta.input}
                             placeholder="Digite a data da consulta"
+                            placeholderTextColor={'#C9C9C9'}
                             onChangeText={(text) => setConsultaInfo({ ...consultaInfo, data: text })}
                         />
                         <Text style={stylesConsulta.label}>Horário</Text>
                         <TextInput
                             style={stylesConsulta.input}
                             placeholder="Digite o horário da consulta"
+                            placeholderTextColor={'#C9C9C9'}
                             onChangeText={(text) => setConsultaInfo({ ...consultaInfo, horario: text })}
                         />
                         <TouchableOpacity onPress={handleSalvarConsulta} style={[stylesConsulta.botaoSalvar, { backgroundColor: '#A1D5B0' }]}>
-                            <Text style={{ color: 'white', textAlign: 'center', fontSize: 16 }}>Salvar Consulta</Text>
+                            <Text style={{ color: 'black', textAlign: 'center', fontSize: 16 }}>Salvar Consulta</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={stylesConsulta.arrowButton} onPress={() => setModalVisible(false)}>
                             <AntDesign name="right" size={24} color="black" />
