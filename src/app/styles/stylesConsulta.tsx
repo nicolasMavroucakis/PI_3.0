@@ -43,7 +43,7 @@ const stylesConsulta = StyleSheet.create({
     title: {
         fontSize: 36,
         fontWeight: '500',
-        marginLeft: '25%'
+        marginLeft: '30%'
     },
     addButton: {
         backgroundColor: '#A1D5B0',
@@ -116,8 +116,10 @@ const stylesConsulta = StyleSheet.create({
         padding: 10,
         borderWidth: 1,
         borderColor: '#ccc',
-        borderRadius: 5,
+        borderRadius: 15,
         fontSize: 20,
+        backgroundColor: '#C9C9C9',
+        color: 'black'
     },
     arrowButton: {
         position: 'absolute',
@@ -148,6 +150,7 @@ const stylesConsulta = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         alignItems: 'center',
+        backgroundColor: '#A1D5B0'
     }
 });
 export default stylesConsulta
