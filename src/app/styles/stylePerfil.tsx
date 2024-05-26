@@ -90,6 +90,49 @@ const stylePerfil = StyleSheet.create({
         height:screenWidth * 0.05,
         width:screenWidth * 0.05,
     },
+    TitleImgDark:{
+        justifyContent:'center',
+        textAlign:'center',
+        alignItems:'center',
+        backgroundColor:'#568764',
+        paddingTop:screenHeight * 0.02
+    },
+    TelaDisplayTextDark: {
+        paddingTop: 30,
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        gap: 20,
+        backgroundColor:"#1C1C1E",
+        flex:1
+    },
+    ViewTextStyleDark: {
+        display:"flex",
+        justifyContent:"flex-start",
+        alignItems: "center",
+        flexDirection: "row",
+        gap: 20,  
+        color: "white" 
+    },
+    InputStyleDark: {
+        height:screenHeight * 0.07,
+        width:screenWidth * 0.1,
+        borderBottomColor:'white',
+        borderBottomWidth:3,
+        marginTop:10,
+        fontSize:20,
+        color: "white"
+    },
+    ButtonViewStyleDark:{
+        marginTop:35,
+        justifyContent:'center',
+        alignItems:'center',
+        width:300,
+        height:60,
+        color:'white',
+        backgroundColor:'#568764',
+        borderRadius:10
+    },   
 })
 
 export default stylePerfil

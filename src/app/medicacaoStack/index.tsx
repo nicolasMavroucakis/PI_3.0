@@ -50,7 +50,7 @@ export default function MedicacaoAdd() {
                     <TouchableOpacity onPress={handleVoltar}>
                         <Image
                             source={require("../../../assets/seta-direita.png")}
-                            style={styleMedicacaoAdiciona.ButtonVolta}
+                            style={styleMedicacaoAdiciona.ButtonVoltaClaro}
                         />
                     </TouchableOpacity>
                 </View>

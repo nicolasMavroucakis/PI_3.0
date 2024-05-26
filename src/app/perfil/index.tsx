@@ -19,6 +19,7 @@ export default function Perfil() {
     const [inputNascimento, setInputNascimento] = useState(usuario.nascimento);
     const [inputAltura, setInputAltura] = useState(usuario.altura);
     const [inputPeso, setInputPeso] = useState(usuario.peso);
+    const {modoEscuro} = useContext(GlobalContext)
 
     const handleVoltar = () => {
         navigation.goBack();
@@ -81,7 +82,7 @@ export default function Perfil() {
         }
     }, [editar]);
 
-    return !editar ? (
+    return !modoEscuro ? ( !editar ? (
         <ScrollView>
             <View>
                 <View style={stylePerfil.TitleImg}>
@@ -230,5 +231,154 @@ export default function Perfil() {
                 </View>
             </View>
         </ScrollView>
-    );
+    )) : !editar ? (
+        <ScrollView style={{flex: 1, backgroundColor:"#1C1C1E"}}>
+            <View >
+                <View style={stylePerfil.TitleImgDark}>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: screenWidth * 1, alignItems: "flex-start" }}>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+                            <View style={{ marginLeft: screenWidth * 0.05 }}>
+                                <TouchableOpacity onPress={handleVoltar} style={stylePerfil.goBackDiv}>
+                                    <Image source={require('../../../assets/seta-direita.png')} style={stylePerfil.goBack} />
+                                </TouchableOpacity>
+                            </View>
+                            <View>
+                                <Text style={stylePerfil.title}>Perfil</Text>
+                            </View>
+                            <View style={{ marginRight: screenWidth * 0.05 }}>
+                                <TouchableOpacity onPress={handleEditar} style={stylePerfil.goBackDiv}>
+                                    <Image source={require('../../../assets/ferramenta-lapis.png')} style={stylePerfil.editPen} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    <Image source={require('../../../assets/logo.png')} />
+                </View>
+            </View>
+            <View style={stylePerfil.TelaDisplayTextDark}>
+                <View style={[stylePerfil.ViewTextStyleDark, { width: screenWidth * 0.75 }]}>
+                    <View>
+                        <Text style={[stylePerfil.TextPrincipalStyle, {color: "white"}]}>
+                            Name:
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={[stylePerfil.TextStyle, {color: "white"}]}>
+                            {usuario.nome}
+                        </Text>
+                    </View>
+                </View>
+                <View style={[stylePerfil.ViewTextStyle, { width: screenWidth * 0.75 }]}>
+                    <View>
+                        <Text style={[stylePerfil.TextPrincipalStyle, {color: "white"}]}>
+                            E-mail:
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={[stylePerfil.TextStyle, {color: "white"}]}>
+                            {usuario.e_mail}
+                        </Text>
+                    </View>
+                </View>
+                <View style={[stylePerfil.ViewTextStyle, { width: screenWidth * 0.75 }]}>
+                    <View>
+                        <Text style={[stylePerfil.TextPrincipalStyle, {color: "white"}]}>
+                            Birth Date Year:
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={[stylePerfil.TextStyle, {color: "white"}]}>
+                            {usuario.nascimento}
+                        </Text>
+                    </View>
+                </View>
+                <View style={[stylePerfil.ViewTextStyle, { width: screenWidth * 0.75 }]}>
+                    <View>
+                        <Text style={[stylePerfil.TextPrincipalStyle, {color: "white"}]}>
+                            Altura:
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={[stylePerfil.TextStyle, {color: "white"}]}>
+                            {usuario.altura}
+                        </Text>
+                    </View>
+                </View>
+                <View style={[stylePerfil.ViewTextStyle, { width: screenWidth * 0.75 }]}>
+                    <View>
+                        <Text style={[stylePerfil.TextPrincipalStyle, {color: "white"}]}>
+                            Peso:
+                        </Text>
+                    </View>
+                    <View>
+                        <Text style={[stylePerfil.TextStyle, {color: "white"}]}>
+                            {usuario.peso}
+                        </Text>
+                    </View>
+                </View>
+            </View>
+        </ScrollView>
+    ) : (
+        <ScrollView style={{ flex: 1, paddingBottom: bottomPadding, backgroundColor:"#1C1C1E" }}>
+            <View>
+                <View style={stylePerfil.TitleImgDark}>
+                    <View style={{ display: "flex", flexDirection: "row", justifyContent: "flex-start", width: screenWidth * 1, alignItems: "flex-start" }}>
+                        <View style={{ display: "flex", flexDirection: "row", justifyContent: "space-between", width: "100%", alignItems: "center" }}>
+                            <View style={{ marginLeft: screenWidth * 0.05 }}>
+                                <TouchableOpacity onPress={handleVoltar} style={stylePerfil.goBackDiv}>
+                                    <Image source={require('../../../assets/seta-direita.png')} style={stylePerfil.goBack} />
+                                </TouchableOpacity>
+                            </View>
+                            <View>
+                                <Text style={stylePerfil.title}>Perfil</Text>
+                            </View>
+                            <View style={{ marginRight: screenWidth * 0.05 }}>
+                                <TouchableOpacity onPress={handleEditar} style={stylePerfil.goBackDiv}>
+                                    <Image source={require('../../../assets/ferramenta-lapis.png')} style={stylePerfil.editPen} />
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </View>
+                    <Image source={require('../../../assets/logo.png')} />
+                </View>
+            </View>
+            <View style={stylePerfil.TelaDisplay}>
+                <TextInput
+                    placeholder={editar ? inputName : usuario.nome}
+                    style={[stylePerfil.InputStyleDark, { width: screenWidth * 0.75 }]}
+                    onChangeText={(text) => handleChange("name", text)}
+                    value={editar ? inputName : usuario.nome}
+                />
+                <TextInput
+                    placeholder={editar ? inputEmail : usuario.e_mail}
+                    style={[stylePerfil.InputStyleDark, { width: screenWidth * 0.75 }]}
+                    onChangeText={(text) => handleChange("email", text)}
+                    value={editar ? inputEmail : usuario.e_mail}
+                />
+                <TextInput
+                    placeholder={editar ? inputNascimento : usuario.nascimento}
+                    style={[stylePerfil.InputStyleDark, { width: screenWidth * 0.75 }]}
+                    onChangeText={(text) => handleChange("nascimento", text)}
+                    value={editar ? inputNascimento : usuario.nascimento}
+                />
+                <TextInput
+                    placeholder={editar ? inputAltura : usuario.altura}
+                    style={[stylePerfil.InputStyleDark, { width: screenWidth * 0.75 }]}
+                    onChangeText={(text) => handleChange("altura", text)}
+                    value={editar ? inputAltura : usuario.altura}
+                />
+                <TextInput
+                    placeholder={editar ? inputPeso : usuario.peso}
+                    style={[stylePerfil.InputStyleDark, { width: screenWidth * 0.75 }]}
+                    onChangeText={(text) => handleChange("peso", text)}
+                    value={editar ? inputPeso : usuario.peso}
+                />
+            </View>
+            <View style={stylePerfil.TelaDisplay}>
+                <View style={[stylePerfil.ButtonViewStyleDark, { width: screenWidth * 0.75 }]}>
+                    <Button title="Salvar" color={'black'} onPress={handleCadastrar} />
+                </View>
+            </View>
+        </ScrollView>
+    )
 }

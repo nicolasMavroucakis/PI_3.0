@@ -1,5 +1,6 @@
-import React, { createContext, useState, useEffect, Dispatch, SetStateAction, ReactNode } from "react";
+import React, { createContext, useState, useEffect, Dispatch, SetStateAction, ReactNode, useContext } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 interface GlobalContextType {
     medicacao: any[];
@@ -8,6 +9,8 @@ interface GlobalContextType {
     setUsuario: Dispatch<SetStateAction<any>>;
     modoEscuro: boolean;
     setModoEscuro: Dispatch<SetStateAction<boolean>>;
+    consulta: any[];
+    setConsulta: Dispatch<SetStateAction<any[]>>;
 }
 
 export const GlobalContext = createContext<GlobalContextType>({
@@ -16,7 +19,9 @@ export const GlobalContext = createContext<GlobalContextType>({
     usuario: {},
     setUsuario: () => {},
     modoEscuro: false,
-    setModoEscuro: () => {}
+    setModoEscuro: () => {},
+    consulta: [],
+    setConsulta: () => {}
 });
 
 export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
@@ -30,6 +35,7 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         idade: "45"
     });
     const [modoEscuro, setModoEscuro] = useState<boolean>(false);
+    const [consulta, setConsulta] = useState<any[]>([]);
 
     useEffect(() => {
         const loadAsyncData = async () => {
@@ -48,6 +54,11 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
                 if (savedModoEscuro) {
                     setModoEscuro(JSON.parse(savedModoEscuro));
                 }
+
+                const savedConsulta = await AsyncStorage.getItem('consulta');
+                if (savedConsulta) {
+                    setConsulta(JSON.parse(savedConsulta));
+                }
             } catch (error) {
                 console.error('Erro ao carregar dados do AsyncStorage:', error);
             }
@@ -62,13 +73,14 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
                 await AsyncStorage.setItem('medicacao', JSON.stringify(medicacao));
                 await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
                 await AsyncStorage.setItem('modoEscuro', JSON.stringify(modoEscuro));
+                await AsyncStorage.setItem('consulta', JSON.stringify(consulta));
             } catch (error) {
                 console.error('Erro ao salvar dados no AsyncStorage:', error);
             }
         };
 
         saveAsyncData();
-    }, [medicacao, usuario, modoEscuro]);
+    }, [medicacao, usuario, modoEscuro, consulta]);
 
     useEffect(() => {
         console.log("Medicacao atualizada:", medicacao);
@@ -82,9 +94,15 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         console.log("Modo Escuro atualizado:", modoEscuro);
     }, [modoEscuro]);
 
+    useEffect(() => {
+        console.log("Consulta atualizada:", consulta);
+    }, [consulta]);
+
     return (
-        <GlobalContext.Provider value={{ medicacao, setMedicacao, usuario, setUsuario, modoEscuro, setModoEscuro }}>
+        <GlobalContext.Provider value={{ medicacao, setMedicacao, usuario, setUsuario, modoEscuro, setModoEscuro, consulta, setConsulta }}>
             {children}
         </GlobalContext.Provider>
     );
 };
+
+export const useGlobalContext = () => useContext(GlobalContext);

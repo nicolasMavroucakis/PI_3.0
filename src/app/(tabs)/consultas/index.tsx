@@ -1,160 +1,175 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Modal, TextInput, Switch, Image } from 'react-native';
+import React, { useContext, useEffect, useState } from "react";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
-import stylesConsulta from '../../styles/stylesConsulta';
-import { useNavigation } from '@react-navigation/native';
-import { Link } from 'expo-router';
-import { useContext } from 'react';
-import { GlobalContext } from '../../context/aaaa';
-import Header from '../../components/Header';
+import { Image } from "react-native";
+import { useNavigation } from "@react-navigation/native"; 
+import { Link } from "expo-router";
+import { GlobalContext } from "../../context/aaaa";
+import Header from "../../components/Header";
+import stylesMedicacao from "../../styles/stylesMedicacao";
 
-export default function Consultas({ modoEscuro, toggleModoEscuro }) {
-    const [modalVisible, setModalVisible] = useState(false)
-    const [consultas, setConsultas] = useState([])
-    const [consultaInfo, setConsultaInfo] = useState({
-        nome: '',
-        data: '',
-        horario: ''
-    });
+export default function Consulta() {
+    const { consulta, setConsulta } = useContext(GlobalContext);
+    const [reload, setReload] = useState(false);
+    const navigation = useNavigation();
+    const { usuario, setUsuario } = useContext(GlobalContext);
+    const { modoEscuro } = useContext(GlobalContext);
 
-    const {usuario, setUsuario} =  useContext(GlobalContext)
-    const [mostrarDetalhes, setMostrarDetalhes] = useState(false)
+    useEffect(() => {
+        const unsubscribe = navigation.addListener('focus', () => {
+            setReload(prevState => !prevState);
+        });
 
-    const [excluirModalVisible, setExcluirModalVisible] = useState(false)
-    const [consultaParaExcluir, setConsultaParaExcluir] = useState(null)
+        return unsubscribe;
+    }, [navigation]);
 
-    const handleSalvarConsulta = () => {
-        const novaConsulta = {
-            nome: consultaInfo.nome,
-            data: consultaInfo.data,
-            horario: consultaInfo.horario
-        };
-        setConsultas([...consultas, novaConsulta])
-        setModalVisible(false);
+    const handleDelete = (index) => {
+        const updatedConsultas = consulta.filter((_, i) => i !== index);
+        setConsulta(updatedConsultas);
     };
 
-    const toggleDetalhesConsulta = () => {
-        setMostrarDetalhes(!mostrarDetalhes);
+    const handlePress = (index) => {
+        const updatedConsultas = [...consulta];
+        updatedConsultas[index].grande = !updatedConsultas[index].grande;
+        setConsulta(updatedConsultas);
     };
 
-    const handleExcluirConsulta = (index) => {
-        setConsultaParaExcluir(index)
-        setExcluirModalVisible(true)
-    };
-
-    const confirmarExclusaoConsulta = () => {
-        const novasConsultas = [...consultas]
-        novasConsultas.splice(consultaParaExcluir, 1)
-        setConsultas(novasConsultas)
-        setExcluirModalVisible(false)
-    };
-
-    const cancelarExclusaoConsulta = () => {
-        setExcluirModalVisible(false)
-    };
-
-    const navigation = useNavigation()
-
-    const handleVoltar = () => {
-        navigation.goBack()
-    };
-
-    return (
-        <View style={{ flex: 1, backgroundColor: modoEscuro ? '#000000' : '#FFFFFF' }}>
+    return !modoEscuro ? (
+        <View style={{ flex: 1 }}>
             <Header/>
-            <View style={stylesConsulta.container}>
-                <Text style={[stylesConsulta.title]}>
-                    Consultas
-                </Text>
-                <TouchableOpacity style={stylesConsulta.addButton} onPress={() => setModalVisible(true)}>
-                    <AntDesign name="plus" size={28} color="white" />
-                </TouchableOpacity>
+            <View style={stylesMedicacao.header}>
+                <View style={stylesMedicacao.headerText}>
+                    <Text style={{ fontSize: 30 }}>Consulta</Text>
+                </View>
+                <View style={stylesMedicacao.headerButton}>
+                    <TouchableOpacity style={stylesMedicacao.buttonAdd}>
+                        <Link href={'../../consultaStack'}>
+                            <AntDesign name="plus" size={28} color="white" />
+                        </Link>
+                    </TouchableOpacity>
+                </View>
             </View>
-
-            <View style={stylesConsulta.consultaList}>
-                {consultas.map((consulta, index) => (
-                    <View key={index} style={stylesConsulta.consultaItem}>
-                        <View style={stylesConsulta.consultaExibition}>
-                            <Text style={stylesConsulta.consultaTitle}>{consulta.nome}</Text>
-                            <TouchableOpacity onPress={toggleDetalhesConsulta}>
-                                <AntDesign name={mostrarDetalhes ? "down" : "right"} size={28} color="black" />
-                            </TouchableOpacity>
-                        </View>
-                        {mostrarDetalhes && (
-                            <View style={stylesConsulta.detalhesConsulta}>
-                                <Text style={stylesConsulta.detalheText}>Data: {consulta.data}</Text>
-                                <Text style={stylesConsulta.detalheText}>Horário: {consulta.horario}</Text>
-                                <View>
-                                    <TouchableOpacity onPress={() => handleExcluirConsulta(index)}>
-                                        <Image style={stylesConsulta.LixoImg} source={require('../../../../assets/excluir.png')} />
-                                    </TouchableOpacity>
+            <ScrollView>
+                <View style={stylesMedicacao.medicacaoesContainer}>       
+                    {consulta.map((consulta, index) => {
+                        if (consulta.grande) {
+                            return (
+                                <View key={consulta.key} style={stylesMedicacao.containerTextActive}> 
+                                    <View style={stylesMedicacao.medicacoesInfromacoes}>
+                                        <View>
+                                            <Text style={{ fontSize: 16 }}>Nome Consulta: {consulta.nomeConsulta}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={{ fontSize: 16 }}>Médico: {consulta.nome}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={{ fontSize: 16 }}>Data: {consulta.data}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={{ fontSize: 16 }}>Hora: {consulta.hora}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={{ fontSize: 16 }}>Local: {consulta.local}</Text>
+                                        </View>
+                                        <View>
+                                            <TouchableOpacity onPress={() => handleDelete(index)}>
+                                                <Image style={stylesMedicacao.lixoImage} source={require('../../../../assets/excluir.png')}/>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={stylesMedicacao.a}>
+                                            <TouchableOpacity onPress={() => handlePress(index)}>
+                                                <Image style={stylesMedicacao.arrowImage} source={require('../../../../assets/seta-direita.png')} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
                                 </View>
-                            </View>
-                        )}
-                    </View>
-                ))}
+                            )
+                        } else {
+                            return (
+                                <View style={stylesMedicacao.medicacaoContainerPequeno}> 
+                                    <View style={stylesMedicacao.textView}>
+                                        <Text style={{ fontSize: 20 }}>{consulta.nomeConsulta} : {consulta.data}</Text>
+                                    </View>
+                                    <View style={stylesMedicacao.a}>
+                                            <TouchableOpacity onPress={() => handlePress(index)}>
+                                                <Image source={require('../../../../assets/seta-direita.png')} style={stylesMedicacao.arrowImageHorizontal}/>
+                                            </TouchableOpacity>
+                                    </View>
+                                </View>
+                            )
+                        }    
+                })}
+                </View>
+            </ScrollView>
+        </View>
+    ) : (
+        <View style={{ flex: 1, backgroundColor:"#1C1C1E" }}>
+            <Header/>
+            <View style={stylesMedicacao.header}>
+                <View style={stylesMedicacao.headerText}>
+                    <Text style={{ fontSize: 30, color:"white" }}>Consulta</Text>
+                </View>
+                <View style={stylesMedicacao.headerButton}>
+                    <TouchableOpacity style={stylesMedicacao.buttonAdd}>
+                        <Link href={'../../consultaStack'}>
+                            <AntDesign name="plus" size={28} color="white" />
+                        </Link>
+                    </TouchableOpacity>
+                </View>
             </View>
-
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={modalVisible}
-                onRequestClose={() => {
-                    setModalVisible(!modalVisible);
-                }}
-            >
-                <View style={stylesConsulta.modalBackground}>
-                    <View style={stylesConsulta.modalContent}>
-                        <Text style={stylesConsulta.label}>Nome da Consulta</Text>
-                        <TextInput
-                            style={stylesConsulta.input}
-                            placeholder="Digite o nome da consulta"
-                            onChangeText={(text) => setConsultaInfo({ ...consultaInfo, nome: text })}
-                        />
-                        <Text style={stylesConsulta.label}>Data</Text>
-                        <TextInput
-                            style={stylesConsulta.input}
-                            placeholder="Digite a data da consulta"
-                            onChangeText={(text) => setConsultaInfo({ ...consultaInfo, data: text })}
-                        />
-                        <Text style={stylesConsulta.label}>Horário</Text>
-                        <TextInput
-                            style={stylesConsulta.input}
-                            placeholder="Digite o horário da consulta"
-                            onChangeText={(text) => setConsultaInfo({ ...consultaInfo, horario: text })}
-                        />
-                        <TouchableOpacity onPress={handleSalvarConsulta} style={[stylesConsulta.botaoSalvar, { backgroundColor: '#A1D5B0' }]}>
-                            <Text style={{ color: 'white', textAlign: 'center', fontSize: 16 }}>Salvar Consulta</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity style={stylesConsulta.arrowButton} onPress={() => setModalVisible(false)}>
-                            <AntDesign name="right" size={24} color="black" />
-                        </TouchableOpacity>
-                    </View>
+            <ScrollView>
+                <View style={stylesMedicacao.medicacaoesContainerDark}>       
+                    {consulta.map((consulta, index) => {
+                        if(consulta.grande) {
+                            return (
+                                <View key={consulta.key} style={stylesMedicacao.containerTextActive}>     
+                                    <View style={stylesMedicacao.medicacoesInfromacoes}>
+                                        <View>
+                                            <Text style={{ fontSize: 20, color: "black" }}>Nome Consulta: {consulta.nomeConsulta}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={{ fontSize: 20, color: "black" }}>Médico: {consulta.nome}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={{ fontSize: 16, color: "black" }}>Data: {consulta.data}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={{ fontSize: 16, color: "black" }}>Hora: {consulta.hora}</Text>
+                                        </View>
+                                        <View>
+                                            <Text style={{ fontSize: 16, color: "black" }}>Local: {consulta.local}</Text>
+                                        </View>
+                                        <View>
+                                            <TouchableOpacity onPress={() => handleDelete(index)}>
+                                                <Image style={stylesMedicacao.lixoImage} source={require('../../../../assets/excluir.png')}/>
+                                            </TouchableOpacity>
+                                        </View>
+                                        <View style={stylesMedicacao.a}>
+                                            <TouchableOpacity onPress={() => handlePress(index)}>
+                                                <Image style={stylesMedicacao.arrowImage} source={require('../../../../assets/seta-direita.png')} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                </View>
+                            )
+                        } else {
+                            return (
+                                <View style={stylesMedicacao.medicacaoContainerPequeno}> 
+                                    <View style={stylesMedicacao.textView}>
+                                        <Text style={{ fontSize: 20 }}>{consulta.nomeConsulta} : {consulta.data}</Text>
+                                    </View>
+                                    <View style={stylesMedicacao.a}>
+                                            <TouchableOpacity onPress={() => handlePress(index)}>
+                                                <Image source={require('../../../../assets/seta-direita.png')} style={stylesMedicacao.arrowImageHorizontal}/>
+                                            </TouchableOpacity>
+                                    </View>
+                                </View>
+                            )
+                        }
+                        
+                })}
                 </View>
-            </Modal>
-
-            <Modal
-                animationType="slide"
-                transparent={true}
-                visible={excluirModalVisible}
-                onRequestClose={() => {
-                    setExcluirModalVisible(false);
-                }}
-            >
-                <View style={stylesConsulta.modalBackground}>
-                    <View style={stylesConsulta.modalContent}>
-                        <Text>Deseja realmente excluir esta consulta?</Text>
-                        <View style={stylesConsulta.modalButtons}>
-                            <TouchableOpacity style={stylesConsulta.modalButton} onPress={cancelarExclusaoConsulta}>
-                                <Text>Não</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={stylesConsulta.modalButton} onPress={confirmarExclusaoConsulta}>
-                                <Text>Sim</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                </View>
-            </Modal>
+            </ScrollView>
         </View>
     );
 }

@@ -35,7 +35,7 @@ export default function Home() {
                 </View>
             </View>
             <View style={styleHome.proximosEventos}>
-                <Text style={styleHome.divProximo}>Próximos eventos</Text>
+                <Text style={[styleHome.divProximo, {color: "black"}]}>Próximos eventos</Text>
                 <View>
                     <View style={styleHome.infoProximo}>
                             <Text style={styleHome.infoProximoDetail}>Dipirona 12:00</Text>
@@ -50,14 +50,14 @@ export default function Home() {
             <View>
                 <View style={styleHome.statusDivHeader}>
                     <View style={styleHome.statusDiv}>
-                        <Text style={styleHome.statusHeader}>IMC</Text>
+                        <Text style={[styleHome.statusHeader, {color:"black"}]}>IMC</Text>
                         <View style={styleHome.statusFooter}>
                             <Text style={styleHome.statusInfo}>{imc}</Text>
                             <Text style={styleHome.statusInfo}>Obesidade I</Text>
                         </View>
                     </View>
                     <View style={styleHome.statusDiv}>
-                        <Text style={styleHome.statusHeader}>Colesterol</Text>
+                        <Text style={[styleHome.statusHeader,{color:"black"}]}>Colesterol</Text>
                         <View style={styleHome.statusFooter}>
                             <Text style={styleHome.statusInfo}>39.5</Text>
                             <Text style={styleHome.statusInfo}>Alto</Text>
