@@ -9,6 +9,7 @@ import { GlobalContext } from "../context/aaaa";
 export default function () {
     const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
     const {usuario, setUsuario} = useContext(GlobalContext)
+    const {modoEscuro} = useContext(GlobalContext)
 
 
     const styleHeader = StyleSheet.create({
@@ -40,9 +41,25 @@ export default function () {
             padding:screenWidth * 0.03,
             display:"flex",
         },
+        divUsuarioDark:{
+            backgroundColor:"black",
+            display:"flex",
+            flexDirection:"row",
+            alignItems:"center",
+            justifyContent:"space-between"
+    
+        },
+        nomeUsuarioDark:{
+            fontSize: screenWidth * 0.035,
+            fontStyle:"normal",
+            fontWeight:"400",
+            color:"white",
+            textAlign: "right",
+            marginRight: screenWidth * 0.01,
+        },
     })
 
-    return (
+    return !modoEscuro ? (
         <View style={styleHeader.divUsuario}>
             <View style={{marginLeft:10,marginTop:5}}>
                 <Link href={"../../configuracoes"}>
@@ -54,6 +71,20 @@ export default function () {
             <View style={styleHeader.containerUsuario}>
                 <Image source={require('../../../assets/user.png')} style={styleHeader.imgUsuario} />
                 <Link href={"../../perfil"} style={styleHeader.nomeUsuario}><Text>{usuario.nome}</Text></Link>
+            </View>
+        </View>
+    ) : (
+        <View style={styleHeader.divUsuarioDark}>
+            <View style={{marginLeft:10,marginTop:5}}>
+                <Link href={"../../configuracoes"}>
+                    <View>
+                        <Image style={{width:30, height:30}} source={require("../../../assets/configuracoesDark.png")}/>
+                    </View>
+                </Link>
+            </View>
+            <View style={styleHeader.containerUsuario}>
+                <Image source={require('../../../assets/userDark.png')} style={styleHeader.imgUsuario} />
+                <Link href={"../../perfil"} style={styleHeader.nomeUsuarioDark}><Text>{usuario.nome}</Text></Link>
             </View>
         </View>
     )

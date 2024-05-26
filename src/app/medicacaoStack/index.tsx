@@ -12,6 +12,7 @@ export default function MedicacaoAdd() {
     const [onOff, setOnOff] = useState(true);
 
     const { medicacao, setMedicacao } = useContext(GlobalContext);
+    const {modoEscuro} = useContext(GlobalContext)
     const navigation = useNavigation();
 
     const toggleAlarm = () => {
@@ -37,42 +38,93 @@ export default function MedicacaoAdd() {
             console.log("Medicação antes:", medicacao);
             console.log("Medicação adicionada:", novoMedicamento);
             console.log("Medicação atualizada:", updatedMedicacao);
-            return updatedMedicacao;
+            console.warn("medicacao atulizada, volte para ver")
+            return updatedMedicacao; 
         });
-        handleVoltar();
     };
 
-    return (
-            <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+    return !modoEscuro ? (
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+            <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
+                <View>
+                    <TouchableOpacity onPress={handleVoltar}>
+                        <Image
+                            source={require("../../../assets/seta-direita.png")}
+                            style={styleMedicacaoAdiciona.ButtonVolta}
+                        />
+                    </TouchableOpacity>
+                </View>
+                <View style={styleMedicacaoAdiciona.center}>
+                    <Text style={{ fontSize: 40, paddingBottom: 10 }}>Adicionar Medicamento</Text>
+                    <View>
+                        <Text style={{ fontSize: 20 }}>Medicação:</Text>
+                        <TextInput style={styleMedicacaoAdiciona.input} value={nome} onChangeText={setNome} />
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 20 }}>Quantidade:</Text>
+                        <TextInput style={styleMedicacaoAdiciona.input} value={quantidade} onChangeText={setQuantidade} />
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 20 }}>Hora:</Text>
+                        <TextInput style={styleMedicacaoAdiciona.input} value={hora} onChangeText={setHora} />
+                    </View>
+                    <View>
+                        <Text style={{ fontSize: 20 }}>Descrição:</Text>
+                        <TextInput style={styleMedicacaoAdiciona.input} value={descricao} onChangeText={setDescricao} />
+                    </View>
+                    <View style={styleMedicacaoAdiciona.esquerda}>
+                        <Text style={{ fontSize: 20 }}>Alarme</Text>
+                        <TouchableOpacity style={styleMedicacaoAdiciona.alarme} onPress={toggleAlarm}>
+                            {onOff ? (
+                                <>
+                                    <View style={styleMedicacaoAdiciona.alarmeOn} />
+                                    <Text style={{ marginRight: 10 }}>ON</Text>
+                                </>
+                            ) : (
+                                <>
+                                    <Text style={{ marginLeft: 5 }}>OFF</Text>
+                                    <View style={styleMedicacaoAdiciona.alarmeOff} />
+                                </>
+                            )}
+                        </TouchableOpacity>
+                    </View>
+                    <View style={styleMedicacaoAdiciona.ButtonViewStyle}>
+                        <Button title="Adicionar" color={'black'} onPress={handleAddMedicacao}/>
+                    </View>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
+    ) : (
+        <KeyboardAvoidingView style={{ flex: 1, backgroundColor: "#1C1C1E" }} behavior="padding">
                 <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
                     <View>
                         <TouchableOpacity onPress={handleVoltar}>
                             <Image
-                                source={require("../../../assets/seta-direita.png")}
+                                source={require("../../../assets/setaBranca.png")}
                                 style={styleMedicacaoAdiciona.ButtonVolta}
                             />
                         </TouchableOpacity>
                     </View>
                     <View style={styleMedicacaoAdiciona.center}>
-                        <Text style={{ fontSize: 40, paddingBottom: 10 }}>Adicionar Medicamento</Text>
+                        <Text style={{ fontSize: 40, paddingBottom: 10, color: "white" }}>Adicionar Medicamento</Text>
                         <View>
-                            <Text style={{ fontSize: 20 }}>Medicação:</Text>
+                            <Text style={{ fontSize: 20, color: "white" }}>Medicação:</Text>
                             <TextInput style={styleMedicacaoAdiciona.input} value={nome} onChangeText={setNome} />
                         </View>
                         <View>
-                            <Text style={{ fontSize: 20 }}>Quantidade:</Text>
+                            <Text style={{ fontSize: 20, color: "white" }}>Quantidade:</Text>
                             <TextInput style={styleMedicacaoAdiciona.input} value={quantidade} onChangeText={setQuantidade} />
                         </View>
                         <View>
-                            <Text style={{ fontSize: 20 }}>Hora:</Text>
+                            <Text style={{ fontSize: 20, color: "white" }}>Hora:</Text>
                             <TextInput style={styleMedicacaoAdiciona.input} value={hora} onChangeText={setHora} />
                         </View>
                         <View>
-                            <Text style={{ fontSize: 20 }}>Descrição:</Text>
+                            <Text style={{ fontSize: 20, color: "white" }}>Descrição:</Text>
                             <TextInput style={styleMedicacaoAdiciona.input} value={descricao} onChangeText={setDescricao} />
                         </View>
                         <View style={styleMedicacaoAdiciona.esquerda}>
-                            <Text style={{ fontSize: 20 }}>Alarme</Text>
+                            <Text style={{ fontSize: 20, color: "white" }}>Alarme</Text>
                             <TouchableOpacity style={styleMedicacaoAdiciona.alarme} onPress={toggleAlarm}>
                                 {onOff ? (
                                     <>
@@ -93,5 +145,5 @@ export default function MedicacaoAdd() {
                     </View>
                 </ScrollView>
             </KeyboardAvoidingView>
-    );
+    )
 }

@@ -61,7 +61,6 @@ const styleMedicacaoAdiciona = StyleSheet.create({
         height: 40,
         marginTop:30,
         marginLeft:20,
-        transform:"rotate(180deg)"
     }
 })
 

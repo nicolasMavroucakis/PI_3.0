@@ -61,6 +61,7 @@ const styleHome = StyleSheet.create({
         marginTop:screenWidth * 0.15,
         fontSize:screenWidth * 0.05,
         fontWeight:"700",
+        color: "white"
     },
     imgInfo:{
         width:screenWidth * 0.2,
@@ -88,6 +89,7 @@ const styleHome = StyleSheet.create({
         fontSize:screenWidth * 0.05,
         fontWeight:"700",
         fontStyle:"normal",
+        color:"white"
     },
     statusDivHeader:{
         flexDirection: 'row',

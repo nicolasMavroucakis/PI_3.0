@@ -67,7 +67,7 @@ export default function Home() {
             </View>
         </View>
     ) : (
-        <View>
+        <View style={{flex: 1, backgroundColor:"#1C1C1E"}}>
             <View style={styleHome.divUsuarioDark}>
                 <View style={{marginLeft:10,marginTop:5}}>
                     <Link href={"../../configuracoes"} style={{color:"white"}}>

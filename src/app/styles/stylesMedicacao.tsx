@@ -121,7 +121,15 @@ const stylesMedicacao = StyleSheet.create({
     lixoImage: {
         height: 30,
         width: 30,
-    }
+    },
+    medicacaoesContainerDark: {
+        marginTop: 50,
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems:'center',
+        overflow: 'scroll',
+        backgroundColor:"#1C1C1E"
+    },
 })
 
 export default stylesMedicacao
