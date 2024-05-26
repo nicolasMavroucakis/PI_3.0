@@ -11,16 +11,13 @@ export default function Configuracoes() {
     const {modoEscuro, setModoEscuro} = useContext(GlobalContext)
 
     const toggleAlarm = () => {
-        if (modoEscuro == false) {
-            setModoEscuro(true)
-        } else {
-            setModoEscuro(false)
-        }
+        setModoEscuro(prevModoEscuro => !prevModoEscuro); // Alternar entre verdadeiro e falso
     }
     
     const router = useRouter();
 
     const handleVoltar = () => {
+      setModoEscuro(modoEscuro); // Salva a alteração antes de voltar
       router.back();
     };
 
