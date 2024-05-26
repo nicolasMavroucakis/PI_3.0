@@ -1,11 +1,20 @@
 import React, { createContext, useState, useEffect, Dispatch, SetStateAction, ReactNode } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+interface Usuario {
+    nome: string;
+    e_mail: string;
+    altura: string;
+    peso: string;
+    nascimento: string;
+    idade?: number;
+}
+
 interface GlobalContextType {
     medicacao: any[];
     setMedicacao: Dispatch<SetStateAction<any[]>>;
-    usuario: any;
-    setUsuario: Dispatch<SetStateAction<any>>;
+    usuario: Usuario;
+    setUsuario: Dispatch<SetStateAction<Usuario>>;
     modoEscuro: boolean;
     setModoEscuro: Dispatch<SetStateAction<boolean>>;
 }
@@ -13,7 +22,14 @@ interface GlobalContextType {
 export const GlobalContext = createContext<GlobalContextType>({
     medicacao: [],
     setMedicacao: () => {},
-    usuario: {},
+    usuario: {
+        nome: "Gustavo Perez",
+        e_mail: "gustavo.perez@gmail.com",
+        altura: "1.85",
+        peso: "65",
+        nascimento: "1995-05-10",
+        idade: 0
+    },
     setUsuario: () => {},
     modoEscuro: false,
     setModoEscuro: () => {}
@@ -21,14 +37,26 @@ export const GlobalContext = createContext<GlobalContextType>({
 
 export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [medicacao, setMedicacao] = useState<any[]>([]);
-    const [usuario, setUsuario] = useState<any>({
+    const [usuario, setUsuario] = useState<Usuario>({
         nome: "Gustavo Perez",
         e_mail: "gustavo.perez@gmail.com",
         altura: "1.85",
         peso: "65",
-        nascimento: "10/05/1995"
+        nascimento: "1995-05-10",
+        idade: 0
     });
     const [modoEscuro, setModoEscuro] = useState<boolean>(false);
+
+    const calcularIdade = (dataNascimento: string): number => {
+        const hoje = new Date();
+        const nascimento = new Date(dataNascimento);
+        let idade = hoje.getFullYear() - nascimento.getFullYear();
+        const mes = hoje.getMonth() - nascimento.getMonth();
+        if (mes < 0 || (mes === 0 && hoje.getDate() < nascimento.getDate())) {
+            idade--;
+        }
+        return idade;
+    };
 
     useEffect(() => {
         const loadAsyncData = async () => {
@@ -40,7 +68,12 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
 
                 const savedUsuario = await AsyncStorage.getItem('usuario');
                 if (savedUsuario) {
-                    setUsuario(JSON.parse(savedUsuario));
+                    const parsedUsuario = JSON.parse(savedUsuario);
+                    if (parsedUsuario.nascimento) {
+                        parsedUsuario.nascimento = new Date(parsedUsuario.nascimento).toISOString().split('T')[0];
+                        parsedUsuario.idade = calcularIdade(parsedUsuario.nascimento);
+                    }
+                    setUsuario(parsedUsuario);
                 }
 
                 const savedModoEscuro = await AsyncStorage.getItem('modoEscuro');
@@ -70,16 +103,9 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
     }, [medicacao, usuario, modoEscuro]);
 
     useEffect(() => {
-        console.log("Medicacao atualizada:", medicacao);
-    }, [medicacao]);
-
-    useEffect(() => {
-        console.log("Usuario atualizado:", usuario);
-    }, [usuario]);
-
-    useEffect(() => {
-        console.log("Modo Escuro atualizado:", modoEscuro);
-    }, [modoEscuro]);
+        const idade = calcularIdade(usuario.nascimento);
+        setUsuario(prevUsuario => ({ ...prevUsuario, idade }));
+    }, [usuario.nascimento]);
 
     return (
         <GlobalContext.Provider value={{ medicacao, setMedicacao, usuario, setUsuario, modoEscuro, setModoEscuro }}>

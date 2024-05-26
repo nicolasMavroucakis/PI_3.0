@@ -4,30 +4,19 @@ import styleHome from "../../styles/styleHome";
 import React from "react";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/aaaa";
+import Header from "../../components/Header";
 
 export default function Home() {
     const {usuario, setUsuario} = useContext(GlobalContext)
 
     return (
         <View>
-            <View style={styleHome.divUsuario}>
-                <View style={{marginLeft:10,marginTop:5}}>
-                    <Link href={"../../configuracoes"}>
-                        <View>
-                            <Image style={{width:30, height:30}} source={require("../../../../assets/configuracoes.png")}/>
-                        </View>
-                    </Link>
-                </View>
-                <View style={styleHome.containerUsuario}>
-                    <Image source={require('../../../../assets/user.png')} style={styleHome.imgUsuario} />
-                    <Link href={"../../perfil"} style={styleHome.nomeUsuario}><Text>{usuario.nome}</Text></Link>
-                </View>
-            </View>
+            <Header/>
             <View>
                 <View style={styleHome.divTotal}>
                     <Image source={require('../../../../assets/user.png')} style={styleHome.imgInfo}></Image>
-                    <Text style={styleHome.divInfo1}>Nome Usuário, Idade</Text>
-                    <Text style={styleHome.divInfo2}>Altura, Peso</Text>
+                    <Text style={styleHome.divInfo1}>{usuario.nome}, {usuario.idade}</Text>
+                    <Text style={styleHome.divInfo2}>{usuario.altura}m  {usuario.peso}kg</Text>
                 </View>
             </View>
             <View style={styleHome.proximosEventos}>
