@@ -6,6 +6,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Link } from 'expo-router';
 import { useContext } from 'react';
 import { GlobalContext } from '../../context/aaaa';
+import Header from '../../components/Header';
 
 export default function Consultas({ modoEscuro, toggleModoEscuro }) {
     const [modalVisible, setModalVisible] = useState(false)
@@ -60,19 +61,7 @@ export default function Consultas({ modoEscuro, toggleModoEscuro }) {
 
     return (
         <View style={{ flex: 1, backgroundColor: modoEscuro ? '#000000' : '#FFFFFF' }}>
-            <View style={stylesConsulta.divUsuario}>
-                <View style={{marginLeft:10}}>
-                    <Link href={"../../configuracoes"}>
-                        <View>
-                            <Image style={{width:30, height:30}} source={require("../../../../assets/configuracoes.png")}/>
-                        </View>
-                    </Link>
-                </View>
-                <View style={stylesConsulta.containerUsuario}>
-                    <Image source={require('../../../../assets/user.png')} style={stylesConsulta.imgUsuario} />
-                    <Link href="../../perfil" style={stylesConsulta.nomeUsuario}><Text>{usuario.nome}</Text></Link>
-                </View>
-            </View>
+            <Header/>
             <View style={stylesConsulta.container}>
                 <Text style={[stylesConsulta.title]}>
                     Consultas

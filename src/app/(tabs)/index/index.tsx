@@ -5,15 +5,15 @@ import React from "react";
 import { useContext } from "react";
 import { GlobalContext } from "../../context/aaaa";
 import { useState } from "react";
+import Header from "../../components/Header";
 
 export default function Home() {
     const {usuario, setUsuario} = useContext(GlobalContext)
     const imc = (parseFloat(usuario.altura) * parseFloat(usuario.altura)) / parseInt(usuario.peso);
     const {modoEscuro} = useContext(GlobalContext)
 
-    return !modoEscuro ? (
-
-        <View >
+    return !modoEscuro ? ( 
+        <View>
             <View style={styleHome.divUsuario}>
                 <View style={{marginLeft:10,marginTop:5}}>
                     <Link href={"../../configuracoes"}>
@@ -31,7 +31,7 @@ export default function Home() {
                 <View style={styleHome.divTotal}>
                     <Image source={require('../../../../assets/user.png')} style={styleHome.imgInfo}></Image>
                     <Text style={styleHome.divInfo1}>{usuario.nome}, {usuario.idade}</Text>
-                    <Text style={styleHome.divInfo2}>{usuario.altura}M, {usuario.peso}KG</Text>
+                    <Text style={styleHome.divInfo2}>{usuario.altura}M, {usuario.peso}Kg</Text>
                 </View>
             </View>
             <View style={styleHome.proximosEventos}>

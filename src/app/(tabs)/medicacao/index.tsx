@@ -6,6 +6,7 @@ import { Image } from "react-native";
 import { useNavigation } from "@react-navigation/native"; 
 import { Link } from "expo-router";
 import { GlobalContext } from "../../context/aaaa";
+import Header from "../../components/Header";
 
 export default function Medicacao() {
     const { medicacao, setMedicacao } = useContext(GlobalContext)
@@ -35,19 +36,7 @@ export default function Medicacao() {
 
     return (
             <View style={{ flex: 1 }}>
-                <View style={stylesMedicacao.divUsuario}>
-                    <View style={{marginLeft:10}}>
-                        <Link href={"../../configuracoes"}>
-                            <View>
-                                <Image style={{width:30, height:30}} source={require("../../../../assets/configuracoes.png")}/>
-                            </View>
-                        </Link>
-                    </View>
-                    <View style={stylesMedicacao.containerUsuario}>
-                        <Image source={require('../../../../assets/user.png')} style={stylesMedicacao.imgUsuario} />
-                        <Link href={"../../perfil"} style={stylesMedicacao.nomeUsuario}><Text>{usuario.nome}</Text></Link>
-                    </View>
-                </View>
+                <Header/>
                 <View style={stylesMedicacao.header}>
                     <View style={stylesMedicacao.headerText}>
                         <Text style={{ fontSize: 30 }}>

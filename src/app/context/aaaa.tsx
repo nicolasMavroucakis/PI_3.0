@@ -27,7 +27,7 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         altura: "1.85",
         peso: "65",
         nascimento: "10/05/1995",
-        idade: "46"
+        idade: "45"
     });
     const [modoEscuro, setModoEscuro] = useState<boolean>(false);
 
