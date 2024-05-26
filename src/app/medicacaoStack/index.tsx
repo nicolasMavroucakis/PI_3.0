@@ -11,8 +11,7 @@ export default function MedicacaoAdd() {
     const [descricao, setDescricao] = useState("");
     const [onOff, setOnOff] = useState(true);
 
-    // const { medicacao, setMedicacao } = useMedicacaoContext();
-    const { medicacao, setMedicacao } = useContext(GlobalContext)
+    const { medicacao, setMedicacao } = useContext(GlobalContext);
     const navigation = useNavigation();
 
     const toggleAlarm = () => {
@@ -34,7 +33,7 @@ export default function MedicacaoAdd() {
             key: Date.now().toString()
         };
         setMedicacao(medicacao => {
-            const updatedMedicacao = [...medicacao, novoMedicamento]; // Use prevMedicacao em vez de medicacao
+            const updatedMedicacao = [...medicacao, novoMedicamento];
             console.log("Medicação antes:", medicacao);
             console.log("Medicação adicionada:", novoMedicamento);
             console.log("Medicação atualizada:", updatedMedicacao);
@@ -89,7 +88,7 @@ export default function MedicacaoAdd() {
                             </TouchableOpacity>
                         </View>
                         <View style={styleMedicacaoAdiciona.ButtonViewStyle}>
-                            <Button title="Adicionar" color={'black'} onPress={handleAddMedicacao} />
+                            <Button title="Adicionar" color={'black'} onPress={handleAddMedicacao}/>
                         </View>
                     </View>
                 </ScrollView>

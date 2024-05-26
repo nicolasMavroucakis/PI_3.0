@@ -74,6 +74,7 @@ export default function Perfil() {
         });
     }
 
+
     useEffect(() => {
         if (!editar) {
             handleCadastrar();
@@ -193,37 +194,34 @@ export default function Perfil() {
             </View>
             <View style={stylePerfil.TelaDisplay}>
                 <TextInput
-                    placeholder={usuario.nome}
-                    textContentType="name"
+                    placeholder={editar ? inputName : usuario.nome}
                     style={[stylePerfil.InputStyle, { width: screenWidth * 0.75 }]}
                     onChangeText={(text) => handleChange("name", text)}
-                    value={inputName}
+                    value={editar ? inputName : usuario.nome}
                 />
                 <TextInput
-                    placeholder={usuario.e_mail}
-                    textContentType="emailAddress"
+                    placeholder={editar ? inputEmail : usuario.e_mail}
                     style={[stylePerfil.InputStyle, { width: screenWidth * 0.75 }]}
                     onChangeText={(text) => handleChange("email", text)}
-                    value={inputEmail}
+                    value={editar ? inputEmail : usuario.e_mail}
                 />
                 <TextInput
-                    placeholder={usuario.nascimento}
-                    textContentType="birthdateYear"
+                    placeholder={editar ? inputNascimento : usuario.nascimento}
                     style={[stylePerfil.InputStyle, { width: screenWidth * 0.75 }]}
                     onChangeText={(text) => handleChange("nascimento", text)}
-                    value={inputNascimento}
+                    value={editar ? inputNascimento : usuario.nascimento}
                 />
                 <TextInput
-                    placeholder={usuario.altura}
+                    placeholder={editar ? inputAltura : usuario.altura}
                     style={[stylePerfil.InputStyle, { width: screenWidth * 0.75 }]}
                     onChangeText={(text) => handleChange("altura", text)}
-                    value={inputAltura}
+                    value={editar ? inputAltura : usuario.altura}
                 />
                 <TextInput
-                    placeholder={usuario.peso}
+                    placeholder={editar ? inputPeso : usuario.peso}
                     style={[stylePerfil.InputStyle, { width: screenWidth * 0.75 }]}
                     onChangeText={(text) => handleChange("peso", text)}
-                    value={inputPeso}
+                    value={editar ? inputPeso : usuario.peso}
                 />
             </View>
             <View style={stylePerfil.TelaDisplay}>

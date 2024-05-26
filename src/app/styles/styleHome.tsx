@@ -115,6 +115,39 @@ const styleHome = StyleSheet.create({
         display:'flex',
         alignItems:'center'
     },
+    divUsuarioDark:{
+        backgroundColor:"black",
+        display:"flex",
+        flexDirection:"row",
+        alignItems:"center",
+        justifyContent:"space-between"
+    },
+    nomeUsuarioDark:{
+        fontSize: screenWidth * 0.035,
+        fontStyle:"normal",
+        fontWeight:"400",
+        color:"white",
+        textAlign: "right",
+        marginRight: screenWidth * 0.01,
+    },
+    divInfo1Dark:{
+        textAlign:"center",
+        fontSize:screenWidth * 0.07,
+        fontStyle:"normal",
+        fontWeight:"400",
+        color:"white",
+        marginTop:screenWidth * 0.05
+    },
+    divInfo2Dark:{
+        textAlign:"center",
+        fontSize:screenWidth * 0.07,
+        fontStyle:"normal",
+        fontWeight:"400",
+        color:"white",
+    },
+    viewTotal: {
+        backgroundColor: "#1C1C1E"
+    }
 })
 
 export default styleHome
