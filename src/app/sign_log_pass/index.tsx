@@ -7,6 +7,8 @@ import StartFirebase from '../../crud/firebaseConfig';
 import { ref, set } from 'firebase/database';
 import React from 'react';
 import { RadioButton } from 'react-native-paper';
+import { GlobalContext } from '../context/aaaa';
+import { useContext } from 'react';
 
 export default function Cadastro() {
   const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
@@ -20,6 +22,7 @@ export default function Cadastro() {
   const [height, setHeight] = useState('')
   const [weight, setWeight] = useState('')
   const [gender, setGender] = useState('')
+  const {modoEscuro} = useContext(GlobalContext)
 
   const db = StartFirebase()
 
@@ -85,7 +88,7 @@ export default function Cadastro() {
         });
   }
 
-  return (
+  return !modoEscuro ? (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
       <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent:'center'  }}>
         <View style={style.TelaDisplay}>
@@ -126,5 +129,41 @@ export default function Cadastro() {
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-  );
+  ) : (
+    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent:'center', backgroundColor: "#1C1C1E"  }}>
+        <View style={style.TelaDisplay}>
+          <View style={style.TitleImg}>
+            <Text style={[style.title, {color: "white"}]}>Faça o seu Cadastro</Text>
+            <Image source={require('../../../assets/logo.png')}/>
+          </View>
+          <View>
+          <TextInput placeholder="Nome" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('name', text)} />
+            <TextInput placeholder="E-mail" textContentType="emailAddress" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('email', text)} />
+            <TextInput placeholder="Nascimento" textContentType="birthdateYear" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('birthDate', text)} />
+            <TextInput placeholder="Senha" textContentType="password" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('password', text)} />
+            <TextInput placeholder="Confirmar Senha" textContentType="password" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
+            <TextInput placeholder="Altura" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('height', text)} />
+            <TextInput placeholder="Peso" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('weight', text)} />
+            <TextInput placeholder="Genero" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('generot', text)} />
+          </View>
+          <View style={[style.ButtonViewStyle, { width: inputWidth }]}>
+            <Link href={"../(tabs)"} asChild style={{width:"100%", height:"100%"}} onPress={() => createUserInDatabase(db)}>
+              <Button title="Cadastrar" color={'black'} />
+            </Link>
+          </View>
+          <View style={style.ButtonLinkStyle}>
+            <View>
+                <Text style={{color: "white"}}>Já possui cadastro?</Text>
+            </View>
+            <View>
+                <Link href={'./Login'} asChild>
+                    <Button title="Faça Login" />
+                </Link>
+            </View>
+          </View>
+        </View>
+      </ScrollView>
+    </KeyboardAvoidingView>
+  )
 }

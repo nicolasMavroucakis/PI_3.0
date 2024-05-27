@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { TextInput, View, Button, Text, Dimensions, ScrollView, KeyboardAvoidingView, Alert } from "react-native";
 import { Image } from "react-native";
 import style from "./style";
@@ -8,6 +8,7 @@ import { ref, set, update, remove, get, child } from 'firebase/database';
 import { getAuth, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import * as Google from 'expo-auth-session/providers/google';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { GlobalContext } from "../context/aaaa";
 
 export default function Login() {
     const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
@@ -15,6 +16,7 @@ export default function Login() {
     const hrWidth = screenWidth * 0.25;
 
     const [email, setEmail] = useState('');
+    const {modoEscuro} = useContext(GlobalContext)
     const [password, setPassword] = useState('');
     const [user, setUser] = useState(null);  // Adiciona o estado para o usuário
 
@@ -66,7 +68,7 @@ export default function Login() {
         }
     };
 
-    return (
+    return !modoEscuro ? (
         <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
             <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent: 'center' }}>
                 <View style={style.TelaDisplay}>
@@ -135,5 +137,74 @@ export default function Login() {
                 </View>
             </ScrollView>
         </KeyboardAvoidingView>
-    );
+    ) : (
+        <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+            <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent: 'center', backgroundColor: "#1C1C1E" }}>
+                <View style={style.TelaDisplay}>
+                    <View style={style.TitleImg}>
+                        <Image source={require('../../../assets/logo.png')} />
+                    </View>
+                    <View>
+                        <View style={style.DisplaFlex}>
+                            <View style={[style.Img, { position: 'relative', left: -10 }]}>
+                                <Image source={require('../../../assets/emailDark.png')} style={{ width: 25, height: 25 }} />
+                            </View>
+                            <View>
+                                <TextInput
+                                    placeholder="E-mail"
+                                    textContentType="emailAddress"
+                                    style={[style.InputStyleDark, { width: inputWidth, color: "white" }]}
+                                    onChangeText={(text) => handleChange('email', text)}
+                                />
+                            </View>
+                        </View>
+                        <View style={style.DisplaFlex}>
+                            <View style={[style.Img, { position: 'relative', left: -8 }]}>
+                                <Image source={require('../../../assets/passwordDark.png')} style={{ width: 40, height: 40 }} />
+                            </View>
+                            <View>
+                                <TextInput
+                                    placeholder="Senha"
+                                    textContentType="password"
+                                    secureTextEntry={true}
+                                    style={[style.InputStyleDark, { width: inputWidth, color: "white", left: -8 }]}
+                                    onChangeText={(text) => handleChange('password', text)}
+                                />
+                            </View>
+                        </View>
+                        <View style={{ alignItems: 'flex-end', position: 'relative', top: 10 }}>
+                            <Link href={'./Password_forget'} asChild>
+                                <Button title="Esqueceu a senha?" />
+                            </Link>
+                        </View>
+                    </View>
+                    <View style={[style.ButtonViewStyle, { width: inputWidth }]}>
+                        <Link href={'../(tabs)'} asChild>
+                            <Button title="Log In" color={'black'} onPress={() => {console.warn('Email:', email, 'Password:', password); handleLogin();}} />
+                        </Link>
+                    </View>
+                    <View style={[style.ButtonLinkStyle, { position: 'relative', top: 15 }]}>
+                        <View style={[style.HrDark, { width: hrWidth }]}></View>
+                        <View>
+                            <Text style={{ marginLeft: 5, marginRight: 5, color: "white" }}>Entre com</Text>
+                        </View>
+                        <View style={[style.HrDark, { width: hrWidth }]}></View>
+                    </View>
+                    <View style={{ alignItems: 'center', marginTop: 10 }}>
+                        <Button title="Login com o Google" onPress={handleGoogleLogin} />
+                    </View>
+                    <View style={style.ButtonLinkStyle}>
+                        <View>
+                            <Text style={{color: "white"}}>Não Possui conta?</Text>
+                        </View>
+                        <View>
+                            <Link href={'/sign_log_pass'} asChild>
+                                <Button title="Cadastre-se" />
+                            </Link>
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
+    )
 }

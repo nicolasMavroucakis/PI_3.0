@@ -60,8 +60,20 @@ const style = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         flexDirection:'row'
-    }
-    
+    },
+    InputStyleDark: {
+        height:60,
+        width:300,
+        borderBottomColor:'white',
+        borderBottomWidth:3,
+        marginTop:10,
+        fontSize:20,
+        color:"white",
+    },
+    HrDark: {
+        borderColor:'white',
+        borderBottomWidth:2
+    },
 })
 
 export default style
