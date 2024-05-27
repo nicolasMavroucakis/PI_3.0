@@ -1,12 +1,21 @@
 import React, { createContext, useState, useEffect, Dispatch, SetStateAction, ReactNode, useContext } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+// Tipo específico para o estado do usuário
+interface UsuarioType {
+    nome: string;
+    e_mail: string;
+    altura: string;
+    peso: string;
+    nascimento: string; // Data de nascimento no formato DD/MM/YYYY
+    idade: number;
+}
 
 interface GlobalContextType {
     medicacao: any[];
     setMedicacao: Dispatch<SetStateAction<any[]>>;
-    usuario: any;
-    setUsuario: Dispatch<SetStateAction<any>>;
+    usuario: UsuarioType;
+    setUsuario: (usuario: Partial<UsuarioType>) => void;
     modoEscuro: boolean;
     setModoEscuro: Dispatch<SetStateAction<boolean>>;
     consulta: any[];
@@ -16,7 +25,14 @@ interface GlobalContextType {
 export const GlobalContext = createContext<GlobalContextType>({
     medicacao: [],
     setMedicacao: () => {},
-    usuario: {},
+    usuario: {
+        nome: "",
+        e_mail: "",
+        altura: "",
+        peso: "",
+        nascimento: "",
+        idade: 0
+    },
     setUsuario: () => {},
     modoEscuro: false,
     setModoEscuro: () => {},
@@ -31,11 +47,24 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         e_mail: "gustavo.perez@gmail.com",
         altura: "1.85",
         peso: "65",
-        nascimento: "10/05/1945",
+        nascimento: "10/05/1995",
         idade: "45"
     });
     const [modoEscuro, setModoEscuro] = useState<boolean>(false);
     const [consulta, setConsulta] = useState<any[]>([]);
+
+    // Função para calcular a idade com base na data de nascimento no formato DD/MM/YYYY
+    const calcularIdade = (nascimento: string): number => {
+        const [dia, mes, ano] = nascimento.split('/').map(Number);
+        const hoje = new Date();
+        const dataNascimento = new Date(ano, mes - 1, dia); // Mês é zero-indexado em JavaScript
+        let idade = hoje.getFullYear() - dataNascimento.getFullYear();
+        const diferencaMes = hoje.getMonth() - dataNascimento.getMonth();
+        if (diferencaMes < 0 || (diferencaMes === 0 && hoje.getDate() < dataNascimento.getDate())) {
+            idade--;
+        }
+        return idade;
+    };
 
     useEffect(() => {
         const loadAsyncData = async () => {
@@ -47,7 +76,13 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
 
                 const savedUsuario = await AsyncStorage.getItem('usuario');
                 if (savedUsuario) {
-                    setUsuario(JSON.parse(savedUsuario));
+                    const parsedUsuario = JSON.parse(savedUsuario);
+                    setNome(parsedUsuario.nome);
+                    setEmail(parsedUsuario.e_mail);
+                    setAltura(parsedUsuario.altura);
+                    setPeso(parsedUsuario.peso);
+                    setNascimento(parsedUsuario.nascimento);
+                    setIdade(calcularIdade(parsedUsuario.nascimento));
                 }
 
                 const savedModoEscuro = await AsyncStorage.getItem('modoEscuro');
@@ -70,6 +105,14 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
     useEffect(() => {
         const saveAsyncData = async () => {
             try {
+                const usuario = {
+                    nome,
+                    e_mail,
+                    altura,
+                    peso,
+                    nascimento,
+                    idade: calcularIdade(nascimento)
+                };
                 await AsyncStorage.setItem('medicacao', JSON.stringify(medicacao));
                 await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
                 await AsyncStorage.setItem('modoEscuro', JSON.stringify(modoEscuro));
@@ -80,15 +123,21 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         };
 
         saveAsyncData();
-    }, [medicacao, usuario, modoEscuro, consulta]);
+    }, [medicacao, nome, e_mail, altura, peso, nascimento, modoEscuro, consulta]);
 
+    // Atualizar a idade sempre que a data de nascimento mudar
+    useEffect(() => {
+        setIdade(calcularIdade(nascimento));
+    }, [nascimento]);
+
+    // Logs de depuração para ver as mudanças nos estados
     useEffect(() => {
         console.log("Medicacao atualizada:", medicacao);
     }, [medicacao]);
 
     useEffect(() => {
-        console.log("Usuario atualizado:", usuario);
-    }, [usuario]);
+        console.log("Usuario atualizado:", { nome, e_mail, altura, peso, nascimento, idade });
+    }, [nome, e_mail, altura, peso, nascimento, idade]);
 
     useEffect(() => {
         console.log("Modo Escuro atualizado:", modoEscuro);
@@ -99,7 +148,25 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
     }, [consulta]);
 
     return (
-        <GlobalContext.Provider value={{ medicacao, setMedicacao, usuario, setUsuario, modoEscuro, setModoEscuro, consulta, setConsulta }}>
+        <GlobalContext.Provider value={{
+            medicacao,
+            setMedicacao,
+            usuario: { nome, e_mail, altura, peso, nascimento, idade },
+            setUsuario: (usuario: Partial<UsuarioType>) => {
+                if (usuario.nome !== undefined) setNome(usuario.nome);
+                if (usuario.e_mail !== undefined) setEmail(usuario.e_mail);
+                if (usuario.altura !== undefined) setAltura(usuario.altura);
+                if (usuario.peso !== undefined) setPeso(usuario.peso);
+                if (usuario.nascimento !== undefined) {
+                    setNascimento(usuario.nascimento);
+                    setIdade(calcularIdade(usuario.nascimento));
+                }
+            },
+            modoEscuro,
+            setModoEscuro,
+            consulta,
+            setConsulta
+        }}>
             {children}
         </GlobalContext.Provider>
     );

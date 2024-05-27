@@ -10,7 +10,7 @@ import { GlobalContext } from "../context/aaaa";
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
 export default function Perfil() {
-    const { usuario, setUsuario } = useContext(GlobalContext);
+    const { usuario, setUsuario, modoEscuro } = useContext(GlobalContext);
     const navigation = useNavigation();
     const [bottomPadding, setBottomPadding] = useState(0);
     const [editar, setEditar] = useState(false);
@@ -19,7 +19,14 @@ export default function Perfil() {
     const [inputNascimento, setInputNascimento] = useState(usuario.nascimento);
     const [inputAltura, setInputAltura] = useState(usuario.altura);
     const [inputPeso, setInputPeso] = useState(usuario.peso);
-    const {modoEscuro} = useContext(GlobalContext)
+
+    useEffect(() => {
+        setInputName(usuario.nome);
+        setInputEmail(usuario.e_mail);
+        setInputNascimento(usuario.nascimento);
+        setInputAltura(usuario.altura);
+        setInputPeso(usuario.peso);
+    }, [usuario]);
 
     const handleVoltar = () => {
         navigation.goBack();

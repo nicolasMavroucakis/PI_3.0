@@ -31,7 +31,7 @@ export default function Home() {
                 <View style={styleHome.divTotal}>
                     <Image source={require('../../../../assets/user.png')} style={styleHome.imgInfo}></Image>
                     <Text style={styleHome.divInfo1}>{usuario.nome}, {usuario.idade}</Text>
-                    <Text style={styleHome.divInfo2}>{usuario.altura}M, {usuario.peso}Kg</Text>
+                    <Text style={styleHome.divInfo2}>{usuario.altura}m, {usuario.peso}kg</Text>
                 </View>
             </View>
             <View style={styleHome.proximosEventos}>
