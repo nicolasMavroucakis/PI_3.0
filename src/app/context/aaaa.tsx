@@ -42,14 +42,12 @@ export const GlobalContext = createContext<GlobalContextType>({
 
 export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [medicacao, setMedicacao] = useState<any[]>([]);
-    const [usuario, setUsuario] = useState<any>({
-        nome: "Gustavo Perez",
-        e_mail: "gustavo.perez@gmail.com",
-        altura: "1.85",
-        peso: "65",
-        nascimento: "10/05/1995",
-        idade: "45"
-    });
+    const [nome, setNome] = useState<string>("Gustavo Perez");
+    const [e_mail, setEmail] = useState<string>("gustavo.perez@gmail.com");
+    const [altura, setAltura] = useState<string>("1.85");
+    const [peso, setPeso] = useState<string>("65");
+    const [nascimento, setNascimento] = useState<string>("10/05/1979");
+    const [idade, setIdade] = useState<number>(0);
     const [modoEscuro, setModoEscuro] = useState<boolean>(false);
     const [consulta, setConsulta] = useState<any[]>([]);
 
