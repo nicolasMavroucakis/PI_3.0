@@ -81,8 +81,8 @@ export default function Login() {
                                 <Image source={require('../../../assets/email.png')} style={{ width: 40, height: 40 }} />
                             </View>
                             <View>
+                                <Text style={{color:"white", fontSize: 20}}>Email: </Text>
                                 <TextInput
-                                    placeholder="E-mail"
                                     textContentType="emailAddress"
                                     style={[style.InputStyle, { width: inputWidth }]}
                                     onChangeText={(text) => handleChange('email', text)}
@@ -94,8 +94,8 @@ export default function Login() {
                                 <Image source={require('../../../assets/password.png')} style={{ width: 40, height: 40 }} />
                             </View>
                             <View>
+                                <Text style={{color:"white", fontSize: 20}}>Senha: </Text>
                                 <TextInput
-                                    placeholder="Senha"
                                     textContentType="password"
                                     secureTextEntry={true}
                                     style={[style.InputStyle, { width: inputWidth }]}
@@ -146,28 +146,22 @@ export default function Login() {
                     </View>
                     <View>
                         <View style={style.DisplaFlex}>
-                            <View style={[style.Img, { position: 'relative', left: -10 }]}>
-                                <Image source={require('../../../assets/emailDark.png')} style={{ width: 25, height: 25 }} />
-                            </View>
-                            <View>
+                            <View style={{marginBottom: 20}}>
+                                <Text style={{color:"white", fontSize: 20}}>Email: </Text>
                                 <TextInput
-                                    placeholder="E-mail"
                                     textContentType="emailAddress"
-                                    style={[style.InputStyleDark, { width: inputWidth, color: "white" }]}
+                                    style={[style.InputStyleDark, { width: inputWidth, color: "white", paddingLeft:10 }]}
                                     onChangeText={(text) => handleChange('email', text)}
                                 />
                             </View>
                         </View>
                         <View style={style.DisplaFlex}>
-                            <View style={[style.Img, { position: 'relative', left: -8 }]}>
-                                <Image source={require('../../../assets/passwordDark.png')} style={{ width: 40, height: 40 }} />
-                            </View>
                             <View>
+                                <Text style={{color:"white", fontSize: 20}}>Senha: </Text>
                                 <TextInput
-                                    placeholder="Senha"
                                     textContentType="password"
                                     secureTextEntry={true}
-                                    style={[style.InputStyleDark, { width: inputWidth, color: "white", left: -8 }]}
+                                    style={[style.InputStyleDark, { width: inputWidth, color: "white", paddingLeft:10 }]}
                                     onChangeText={(text) => handleChange('password', text)}
                                 />
                             </View>

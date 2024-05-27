@@ -2,11 +2,13 @@ import { TextInput, View, Button, Text, Dimensions, ScrollView, KeyboardAvoiding
 import { Image } from "react-native";
 import style from "./style";
 import { Link } from "expo-router";
-import React from "react";
+import React, { useContext } from "react";
+import { GlobalContext, GlobalContextProvider } from "../context/aaaa";
 
 export default function Password_forget () {
     const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
     const inputWidth = screenWidth * 0.75
+    const {modoEscuro} = useContext(GlobalContext)
 
     const handleChange = (text) => {
         const email = text

@@ -138,14 +138,38 @@ export default function Cadastro() {
             <Image source={require('../../../assets/logo.png')}/>
           </View>
           <View>
-          <TextInput placeholder="Nome" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('name', text)} />
-            <TextInput placeholder="E-mail" textContentType="emailAddress" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('email', text)} />
-            <TextInput placeholder="Nascimento" textContentType="birthdateYear" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('birthDate', text)} />
-            <TextInput placeholder="Senha" textContentType="password" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('password', text)} />
-            <TextInput placeholder="Confirmar Senha" textContentType="password" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
-            <TextInput placeholder="Altura" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('height', text)} />
-            <TextInput placeholder="Peso" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('weight', text)} />
-            <TextInput placeholder="Genero" style={[style.InputStyleDark, { width: inputWidth, color: "white" }]} onChangeText={(text) => handleChange('generot', text)} />
+            <View>
+              <Text style={{color:"white", fontSize: 20}}>Nome: </Text>
+              <TextInput style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('name', text)} />
+            </View>
+            <View>
+              <Text style={{color:"white", fontSize: 20}}>E-mail: </Text>
+              <TextInput textContentType="emailAddress" style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('email', text)} />
+            </View>
+            <View>
+              <Text style={{color:"white", fontSize: 20}}>Nascimento:  </Text>
+              <TextInput textContentType="birthdateYear" style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('birthDate', text)} />
+            </View>
+            <View>
+              <Text style={{color:"white", fontSize: 20}}>Password: </Text>
+              <TextInput textContentType="password" style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('password', text)} />
+            </View>
+            <View>
+              <Text style={{color:"white", fontSize: 20}}>Confirmar Senha: </Text>
+              <TextInput textContentType="password" style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
+            </View>
+            <View>
+              <Text style={{color:"white", fontSize: 20}}>Altura: </Text>
+              <TextInput style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('height', text)} />
+            </View>
+            <View>
+              <Text style={{color:"white", fontSize: 20}}>Peso: </Text>
+              <TextInput style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('weight', text)} />
+            </View>
+            <View>
+              <Text style={{color:"white", fontSize: 20}}>Genero: </Text>
+              <TextInput style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('generot', text)} />
+            </View>
           </View>
           <View style={[style.ButtonViewStyle, { width: inputWidth }]}>
             <Link href={"../(tabs)"} asChild style={{width:"100%", height:"100%"}} onPress={() => createUserInDatabase(db)}>

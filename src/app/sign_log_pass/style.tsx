@@ -64,8 +64,8 @@ const style = StyleSheet.create({
     InputStyleDark: {
         height:60,
         width:300,
-        borderBottomColor:'white',
-        borderBottomWidth:3,
+        backgroundColor: "grey",
+        borderRadius: 10,
         marginTop:10,
         fontSize:20,
         color:"white",
