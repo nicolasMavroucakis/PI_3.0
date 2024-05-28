@@ -7,9 +7,9 @@ import { GlobalContext } from "../../context/aaaa";
 import { useState } from "react";
 import Header from "../../components/Header";
 
-export default function Home() {
+
+export default function Home({ route }) {
     const {usuario, setUsuario} = useContext(GlobalContext)
-    const imc = (parseFloat(usuario.altura) * parseFloat(usuario.altura)) / parseInt(usuario.peso);
     const {modoEscuro} = useContext(GlobalContext)
 
     return !modoEscuro ? ( 
@@ -51,9 +51,13 @@ export default function Home() {
                 <View style={styleHome.statusDivHeader}>
                     <View style={styleHome.statusDiv}>
                         <Text style={[styleHome.statusHeader, {color:"black"}]}>IMC</Text>
-                        <View style={styleHome.statusFooter}>
-                            <Text style={styleHome.statusInfo}>{imc}</Text>
-                            <Text style={styleHome.statusInfo}>Obesidade I</Text>
+                        <View>
+                            <Link href={'../imc'}>
+                                <View style={styleHome.statusFooter}>
+                                    <Text style={styleHome.statusInfo}>{}</Text>
+                                    <Text style={styleHome.statusInfo}>Obesidade I</Text>
+                                </View>
+                            </Link>
                         </View>
                     </View>
                     <View style={styleHome.statusDiv}>
@@ -106,10 +110,14 @@ export default function Home() {
                     <View style={styleHome.statusDivHeader}>
                         <View style={styleHome.statusDiv}>
                             <Text style={styleHome.statusHeader}>IMC</Text>
-                            <View style={styleHome.statusFooter}>
-                                <Text style={styleHome.statusInfo}>{imc}</Text>
-                                <Text style={styleHome.statusInfo}>Obesidade I</Text>
-                            </View>
+                            <View>
+                            <Link href={'../imc'}>
+                                <View style={styleHome.statusFooter}>
+                                    <Text style={styleHome.statusInfo}>{}</Text>
+                                    <Text style={styleHome.statusInfo}>Obesidade I</Text>
+                                </View>
+                            </Link>
+                        </View>
                         </View>
                         <View style={styleHome.statusDiv}>
                             <Text style={styleHome.statusHeader}>Colesterol</Text>
