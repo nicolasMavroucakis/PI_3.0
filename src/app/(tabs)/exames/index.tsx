@@ -13,7 +13,7 @@ export default function Perfil() {
         <View style={{flex: 1}}>
             <Header/>
             <View style={stylesExame.viewPrincipalDark}>
-                <Link href={"../sign_log_pass"} style={{color:"white"}}><Text>Cadastro</Text></Link>
+                <Link href={"../../sign_log_pass"} style={{color:"white"}}><Text>Cadastro</Text></Link>
             </View>
             <View style={{flex: 1, backgroundColor: "#1C1C1E"}}>
                 <View style={stylesMedicacao.header}>
@@ -22,7 +22,7 @@ export default function Perfil() {
                     </View>
                     <View style={stylesMedicacao.headerButton}>
                         <TouchableOpacity style={stylesMedicacao.buttonAdd}>
-                            <Link href={'../../medicacaoStack'}>
+                            <Link href={'../../examesStack'}>
                                 <AntDesign name="plus" size={28} color="white" />
                             </Link>
                         </TouchableOpacity>
@@ -34,7 +34,7 @@ export default function Perfil() {
         <View style={{flex: 1}}>
             <Header/>
             <View>
-                <Link href={"../sign_log_pass"}><Text>Cadastro</Text></Link>
+                <Link href={"../../sign_log_pass"}><Text>Cadastro</Text></Link>
             </View>
         </View>
     )
