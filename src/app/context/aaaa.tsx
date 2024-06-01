@@ -9,6 +9,8 @@ interface UsuarioType {
     peso: string;
     nascimento: string; // Data de nascimento no formato DD/MM/YYYY
     idade: number;
+    imc: number;
+    classIMC: string; // Novo campo para a classificação do IMC
 }
 
 interface GlobalContextType {
@@ -31,7 +33,9 @@ export const GlobalContext = createContext<GlobalContextType>({
         altura: "",
         peso: "",
         nascimento: "",
-        idade: 0
+        idade: 0,
+        imc: 0,
+        classIMC: ""
     },
     setUsuario: () => {},
     modoEscuro: false,
@@ -42,12 +46,16 @@ export const GlobalContext = createContext<GlobalContextType>({
 
 export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [medicacao, setMedicacao] = useState<any[]>([]);
-    const [nome, setNome] = useState<string>("Gustavo Perez");
-    const [e_mail, setEmail] = useState<string>("gustavo.perez@gmail.com");
-    const [altura, setAltura] = useState<string>("1.85");
-    const [peso, setPeso] = useState<string>("65");
-    const [nascimento, setNascimento] = useState<string>("10/05/1979");
-    const [idade, setIdade] = useState<number>(0);
+    const [usuario, setUsuario] = useState<UsuarioType>({
+        nome: "Gustavo Perez",
+        e_mail: "gustavo.perez@gmail.com",
+        altura: "1.85",
+        peso: "65",
+        nascimento: "10/05/1979",
+        idade: 0,
+        imc: 0,
+        classIMC: ""
+    });
     const [modoEscuro, setModoEscuro] = useState<boolean>(false);
     const [consulta, setConsulta] = useState<any[]>([]);
 
@@ -64,6 +72,26 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         return idade;
     };
 
+    // Função para calcular o IMC com base na altura (em metros) e no peso (em kg)
+    const calcularIMC = (altura: string, peso: string): number => {
+        const alturaMetros = parseFloat(altura);
+        const pesoKg = parseFloat(peso);
+        if (alturaMetros && pesoKg) {
+            return parseFloat((pesoKg / (alturaMetros * alturaMetros)).toFixed(2));
+        }
+        return 0;
+    };
+
+    // Função para classificar o IMC
+    const classificarIMC = (imc: number): string => {
+        if (imc < 18.5) return "Abaixo do peso";
+        if (imc >= 18.5 && imc < 24.9) return "Peso normal";
+        if (imc >= 25 && imc < 29.9) return "Sobrepeso";
+        if (imc >= 30 && imc < 34.9) return "Obesidade grau I";
+        if (imc >= 35 && imc < 39.9) return "Obesidade grau II";
+        return "Obesidade grau III";
+    };
+
     useEffect(() => {
         const loadAsyncData = async () => {
             try {
@@ -75,12 +103,13 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
                 const savedUsuario = await AsyncStorage.getItem('usuario');
                 if (savedUsuario) {
                     const parsedUsuario = JSON.parse(savedUsuario);
-                    setNome(parsedUsuario.nome);
-                    setEmail(parsedUsuario.e_mail);
-                    setAltura(parsedUsuario.altura);
-                    setPeso(parsedUsuario.peso);
-                    setNascimento(parsedUsuario.nascimento);
-                    setIdade(calcularIdade(parsedUsuario.nascimento));
+                    const imc = calcularIMC(parsedUsuario.altura, parsedUsuario.peso);
+                    setUsuario({
+                        ...parsedUsuario,
+                        idade: calcularIdade(parsedUsuario.nascimento),
+                        imc,
+                        classIMC: classificarIMC(imc)
+                    });
                 }
 
                 const savedModoEscuro = await AsyncStorage.getItem('modoEscuro');
@@ -103,14 +132,6 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
     useEffect(() => {
         const saveAsyncData = async () => {
             try {
-                const usuario = {
-                    nome,
-                    e_mail,
-                    altura,
-                    peso,
-                    nascimento,
-                    idade: calcularIdade(nascimento)
-                };
                 await AsyncStorage.setItem('medicacao', JSON.stringify(medicacao));
                 await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
                 await AsyncStorage.setItem('modoEscuro', JSON.stringify(modoEscuro));
@@ -121,45 +142,30 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         };
 
         saveAsyncData();
-    }, [medicacao, nome, e_mail, altura, peso, nascimento, modoEscuro, consulta]);
-
-    // Atualizar a idade sempre que a data de nascimento mudar
-    useEffect(() => {
-        setIdade(calcularIdade(nascimento));
-    }, [nascimento]);
-
-    // Logs de depuração para ver as mudanças nos estados
-    useEffect(() => {
-        console.log("Medicacao atualizada:", medicacao);
-    }, [medicacao]);
+    }, [medicacao, usuario, modoEscuro, consulta]);
 
     useEffect(() => {
-        console.log("Usuario atualizado:", { nome, e_mail, altura, peso, nascimento, idade });
-    }, [nome, e_mail, altura, peso, nascimento, idade]);
+        setUsuario((prevUsuario) => ({
+            ...prevUsuario,
+            idade: calcularIdade(prevUsuario.nascimento)
+        }));
+    }, [usuario.nascimento]);
 
     useEffect(() => {
-        console.log("Modo Escuro atualizado:", modoEscuro);
-    }, [modoEscuro]);
-
-    useEffect(() => {
-        console.log("Consulta atualizada:", consulta);
-    }, [consulta]);
+        const imc = calcularIMC(usuario.altura, usuario.peso);
+        setUsuario((prevUsuario) => ({
+            ...prevUsuario,
+            imc,
+            classIMC: classificarIMC(imc)
+        }));
+    }, [usuario.altura, usuario.peso]);
 
     return (
         <GlobalContext.Provider value={{
             medicacao,
             setMedicacao,
-            usuario: { nome, e_mail, altura, peso, nascimento, idade },
-            setUsuario: (usuario: Partial<UsuarioType>) => {
-                if (usuario.nome !== undefined) setNome(usuario.nome);
-                if (usuario.e_mail !== undefined) setEmail(usuario.e_mail);
-                if (usuario.altura !== undefined) setAltura(usuario.altura);
-                if (usuario.peso !== undefined) setPeso(usuario.peso);
-                if (usuario.nascimento !== undefined) {
-                    setNascimento(usuario.nascimento);
-                    setIdade(calcularIdade(usuario.nascimento));
-                }
-            },
+            usuario,
+            setUsuario: (updates: Partial<UsuarioType>) => setUsuario((prev) => ({ ...prev, ...updates })),
             modoEscuro,
             setModoEscuro,
             consulta,
