@@ -100,13 +100,13 @@ export default function Cadastro() {
             <Image source={require('../../../assets/logo.png')} />
           </View>
           <View>
-            <TextInput placeholder="Nome" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('name', text)} />
-            <TextInput placeholder="E-mail" placeholderTextColor={textStyle.color} textContentType="emailAddress" style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('email', text)} />
-            <TextInput placeholder="Nascimento" placeholderTextColor={textStyle.color} textContentType="birthdateYear" style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('birthDate', text)} />
-            <TextInput placeholder="Senha" placeholderTextColor={textStyle.color} textContentType="password" style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('password', text)} />
-            <TextInput placeholder="Confirmar Senha" placeholderTextColor={textStyle.color} textContentType="password" style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
-            <TextInput placeholder="Altura" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('height', text)} />
-            <TextInput placeholder="Peso" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('weight', text)} />
+            <TextInput placeholder="Nome" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, color:buttonTextColor }]} onChangeText={(text) => handleChange('name', text)} />
+            <TextInput placeholder="E-mail" placeholderTextColor={textStyle.color} textContentType="emailAddress" style={[inputStyle, { width: inputWidth, color:buttonTextColor }]} onChangeText={(text) => handleChange('email', text)} />
+            <TextInput placeholder="Nascimento" placeholderTextColor={textStyle.color} textContentType="birthdateYear" style={[inputStyle, { width: inputWidth, color:buttonTextColor }]} onChangeText={(text) => handleChange('birthDate', text)} />
+            <TextInput placeholder="Senha" placeholderTextColor={textStyle.color} textContentType="password" style={[inputStyle, { width: inputWidth, color:buttonTextColor }]} onChangeText={(text) => handleChange('password', text)} />
+            <TextInput placeholder="Confirmar Senha" placeholderTextColor={textStyle.color} textContentType="password" style={[inputStyle, { width: inputWidth, color:buttonTextColor }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
+            <TextInput placeholder="Altura" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, color:buttonTextColor }]} onChangeText={(text) => handleChange('height', text)} />
+            <TextInput placeholder="Peso" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, color:buttonTextColor }]} onChangeText={(text) => handleChange('weight', text)} />
             <View>
               <View style={{ borderBottomColor: buttonTextColor, borderBottomWidth: 3, display: "flex", flexDirection: "row", alignItems: 'center' }}>
                 <Text style={{ marginTop: 25, fontSize: 20, marginBottom: 20, ...textStyle}}>Gênero:</Text>

@@ -6,6 +6,7 @@ import StartFirebase from '../../crud/firebaseConfig';
 import { useNavigation } from '@react-navigation/native';
 import style from "../sign_log_pass/style";
 import { GlobalContext } from "../context/aaaa";
+import { updateUserData } from "./updateUserData"; // Certifique-se de colocar o caminho correto para o updateUserData
 
 const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
 
@@ -71,17 +72,24 @@ export default function Perfil() {
         }
     }
 
-    const handleCadastrar = () => {
-        setUsuario({
-            ...usuario,
+    const handleCadastrar = async () => {
+        const updatedUser = {
             nome: inputName,
             e_mail: inputEmail,
             altura: inputAltura,
             peso: inputPeso,
             nascimento: inputNascimento
-        });
-    }
+        };
 
+        // Atualiza o contexto global com as novas informações do usuário
+        setUsuario({
+            ...usuario,
+            ...updatedUser
+        });
+
+        // Atualiza o banco de dados Firebase com as novas informações do usuário
+        await updateUserData(usuario.e_mail.replace('.', '_'), updatedUser);
+    }
 
     useEffect(() => {
         if (!editar) {
