@@ -99,7 +99,8 @@ const styleHome = StyleSheet.create({
     },
     statusInfo:{
         fontSize:screenWidth * 0.03,
-        fontWeight:"400"
+        fontWeight:"400",
+        textAlign:'center'
     },
     statusFooter:{
         backgroundColor: '#A1D5B0',

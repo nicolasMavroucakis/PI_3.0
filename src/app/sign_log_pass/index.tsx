@@ -1,193 +1,143 @@
 import { TextInput, View, Button, Text, Dimensions, ScrollView, KeyboardAvoidingView, TouchableOpacity } from 'react-native';
-import { Image, } from 'react-native';
+import { Image } from 'react-native';
 import style from './style';
 import { Link } from 'expo-router';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import StartFirebase from '../../crud/firebaseConfig';
 import { ref, set } from 'firebase/database';
 import React from 'react';
 import { RadioButton } from 'react-native-paper';
 import { GlobalContext } from '../context/aaaa';
-import { useContext } from 'react';
+import { getAuth, createUserWithEmailAndPassword } from 'firebase/auth';
 
 export default function Cadastro() {
-  const { width: screenWidth, height: screenHeight } = Dimensions.get('window')
-  const inputWidth = screenWidth * 0.75
+  const { width: screenWidth } = Dimensions.get('window');
+  const inputWidth = screenWidth * 0.75;
 
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
-  const [name, setName] = useState('')
-  const [birthDate, setBirthDate] = useState('')
-  const [height, setHeight] = useState('')
-  const [weight, setWeight] = useState('')
-  const [gender, setGender] = useState('')
-  const {modoEscuro} = useContext(GlobalContext)
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [passwordConfirm, setPasswordConfirm] = useState('');
+  const [name, setName] = useState('');
+  const [birthDate, setBirthDate] = useState('');
+  const [height, setHeight] = useState('');
+  const [weight, setWeight] = useState('');
+  const [gender, setGender] = useState('');
+  const { modoEscuro } = useContext(GlobalContext);
 
-  const db = StartFirebase()
-
-  const [passEmail,setPassEmail] = useState(false)
-  const [passPassword,setPassPassword] = useState(false)
-  const [passName,setPassName] = useState(false)
-  const [passBirth,setPassBirth] = useState(false)
-  const [Passheight, setPassHeight] = useState(false)
-  const [passweight, setPassWeight] = useState(false)
-  const [passGender, setPassGender] = useState(false)
-
+  const db = StartFirebase();
+  const auth = getAuth();
 
   const handleChange = (key, value) => {
     if (key === 'email') {
-      setEmail(value) 
-      setPassEmail(true)
+      setEmail(value);
     } else if (key === 'password') {
-      setPassword(value)
+      setPassword(value);
     } else if (key === 'passwordConfirm') {
-      if (password == value){
-        setPasswordConfirm(value)
-        setPassPassword(true)
+      if (password === value) {
+        setPasswordConfirm(value);
       } else {
-        console.warn("senha e confirmar senha nao batem")
+        console.warn("senha e confirmar senha não batem");
       }
     } else if (key === 'name') {
-      setName(value)
-      setPassName(true)
+      setName(value);
+    } else if (key === 'birthDate') {
+      setBirthDate(value);
+    } else if (key === 'height') {
+      setHeight(value);
+    } else if (key === 'weight') {
+      setWeight(value);
     }
-    if (key === 'birthDate') {
-      setBirthDate(value)
-      setPassBirth(true)
-    }
-    if (key === 'height'){
-      setHeight(value)
-      setPassHeight(true)
-    }  
-    if (key === 'weight'){
-      setWeight(value)
-      setPassWeight(true)
-    }  
-    console.warn(email, password, passwordConfirm, name, birthDate, weight, height)
+  };
 
-  }
-  const createUserInDatabase = (database) => {
-      const dbRef = db;
-      const userData = {
-        username: email,
-        name: name,
-        birthDate: birthDate,
-        password: password,
-        weight: weight,
-        height: height,
-        gender: gender,
-      };
-    
-      set(ref(dbRef, 'users/' + email), userData)
-        .then(() => {
-          console.warn('Usuário criado com sucesso!');
-        })
-        .catch((error) => {
-          console.error('Erro ao criar usuário:', error);
-        });
-  }
+  const createUserInDatabase = (database, email) => {
+    const sanitizedEmail = email.replace(/\./g, '_');
+    const userData = {
+      username: email,
+      name: name,
+      birthDate: birthDate,
+      password: password,
+      weight: weight,
+      height: height,
+      gender: gender,
+    };
 
-  return !modoEscuro ? (
+    set(ref(database, 'users/' + sanitizedEmail), userData)
+      .then(() => {
+        console.warn('Usuário criado com sucesso!');
+      })
+      .catch((error) => {
+        console.error('Erro ao criar usuário:', error);
+      });
+  };
+
+  const handleRegister = () => {
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        // Usuário criado com sucesso
+        const user = userCredential.user;
+        console.warn('Usuário autenticado com sucesso!');
+        // Agora crie o usuário no Realtime Database
+        createUserInDatabase(db, email);
+      })
+      .catch((error) => {
+        console.error('Erro ao criar usuário:', error);
+      });
+  };
+
+  const containerStyle = modoEscuro ? { backgroundColor: "#1C1C1E" } : {};
+  const textStyle = modoEscuro ? { color: "white" } : {color: "#c0c0c0"};
+  const inputStyle = modoEscuro ? style.InputStyleDark : style.InputStyle;
+  const buttonTextColor = modoEscuro ? 'white' : 'black';
+  const radioButtonColor = modoEscuro ? 'white' : 'black';
+  const textStyle2 = modoEscuro ? { color: "white" } : {color: "black"};
+
+  return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-      <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent:'center'  }}>
+      <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent: 'center', ...containerStyle }}>
         <View style={style.TelaDisplay}>
           <View style={style.TitleImg}>
-            <Text style={style.title}>Faça o seu Cadastro</Text>
-            <Image source={require('../../../assets/logo.png')}/>
+            <Text style={[style.title, textStyle2]}>Faça o seu Cadastro</Text>
+            <Image source={require('../../../assets/logo.png')} />
           </View>
           <View>
-            <TextInput placeholder="Nome" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('name', text)} />
-            <TextInput placeholder="E-mail" textContentType="emailAddress" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('email', text)} />
-            <TextInput placeholder="Nascimento" textContentType="birthdateYear" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('birthDate', text)} />
-            <TextInput placeholder="Senha" textContentType="password" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('password', text)} />
-            <TextInput placeholder="Confirmar Senha" textContentType="password" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
-            <TextInput placeholder="Altura" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('height', text)} />
-            <TextInput placeholder="Peso" style={[style.InputStyle, { width: inputWidth }]} onChangeText={(text) => handleChange('weight', text)} />
+            <TextInput placeholder="Nome" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('name', text)} />
+            <TextInput placeholder="E-mail" placeholderTextColor={textStyle.color} textContentType="emailAddress" style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('email', text)} />
+            <TextInput placeholder="Nascimento" placeholderTextColor={textStyle.color} textContentType="birthdateYear" style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('birthDate', text)} />
+            <TextInput placeholder="Senha" placeholderTextColor={textStyle.color} textContentType="password" style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('password', text)} />
+            <TextInput placeholder="Confirmar Senha" placeholderTextColor={textStyle.color} textContentType="password" style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
+            <TextInput placeholder="Altura" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('height', text)} />
+            <TextInput placeholder="Peso" placeholderTextColor={textStyle.color} style={[inputStyle, { width: inputWidth, ...textStyle }]} onChangeText={(text) => handleChange('weight', text)} />
             <View>
-              <View style={{borderBottomColor:'black',borderBottomWidth:3, display:"flex", flexDirection:"row"}}>
-                <Text style={{marginTop:25,fontSize:20,marginBottom:20,color:'black'}}>Gênero:</Text>
-                {/* Escolha Genero */}
+              <View style={{ borderBottomColor: buttonTextColor, borderBottomWidth: 3, display: "flex", flexDirection: "row", alignItems: 'center' }}>
+                <Text style={{ marginTop: 25, fontSize: 20, marginBottom: 20, ...textStyle}}>Gênero:</Text>
+                <RadioButton.Group onValueChange={newValue => setGender(newValue)} value={gender}>
+                  <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent:"center"}}>
+                    <RadioButton value="Masculino" uncheckedColor={radioButtonColor} color={radioButtonColor} />
+                    <Text style={{fontSize:15, ...textStyle2}}>Masculino</Text>
+                    <RadioButton value="Feminino" uncheckedColor={radioButtonColor} color={radioButtonColor} />
+                    <Text style={{fontSize:15, ...textStyle2, }}>Feminino</Text>
+                  </View>
+                </RadioButton.Group>
               </View>
             </View>
           </View>
           <View style={[style.ButtonViewStyle, { width: inputWidth }]}>
-            <Link href={"../(tabs)"} asChild style={{width:"100%", height:"100%"}} onPress={() => createUserInDatabase(db)}>
-              <Button title="Cadastrar" color={'white'} />
-            </Link>
+            <TouchableOpacity style={{}} onPress={handleRegister}>
+              <Text style={{ color: buttonTextColor, fontSize:20 }}>Cadastrar</Text>
+            </TouchableOpacity>
           </View>
           <View style={style.ButtonLinkStyle}>
             <View>
-                <Text>Já possui cadastro?</Text>
+              <Text style={textStyle2}>Já possui cadastro?</Text>
             </View>
             <View>
-                <Link href={'./Login'} asChild>
-                    <Button title="Faça Login" />
-                </Link>
+              <Link href={'./Login'} asChild style={{fontSize: 20, ...textStyle }}>
+                <Button title="Faça Login"/>
+              </Link>
             </View>
           </View>
         </View>
       </ScrollView>
     </KeyboardAvoidingView>
-  ) : (
-    <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-      <ScrollView contentContainerStyle={{ flexGrow: 1, display: 'flex', justifyContent:'center', backgroundColor: "#1C1C1E"  }}>
-        <View style={style.TelaDisplay}>
-          <View style={style.TitleImg}>
-            <Text style={[style.title, {color: "white"}]}>Faça o seu Cadastro</Text>
-            <Image source={require('../../../assets/logo.png')}/>
-          </View>
-          <View>
-            <View>
-              <Text style={{color:"white", fontSize: 20}}>Nome: </Text>
-              <TextInput style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('name', text)} />
-            </View>
-            <View>
-              <Text style={{color:"white", fontSize: 20}}>E-mail: </Text>
-              <TextInput textContentType="emailAddress" style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('email', text)} />
-            </View>
-            <View>
-              <Text style={{color:"white", fontSize: 20}}>Nascimento:  </Text>
-              <TextInput textContentType="birthdateYear" style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('birthDate', text)} />
-            </View>
-            <View>
-              <Text style={{color:"white", fontSize: 20}}>Password: </Text>
-              <TextInput textContentType="password" style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('password', text)} />
-            </View>
-            <View>
-              <Text style={{color:"white", fontSize: 20}}>Confirmar Senha: </Text>
-              <TextInput textContentType="password" style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('passwordConfirm', text)} />
-            </View>
-            <View>
-              <Text style={{color:"white", fontSize: 20}}>Altura: </Text>
-              <TextInput style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('height', text)} />
-            </View>
-            <View>
-              <Text style={{color:"white", fontSize: 20}}>Peso: </Text>
-              <TextInput style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('weight', text)} />
-            </View>
-            <View>
-              <Text style={{color:"white", fontSize: 20}}>Genero: </Text>
-              <TextInput style={[style.InputStyleDark, { width: inputWidth, color: "white",paddingLeft: 10 }]} onChangeText={(text) => handleChange('generot', text)} />
-            </View>
-          </View>
-          <View style={[style.ButtonViewStyle, { width: inputWidth }]}>
-            <Link href={"../(tabs)"} asChild style={{width:"100%", height:"100%"}} onPress={() => createUserInDatabase(db)}>
-              <Button title="Cadastrar" color={'black'} />
-            </Link>
-          </View>
-          <View style={style.ButtonLinkStyle}>
-            <View>
-                <Text style={{color: "white"}}>Já possui cadastro?</Text>
-            </View>
-            <View>
-                <Link href={'./Login'} asChild>
-                    <Button title="Faça Login" />
-                </Link>
-            </View>
-          </View>
-        </View>
-      </ScrollView>
-    </KeyboardAvoidingView>
-  )
+  );
 }

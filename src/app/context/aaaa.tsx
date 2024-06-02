@@ -47,11 +47,11 @@ export const GlobalContext = createContext<GlobalContextType>({
 export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [medicacao, setMedicacao] = useState<any[]>([]);
     const [usuario, setUsuario] = useState<UsuarioType>({
-        nome: "Gustavo Perez",
-        e_mail: "gustavo.perez@gmail.com",
-        altura: "1.85",
-        peso: "65",
-        nascimento: "10/05/1979",
+        nome: "",
+        e_mail: "",
+        altura: "",
+        peso: "",
+        nascimento: "",
         idade: 0,
         imc: 0,
         classIMC: ""
