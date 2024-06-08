@@ -42,7 +42,7 @@ export default function ExamesStack() {
                             </View>
                             <Text style={{color: "white"}}>Ou</Text>
                             <View style={styleExamesStack.linkEscolha}>
-                                <Link href={"./Scanner"} style={{color: "white"}}>
+                                <Link href={"./ImageTextExtractor"} style={{color: "white"}}>
                                     Scanner
                                 </Link>
                             </View>

@@ -13,15 +13,15 @@ export default function TabRoutesLayout() {
                         <Tabs 
                             screenOptions={{
                                 headerShown: false,
-                                tabBarActiveBackgroundColor: modoEscuro ? 'green' : '#A1D5B0',
-                                tabBarInactiveBackgroundColor: modoEscuro ? 'black' : 'white', 
+                                tabBarActiveBackgroundColor: '#568764',
+                                tabBarInactiveBackgroundColor: 'black', 
                             }}
                             >
                             <Tabs.Screen 
                                 name="index/index" 
                                 options={{
                                     title:"Inicio",
-                                    tabBarActiveTintColor:'black',
+                                    tabBarActiveTintColor:'white',
                                     tabBarStyle:{
                                         height: 80,
                                         paddingBottom:0
@@ -29,7 +29,7 @@ export default function TabRoutesLayout() {
                                     tabBarIcon: ({color, size}) => (
                                         <Image 
                                             source={require('../../../assets/casa-simples-fina.png')}
-                                            style={{width:40, height:40, tintColor:'black', position: 'relative', }}
+                                            style={{width:40, height:40, tintColor:'white', position: 'relative', }}
                                         />
                                     
                                     ),
@@ -38,7 +38,7 @@ export default function TabRoutesLayout() {
                                         top: 5,
                                     },
                                     tabBarLabelStyle: {
-                                        color:'black',
+                                        color:'white',
                                         paddingBottom:10
                                     }
                                     
@@ -54,7 +54,7 @@ export default function TabRoutesLayout() {
                                     },
                                     tabBarActiveTintColor:'black',
                                     tabBarLabelStyle: {
-                                        color:'black',
+                                        color:'white',
                                         paddingBottom:10
                                     },
                                     tabBarIconStyle: {
@@ -65,13 +65,13 @@ export default function TabRoutesLayout() {
                                     <View style={{borderRadius:50}}>
                                         <Image
                                             source={require('../../../assets/consultas.png')}
-                                            style={{width:40, height:40, tintColor:'black'}}
+                                            style={{width:40, height:40, tintColor:'white'}}
                                         />
                                     </View>
                                     )
                                 }}/>
                             <Tabs.Screen 
-                                name="add"
+                                name="add/index"
                                 options={{
                                     title:"",
                                     tabBarStyle:{
@@ -81,7 +81,7 @@ export default function TabRoutesLayout() {
                                     tabBarActiveTintColor:'black',
                                     tabBarActiveBackgroundColor: 'white',
                                     tabBarLabelStyle: {
-                                        color:'black',
+                                        color:'white',
                                         paddingBottom:10,
                                     },
                                     tabBarIconStyle: {
@@ -89,7 +89,7 @@ export default function TabRoutesLayout() {
                                         top: -30,
                                     },
                                     tabBarIcon:({color,size}) => (
-                                    <View style={{borderRadius:50,backgroundColor:"#A1D5B0",padding:15,shadowColor:"black",shadowOpacity:0.8,shadowRadius:2,shadowOffset:{width:2,height:2}}}>
+                                    <View style={{borderRadius:50,backgroundColor:"#568764",padding:15,shadowColor:"black",shadowOpacity:0.8,shadowRadius:2,shadowOffset:{width:2,height:2}}}>
                                         <Image
                                             source={require('../../../assets/plusSign.png')}
                                             style={{width:45, height:45,tintColor:"white"}}
@@ -108,7 +108,7 @@ export default function TabRoutesLayout() {
                                     },
                                     tabBarActiveTintColor:'black',
                                     tabBarLabelStyle: {
-                                        color:'black',
+                                        color:'white',
                                         paddingBottom:10,
                                     },
                                     tabBarIconStyle: {
@@ -118,7 +118,7 @@ export default function TabRoutesLayout() {
                                     tabBarIcon:({color,size}) => (
                                         <Image
                                             source={require('../../../assets/pilulas.png')}
-                                            style={{width:40, height:40, tintColor:'black'}}
+                                            style={{width:40, height:40, tintColor:'white'}}
                                         />
                                     ),
                                     
@@ -133,7 +133,7 @@ export default function TabRoutesLayout() {
                                     },
                                     tabBarActiveTintColor:'black',
                                     tabBarLabelStyle: {
-                                        color:'black',
+                                        color:'white',
                                         paddingBottom:10
                                     },
                                     tabBarIconStyle: {
@@ -143,7 +143,7 @@ export default function TabRoutesLayout() {
                                     tabBarIcon:({color,size}) => (
                                         <Image
                                             source={require('../../../assets/exames.png')}
-                                            style={{width:40, height:40, tintColor:"black"}}
+                                            style={{width:40, height:40, tintColor:"white"}}
                                         />
                                     )
                                     }}/>
