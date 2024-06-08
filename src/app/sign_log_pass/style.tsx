@@ -17,14 +17,6 @@ const style = StyleSheet.create({
         alignItems:'center',
         marginTop:20
     },
-    InputStyle: {
-        height:60,
-        width:300,
-        borderBottomColor:'black',
-        borderBottomWidth:3,
-        marginTop:10,
-        fontSize:20
-    },
     ButtonViewStyle:{
         marginTop:35,
         justifyContent:'center',
@@ -64,11 +56,34 @@ const style = StyleSheet.create({
     InputStyleDark: {
         height:60,
         width:300,
-        backgroundColor: "grey",
-        borderRadius: 10,
+        borderBottomColor:'white',
+        borderBottomWidth:3,
         marginTop:10,
-        fontSize:20,
-        color:"white",
+        fontSize:20
+    },
+    InputStyle: {
+        height:60,
+        width:300,
+        borderBottomColor:'black',
+        borderBottomWidth:3,
+        marginTop:10,
+        fontSize:20
+    },
+    InputStyleDark2: {
+        height:30,
+        width:300,
+        borderBottomColor:'white',
+        borderBottomWidth:3,
+        marginTop:10,
+        fontSize:20
+    },
+    InputStyle2: {
+        height:30,
+        width:300,
+        borderBottomColor:'black',
+        borderBottomWidth:3,
+        marginTop:10,
+        fontSize:20
     },
     HrDark: {
         borderColor:'white',
