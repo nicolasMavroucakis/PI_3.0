@@ -1,0 +1,267 @@
+[
+    {
+        "Nome Exame": "1,5-Anidroglucitol, soro ou plasma Feminino",
+        "Quantidade Minima": 6.8,
+        "Quantidade Maxima": 29.3
+    },
+    {
+        "Nome Exame": "1,5-Anidroglucitol, soro ou plasma Masculino",
+        "Quantidade Minima": 10.7,
+        "Quantidade Maxima": 32
+    },
+    {
+        "Nome Exame": "17-Hidroxicorticosteróides (Porter-Silber), urina Feminino",
+        "Quantidade Minima": 2,
+        "Quantidade Maxima": 8
+    },
+    {
+        "Nome Exame": "17-Hidroxicorticosteróides (Porter-Silber), urina Masculino",
+        "Quantidade Minima": 3,
+        "Quantidade Maxima": 10
+    },
+    {
+        "Nome Exame": "17-Hidroxiprogesterona, soro Feminino, folicular",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 80
+    },
+    {
+        "Nome Exame": "17-Hidroxiprogesterona, soro Feminino, lútea",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 285
+    },
+    {
+        "Nome Exame": "17-Hidroxiprogesterona, soro Feminino, pós-menopausa",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 51
+    },
+    {
+        "Nome Exame": "17-Hidroxiprogesterona, soro Masculino (adulto)",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 220
+    },
+    {
+        "Nome Exame": "5-Hidroxiindolacético, urina",
+        "Quantidade Minima": 2,
+        "Quantidade Maxima": 9
+    },
+    {
+        "Nome Exame": "5'-Nucleotidase, soro",
+        "Quantidade Minima": 0.3,
+        "Quantidade Maxima": 2.6
+    },
+    {
+        "Nome Exame": "6-Tioguanina, sangue total",
+        "Quantidade Minima": 230,
+        "Quantidade Maxima": 400
+    },
+    {
+        "Nome Exame": "Contagem absoluta de neutrófilos (ANC)",
+        "Quantidade Minima": 2000,
+        "Quantidade Maxima": 8250
+    },
+    {
+        "Nome Exame": "Fosfatase ácida, soro Total",
+        "Quantidade Minima": 0.5,
+        "Quantidade Maxima": 2
+    },
+    {
+        "Nome Exame": "Fosfatase ácida, soro Fração prostática",
+        "Quantidade Minima": 0.1,
+        "Quantidade Maxima": 0.4
+    },
+    {
+        "Nome Exame": "ACTH, plasma",
+        "Quantidade Minima": 10,
+        "Quantidade Maxima": 60
+    },
+    {
+        "Nome Exame": "Tempo de tromboplastina parcial ativada",
+        "Quantidade Minima": 25,
+        "Quantidade Maxima": 35
+    },
+    {
+        "Nome Exame": "Atividade ADAMTS13",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 60
+    },
+    {
+        "Nome Exame": "Hormônio adrenocorticotrófico (ACTH), plasma",
+        "Quantidade Minima": 10,
+        "Quantidade Maxima": 60
+    },
+    {
+        "Nome Exame": "Albumina, soro",
+        "Quantidade Minima": 3.5,
+        "Quantidade Maxima": 5.5
+    },
+    {
+        "Nome Exame": "Albumina, urina",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 25
+    },
+    {
+        "Nome Exame": "Relação albumina-creatinina, urina",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 30
+    },
+    {
+        "Nome Exame": "Aldolase, soro",
+        "Quantidade Minima": 0.8,
+        "Quantidade Maxima": 3
+    },
+    {
+        "Nome Exame": "Aldosterona, plasma Supina ou sentada",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 11
+    },
+    {
+        "Nome Exame": "Aldosterona, plasma Em pé",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 21
+    },
+    {
+        "Nome Exame": "Aldosterona, plasma Dieta com baixo teor de sódio (supina)",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 31
+    },
+    {
+        "Nome Exame": "Fosfatase alcalina, soro",
+        "Quantidade Minima": 30,
+        "Quantidade Maxima": 120
+    },
+    {
+        "Nome Exame": "Alfa1-antitripsina (AAT), soro",
+        "Quantidade Minima": 150,
+        "Quantidade Maxima": 350
+    },
+    {
+        "Nome Exame": "Atividade alfa2-antiplasmina, plasma",
+        "Quantidade Minima": 75,
+        "Quantidade Maxima": 115
+    },
+    {
+        "Nome Exame": "Nitrogênio alfa-amino, urina",
+        "Quantidade Minima": 100,
+        "Quantidade Maxima": 290
+    },
+    {
+        "Nome Exame": "Alfafetoproteína, soro",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 10
+    },
+    {
+        "Nome Exame": "Aminoácidos, urina",
+        "Quantidade Minima": 200,
+        "Quantidade Maxima": 400
+    },
+    {
+        "Nome Exame": "Aminotransferase, soro alanina (ALT, SGPT)",
+        "Quantidade Minima": 10,
+        "Quantidade Maxima": 40
+    },
+    {
+        "Nome Exame": "Aminotransferase, soro aspartato (AST, SGOT)",
+        "Quantidade Minima": 10,
+        "Quantidade Maxima": 40
+    },
+    {
+        "Nome Exame": "Amônia, plasma",
+        "Quantidade Minima": 40,
+        "Quantidade Maxima": 70
+    },
+    {
+        "Nome Exame": "Amilase, soro",
+        "Quantidade Minima": 25,
+        "Quantidade Maxima": 125
+    },
+    {
+        "Nome Exame": "Amilase, urina",
+        "Quantidade Minima": 1,
+        "Quantidade Maxima": 17
+    },
+    {
+        "Nome Exame": "Androstenediona, soro Feminino",
+        "Quantidade Minima": 30,
+        "Quantidade Maxima": 200
+    },
+    {
+        "Nome Exame": "Androstenediona, soro Masculino",
+        "Quantidade Minima": 40,
+        "Quantidade Maxima": 150
+    },
+    {
+        "Nome Exame": "Enzima conversora de angiotensina, soro",
+        "Quantidade Minima": 8,
+        "Quantidade Maxima": 53
+    },
+    {
+        "Nome Exame": "Lacuna aniônica, soro",
+        "Quantidade Minima": 7,
+        "Quantidade Maxima": 13
+    },
+    {
+        "Nome Exame": "Anticorpos contra DNA de fita dupla",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 7
+    },
+    {
+        "Nome Exame": "Anticorpos anticardiolipina IgG",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 20
+    },
+    {
+        "Nome Exame": "Anticorpos anticardiolipina IgM",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 20
+    },
+    {
+        "Nome Exame": "Anticorpos antipeptídeo citrulinado cíclico",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 20
+    },
+    {
+        "Nome Exame": "Antideoxirribonuclease B",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 280
+    },
+    {
+        "Nome Exame": "Anticorpos antimieloperoxidase",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 1
+    },
+    {
+        "Nome Exame": "Anticorpos contra o receptor de fosfolipase A2 (PLA2R), soro Negativo [ELISA]",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 14
+    },
+    {
+        "Nome Exame": "Anticorpos contra o receptor de fosfolipase A2 (PLA2R), soro Limite [ELISA]",
+        "Quantidade Minima": 14,
+        "Quantidade Maxima": 20
+    },
+    {
+        "Nome Exame": "Anticorpos contra o receptor de fosfolipase A2 (PLA2R), soro Positivo [ELISA]",
+        "Quantidade Minima": 20,
+        "Quantidade Maxima": 100000
+    },
+    {
+        "Nome Exame": "Anticorpos anti-RNP [por método de quimioluminescência]",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 20
+    },
+    {
+        "Nome Exame": "Anticorpos anti-RNP [por ensaio de fluxo multiplex]",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 1
+    },
+    {
+        "Nome Exame": "Anticorpos anti-Scl-70 (anticorpos contra topoisomerase 1), IgG, soro Negativo",
+        "Quantidade Minima": 0,
+        "Quantidade Maxima": 1
+    },
+    {
+        "Nome Exame": "Anticorpos anti-Scl-70 (anticorpos contra topoisomerase 1), IgG, soro Positivo",
+        "Quantidade Minima": 1,
+        "Quantidade Maxima": 100000
+    }
+]
