@@ -182,6 +182,11 @@ export default function Perfil() {
                         </Text>
                     </View>
                 </View>
+                <View style={{backgroundColor: 'red', paddingVertical: 15, paddingHorizontal: 25, borderRadius: 10}}>
+                    <Link href={'../sign_log_pass'} style={{color: '#fff', textAlign: 'center', fontSize:16}}>
+                        Sair
+                    </Link>
+                </View>
             </View>
         </ScrollView>
     ) : (
@@ -330,6 +335,11 @@ export default function Perfil() {
                             {usuario.peso}
                         </Text>
                     </View>
+                </View>
+                <View style={{backgroundColor: 'red', paddingVertical: 15, paddingHorizontal: 25, borderRadius: 10}}>
+                    <Link href={'../sign_log_pass'} style={{color: '#fff', textAlign: 'center', fontSize:16}}>
+                        Sair
+                    </Link>
                 </View>
             </View>
         </ScrollView>
