@@ -22,6 +22,8 @@ interface GlobalContextType {
     setModoEscuro: Dispatch<SetStateAction<boolean>>;
     consulta: any[];
     setConsulta: Dispatch<SetStateAction<any[]>>;
+    exames: any[]
+    setExames: Dispatch<SetStateAction<any[]>>;
 }
 
 export const GlobalContext = createContext<GlobalContextType>({
@@ -41,14 +43,16 @@ export const GlobalContext = createContext<GlobalContextType>({
     modoEscuro: false,
     setModoEscuro: () => {},
     consulta: [],
-    setConsulta: () => {}
+    setConsulta: () => {},
+    exames: [],
+    setExames: () => {}
 });
 
 export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [medicacao, setMedicacao] = useState<any[]>([]);
     const [usuario, setUsuario] = useState<UsuarioType>({
-        nome: "",
-        e_mail: "",
+        nome: "asdasd",
+        e_mail: "asdasdasd",
         altura: "",
         peso: "",
         nascimento: "",
@@ -58,12 +62,12 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
     });
     const [modoEscuro, setModoEscuro] = useState<boolean>(false);
     const [consulta, setConsulta] = useState<any[]>([]);
+    const [exames, setExames] = useState<any[]>([]);
 
-    // Função para calcular a idade com base na data de nascimento no formato DD/MM/YYYY
     const calcularIdade = (nascimento: string): number => {
         const [dia, mes, ano] = nascimento.split('/').map(Number);
         const hoje = new Date();
-        const dataNascimento = new Date(ano, mes - 1, dia); // Mês é zero-indexado em JavaScript
+        const dataNascimento = new Date(ano, mes - 1, dia);
         let idade = hoje.getFullYear() - dataNascimento.getFullYear();
         const diferencaMes = hoje.getMonth() - dataNascimento.getMonth();
         if (diferencaMes < 0 || (diferencaMes === 0 && hoje.getDate() < dataNascimento.getDate())) {
@@ -72,7 +76,6 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         return idade;
     };
 
-    // Função para calcular o IMC com base na altura (em metros) e no peso (em kg)
     const calcularIMC = (altura: string, peso: string): number => {
         const alturaMetros = parseFloat(altura);
         const pesoKg = parseFloat(peso);
@@ -82,7 +85,6 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         return 0;
     };
 
-    // Função para classificar o IMC
     const classificarIMC = (imc: number): string => {
         if (imc < 18.5) return "Abaixo do peso";
         if (imc >= 18.5 && imc < 24.9) return "Peso normal";
@@ -121,6 +123,10 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
                 if (savedConsulta) {
                     setConsulta(JSON.parse(savedConsulta));
                 }
+                const savedExames = await AsyncStorage.getItem('exames')
+                if (savedExames) {
+                    setExames(JSON.parse(savedExames))
+                }
             } catch (error) {
                 console.error('Erro ao carregar dados do AsyncStorage:', error);
             }
@@ -136,6 +142,7 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
                 await AsyncStorage.setItem('usuario', JSON.stringify(usuario));
                 await AsyncStorage.setItem('modoEscuro', JSON.stringify(modoEscuro));
                 await AsyncStorage.setItem('consulta', JSON.stringify(consulta));
+                await AsyncStorage.setItem('exames', JSON.stringify(exames));
             } catch (error) {
                 console.error('Erro ao salvar dados no AsyncStorage:', error);
             }
@@ -169,7 +176,9 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
             modoEscuro,
             setModoEscuro,
             consulta,
-            setConsulta
+            setConsulta,
+            exames,
+            setExames
         }}>
             {children}
         </GlobalContext.Provider>

@@ -150,6 +150,29 @@ const styleHome = StyleSheet.create({
     },
     viewTotal: {
         backgroundColor: "#1C1C1E"
+    }, 
+    homeSecundaria: { 
+        backgroundColor: "#1C1C1E",
+        justifyContent: "center",
+        alignItems: "center",
+        flex: 1, 
+        width: "100%"
+    },
+    linkHomeSecundaria: {
+        backgroundColor: "#7F7F7F",
+        height: screenHeight * 0.2,
+        width: screenWidth * 0.7,
+        borderRadius: 10,
+        justifyContent: "space-evenly",
+        padding: 10
+    },
+    linkLogin: {
+        backgroundColor: "#A1D5B0",
+        width: screenWidth * 0.35,
+        margin: "auto",
+        height: 40,
+        justifyContent: "center",
+        borderRadius: 10
     }
 })
 

@@ -1,11 +1,33 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { Text, View, Image, TouchableOpacity } from "react-native";
 import { Link } from "expo-router";
+import { useNavigation } from '@react-navigation/native';
 import styleHome from "../../styles/styleHome";
 import { GlobalContext } from "../../context/aaaa";
+import Login from "../../sign_log_pass/Login";
+import { Button } from "react-native";
 
 export default function Home() {
     const { usuario, modoEscuro } = useContext(GlobalContext);
+    
+    if (usuario.nome === "" || usuario.e_mail == "") {
+        return (
+            <View style={styleHome.homeSecundaria}>
+                <View style={styleHome.linkHomeSecundaria}>
+                    <View>
+                        <Text style={{fontSize: 25, textAlign: "center"}}>
+                            Você ainda nao fez Login.
+                        </Text>
+                    </View>
+                    <View style={styleHome.linkLogin}>
+                        <Link href={"../../sign_log_pass/Login"} style={{textAlign:"center", fontSize: 20, color: "white"}}>
+                            Login
+                        </Link>
+                    </View>
+                </View>
+            </View>
+        )
+    }
 
     return !modoEscuro ? (
         <View>

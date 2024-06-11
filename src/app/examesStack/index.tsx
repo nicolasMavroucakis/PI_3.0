@@ -15,18 +15,22 @@ export default function ExamesStack() {
             <Header />
             <View style={{ flex: 1 }}>
                 {!modoEscuro ? (
-                    <ScrollView contentContainerStyle={{ flexGrow: 1, justifyContent: "space-between", alignItems: 'center', backgroundColor: "#FFFFFF" }}>
+                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", backgroundColor: "#FFFFFF" }}>
                         <View style={styleExamesStack.viewTextoPrincipal}>
-                            <Text style={styleExamesStack.textoPrincipal}>Modo de Adicionar Exames</Text>
+                            <Text style={styleExamesStack.textoPrincipalWhite}>Modo de Adicionar Exames</Text>
                         </View>
                         <View style={styleExamesStack.viewSelecionaEscolha}>
-                            <Link href={""} style={styleExamesStack.linkEscolha}>
-                                <Text style={{ color: "white", fontSize: 20 }}>Manualmente</Text>
-                            </Link>
-                            <Text style={{ color: "white" }}>ou</Text>
-                            <Link href={""} style={styleExamesStack.linkEscolha}>
-                                <Text style={{ color: "white", fontSize: 20 }}>Scanner</Text>
-                            </Link>
+                            <View style={styleExamesStack.linkEscolha}>
+                                <Link href={"./manualmente"} style={{color: "white", fontSize: 20}}>
+                                    Manualmente
+                                </Link>
+                            </View>
+                            <Text style={{color: "white"}}>Ou</Text>
+                            <View style={styleExamesStack.linkEscolha}>
+                                <Link href={"./ImageTextExtractor"} style={{color: "white", fontSize: 20}}>
+                                    Scanner
+                                </Link>
+                            </View>
                         </View>
                     </ScrollView>
                 ) : (
@@ -36,7 +40,7 @@ export default function ExamesStack() {
                         </View>
                         <View style={styleExamesStack.viewSelecionaEscolha}>
                             <View style={styleExamesStack.linkEscolha}>
-                                <Link href={""} style={{color: "white"}}>
+                                <Link href={"./manualmente"} style={{color: "white"}}>
                                     Manualmente
                                 </Link>
                             </View>

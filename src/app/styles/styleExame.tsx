@@ -43,6 +43,9 @@ const stylesExame = StyleSheet.create({
     },
     viewPrincipal: {
         backgroundColor:'transparent'
+    },
+    viewPrincipalWhite: {
+        backgroundColor: 'transparent'
     }
 })
 

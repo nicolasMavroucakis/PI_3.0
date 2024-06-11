@@ -28,7 +28,11 @@ const styleExamesStack = StyleSheet.create({
         borderRadius: 20,
         justifyContent:"center",
         alignItems: "center", 
-    }
+    },
+    textoPrincipalWhite: {
+        fontSize: 25,
+        color: "black"
+    },
 });
 
 export default styleExamesStack;

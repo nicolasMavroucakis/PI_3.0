@@ -7,6 +7,7 @@ import { Link } from "expo-router";
 import { GlobalContext } from "../../context/aaaa";
 import Header from "../../components/Header";
 import stylesMedicacao from "../../styles/stylesMedicacao";
+import styleHome from "../../styles/styleHome";
 
 export default function Consulta() {
     const { consulta, setConsulta } = useContext(GlobalContext);
@@ -33,6 +34,25 @@ export default function Consulta() {
         updatedConsultas[index].grande = !updatedConsultas[index].grande;
         setConsulta(updatedConsultas);
     };
+
+    if (usuario.nome === "" || usuario.e_mail == "") {
+        return (
+            <View style={styleHome.homeSecundaria}>
+                <View style={styleHome.linkHomeSecundaria}>
+                    <View>
+                        <Text style={{fontSize: 25, textAlign: "center"}}>
+                            Você ainda nao fez Login.
+                        </Text>
+                    </View>
+                    <View style={styleHome.linkLogin}>
+                        <Link href={"../../sign_log_pass/Login"} style={{textAlign:"center", fontSize: 20, color: "white"}}>
+                            Login
+                        </Link>
+                    </View>
+                </View>
+            </View>
+        )
+    }
 
     return !modoEscuro ? (
         <View style={{ flex: 1 }}>
