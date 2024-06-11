@@ -67,7 +67,7 @@ export default function Configuracoes() {
             <View style={[stylesMedicacao.divUsuario, {backgroundColor: "black"} ]}>
                 <View style={stylesMedicacao.containerUsuario}>
                     <Image source={require('../../../assets/userDark.png')} style={stylesMedicacao.imgUsuario} />
-                    <Link href={"../../perfil"} style={[stylesMedicacao.nomeUsuario,{color: "white"}]}>Nome do Usuário</Link>
+                    <Link href={"../../perfil"} style={[stylesMedicacao.nomeUsuario,{color: "white"}]}>{usuario.nome}</Link>
                 </View>
             </View>
             <View>
