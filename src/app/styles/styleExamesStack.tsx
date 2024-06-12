@@ -22,7 +22,7 @@ const styleExamesStack = StyleSheet.create({
         marginTop: 20
     },
     linkEscolha: {
-        backgroundColor: "#A1D5B0",
+        backgroundColor: "#71A981",
         height: screenHeight * 0.1,
         width: screenWidth * 0.75,
         borderRadius: 20,

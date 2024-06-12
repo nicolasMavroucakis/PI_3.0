@@ -53,7 +53,7 @@ const styleMedicacaoAdiciona = StyleSheet.create({
         width:300,
         height:60,
         color:'white',
-        backgroundColor:'#A1D5B0',
+        backgroundColor:'#71A981',
         borderRadius:10
     },  
     ButtonVolta: {
