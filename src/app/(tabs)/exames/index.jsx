@@ -9,7 +9,7 @@ import { Link } from 'expo-router'; // Certifique-se de que o Link está sendo i
 import Item from "../../components/item"; // Ajuste o caminho conforme necessário
 
 const Exames = () => {
-  const { exames, setExames } = useContext(GlobalContext);
+  const { exames, setExames, modoEscuro } = useContext(GlobalContext);
   const navigation = useNavigation();
 
   useEffect(() => {
@@ -31,7 +31,7 @@ const Exames = () => {
     setExames(updatedExames);
   };
 
-  return (
+    return !modoEscuro ? (
     <View style={{ flex: 1 }}>
       <Header />
       <View style={styles.header}>
@@ -59,7 +59,35 @@ const Exames = () => {
         </View>
       </ScrollView>
     </View>
-  );
+  ) : (
+    <View style={{ flex: 1, backgroundColor: 'black' }}>
+      <Header />
+      <View style={styles.header}>
+        <View style={styles.headerText}>
+          <Text style={{ fontSize: 30, color: "white" }}>Exames</Text>
+        </View>
+        <View style={styles.headerButton}>
+          <TouchableOpacity style={styles.buttonAdd}>
+            <Link href={'../../examesStack'}>
+              <AntDesign name="plus" size={28} color="white" />
+            </Link>
+          </TouchableOpacity>
+        </View>
+      </View>
+      <ScrollView>
+        <View style={styles.medicacaoesContainer}>
+          {exames.map((exame, index) => (
+            <Item
+              key={index}
+              item={exame}
+              onDelete={() => handleDelete(index)}
+              onToggle={() => handlePress(index)}
+            />
+          ))}
+        </View>
+      </ScrollView>
+    </View>
+  )
 };
 
 export default Exames;

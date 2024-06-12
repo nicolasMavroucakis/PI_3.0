@@ -36,7 +36,7 @@ export default function App() {
         });
 
         // Log the backend URL
-        const backendURL = 'http://192.168.5.227:5000/extract-text';
+        const backendURL = 'http://10.2.0.240:5000/extract-text';
         console.log('Backend URL:', backendURL);
 
         console.log('Sending PDF to backend');
@@ -66,7 +66,6 @@ export default function App() {
   };
 
   return (
-    <KeyboardAvoidingView>
       <View style={styles.container}>
         <Button title="Extract Text" onPress={handleExtractText} />
         <ScrollView style={styles.textContainer}>
@@ -74,7 +73,6 @@ export default function App() {
           <Text style={styles.extractedText}>{pdfText}</Text>
         </ScrollView>
       </View>
-    </KeyboardAvoidingView>
   );
 }
 
