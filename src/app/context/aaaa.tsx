@@ -143,7 +143,6 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
                 await AsyncStorage.setItem('modoEscuro', JSON.stringify(modoEscuro));
                 await AsyncStorage.setItem('consulta', JSON.stringify(consulta));
                 await AsyncStorage.setItem('exames', JSON.stringify(exames));
-                console.log('Estado "exames" alterado:', exames);
             } catch (error) {
                 console.error('Erro ao salvar dados no AsyncStorage:', error);
             }
