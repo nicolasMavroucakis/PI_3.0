@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Button, ScrollView } from 'react-native';
 import * as DocumentPicker from 'expo-document-picker';
 import * as FileSystem from 'expo-file-system';
 import axios from 'axios';
+import { KeyboardAvoidingView } from 'react-native';
 
 export default function App() {
   const [pdfText, setPdfText] = useState('');
@@ -65,13 +66,15 @@ export default function App() {
   };
 
   return (
-    <View style={styles.container}>
-      <Button title="Extract Text" onPress={handleExtractText} />
-      <ScrollView style={styles.textContainer}>
-        <Text style={styles.text}>Extracted Text:</Text>
-        <Text style={styles.extractedText}>{pdfText}</Text>
-      </ScrollView>
-    </View>
+    <KeyboardAvoidingView>
+      <View style={styles.container}>
+        <Button title="Extract Text" onPress={handleExtractText} />
+        <ScrollView style={styles.textContainer}>
+          <Text style={styles.text}>Extracted Text:</Text>
+          <Text style={styles.extractedText}>{pdfText}</Text>
+        </ScrollView>
+      </View>
+    </KeyboardAvoidingView>
   );
 }
 

@@ -90,7 +90,9 @@ const stylesMedicacao = StyleSheet.create({
         display:'flex',
         justifyContent:'space-around',
         fontSize: 15,
-        padding: 10
+        padding: 10, 
+        overflow: "hidden",
+        
     },
     arrowImage: {
         height: 20,

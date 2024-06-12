@@ -11,7 +11,9 @@ export default function StackLayout() {
                     }}
                 >
                     <Stack.Screen name="index" />
+                    <Stack.Screen name="manualmente"/>
                 </Stack>
+
         </GlobalContextProvider>
     );
 }

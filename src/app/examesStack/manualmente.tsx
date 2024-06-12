@@ -1,121 +1,103 @@
-import React, { useContext, useState, useEffect } from 'react';
+import { Link, useNavigation } from 'expo-router';
+import React, { useContext, useState } from 'react';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
 import { GlobalContext } from '../context/aaaa';
-import { View, Text, TouchableOpacity, Modal, TextInput, Button, StyleSheet, ScrollView, KeyboardAvoidingView, Dimensions } from 'react-native';
-import examesData from './exames_traduzidos.json'; // Importar o arquivo JSON
 
-const DropdownInput = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(null);
-  const [inputValue, setInputValue] = useState('');
-  const { exames, setExames } = useContext(GlobalContext);
-  const [examNames, setExamNames] = useState([]); // Lista de nomes de exames
+const AddExamScreen = () => {
+  const [examName, setExamName] = useState('');
+  const [examOptions, setExamOptions] = useState([]);
+  const [optionName, setOptionName] = useState('');
+  const [optionValue, setOptionValue] = useState('');
+  const {exames, setExames} = useContext(GlobalContext);
 
-  useEffect(() => {
-    // Mapear os nomes dos exames quando o componente for montado
-    const names = examesData.map(item => item['Nome Exame']);
-    setExamNames(names);
-  }, []); // Executar apenas uma vez
-
-  const handleOptionSelect = (option) => {
-    setSelectedOption(option);
-    setModalVisible(false);
+  const addOption = () => {
+    if (optionName !== '' && optionValue !== '') {
+      setExamOptions([...examOptions, { [optionName]: optionValue }]);
+      setOptionName('');
+      setOptionValue('');
+    }
   };
 
-  const handleAddExame = () => {
-    if (selectedOption && inputValue) {
-      setExames([...exames, { option: selectedOption, value: inputValue }]);
-      setSelectedOption(null);
-      setInputValue('');
+  const addExam = () => {
+    if (examName !== '' && examOptions.length > 0) {
+      const newExam = {
+        name: examName,
+        options: examOptions.reduce((acc, option) => {
+          const [key, value] = Object.entries(option)[0];
+          acc[key] = value;
+          return acc;
+        }, {})
+      };
+      // Adiciona o novo exame ao array de exames
+      setExames([...exames, newExam]);
+      // Reinicializa os campos após adicionar o exame
+      setExamName('');
+      setExamOptions([]);
     }
   };
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-      <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", backgroundColor: "#FFFFFF" }}>
-        <View style={styles.container}>
-          <TouchableOpacity onPress={() => setModalVisible(true)} style={styles.input}>
-            <Text>{selectedOption || 'Selecione uma opção'}</Text>
-          </TouchableOpacity>
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={modalVisible}
-            onRequestClose={() => {
-              setModalVisible(false);
-            }}
-          >
-            <View style={styles.modalContainer}>
-              <ScrollView style={styles.optionsContainer}>
-                {examNames.map((name, index) => (
-                  <TouchableOpacity
-                    key={index}
-                    style={styles.option}
-                    onPress={() => handleOptionSelect(name)}
-                  >
-                    <Text>{name}</Text>
-                  </TouchableOpacity>
-                ))}
-              </ScrollView>
-            </View>
-          </Modal>
-          <TextInput
-            style={styles.input}
-            value={inputValue}
-            onChangeText={setInputValue}
-            placeholder="Digite um valor"
-          />
-          <Button title="Adicionar Exame" onPress={handleAddExame} />
-          <Text style={styles.listTitle}>Lista de Exames:</Text>
-          {exames.map((exam, index) => (
-            <View key={index} style={styles.listItem}>
-              <Text>{`Opção: ${exam.option}, Valor: ${exam.value}`}</Text>
-            </View>
-          ))}
-        </View>
-      </ScrollView>
+      <View style={{justifyContent: "center", alignItems:"center", marginTop: 40}}>
+        <Text style={{fontSize: 30}}>Adicionar</Text>
+      </View>
+      <View style={styles.container}>
+        <Link href={'../(tabs)/exames'} style={{marginBottom: 10, color: "blue"}}>Voltar para Exames.</Link>
+        <TextInput
+          style={styles.input}
+          placeholder="Nome do exame"
+          value={examName}
+          onChangeText={text => setExamName(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Nome da opção"
+          value={optionName}
+          onChangeText={text => setOptionName(text)}
+        />
+        <TextInput
+          style={styles.input}
+          placeholder="Valor da opção"
+          value={optionValue}
+          onChangeText={text => setOptionValue(text)}
+        />
+        <TouchableOpacity style={styles.button} onPress={addOption}>
+          <Text style={styles.buttonText}>Adicionar Opção</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.button} onPress={addExam}>
+          <Text style={styles.buttonText}>Adicionar Exame</Text>
+        </TouchableOpacity>
+      </View>
     </KeyboardAvoidingView>
   );
 };
 
-const { height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20
   },
   input: {
     borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 5,
     padding: 10,
-    width: 200,
-    marginVertical: 10,
+    marginBottom: 10,
+    width: '100%'
   },
-  modalContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Cor de fundo da parte de trás do modal
-  },
-  optionsContainer: {
-    backgroundColor: '#f0f0f0', // Cor de fundo da parte de trás das opções
-    maxHeight: height * 0.7, // 70% da altura da tela
-  },
-  option: {
+  button: {
+    backgroundColor: 'blue',
     padding: 10,
-    borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
-    width: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 5,
+    marginTop: 10,
+    width: '100%'
   },
-  listTitle: {
-    marginTop: 20,
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-  listItem: {
-    marginTop: 5,
-  },
+  buttonText: {
+    color: 'white',
+    textAlign: 'center'
+  }
 });
 
-export default DropdownInput;
+export default AddExamScreen;

@@ -6,9 +6,19 @@ import React from "react";
 import Header from "../components/Header";
 import { Link } from "expo-router";
 import styleExamesStack from "../styles/styleExamesStack";
+import { TouchableOpacity } from "react-native";
+import { Image } from "react-native";
+import styleMedicacaoAdiciona from "../styles/styleMedicacaoAdiciona";
+import { useRouter } from "expo-router";
 
 export default function ExamesStack() {
     const { modoEscuro } = useContext(GlobalContext);
+
+    const router = useRouter();
+    
+    const handleVoltar = () => { 
+        router.back();
+      };
 
     return (
         <View style={{ flex: 1, height:"100%" }}>
@@ -16,6 +26,14 @@ export default function ExamesStack() {
             <View style={{ flex: 1 }}>
                 {!modoEscuro ? (
                     <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", backgroundColor: "#FFFFFF" }}>
+                        <View>
+                            <TouchableOpacity onPress={handleVoltar}>
+                                    <Image
+                                    source={require("../../../assets/setaBranca.png")}
+                                    style={styleMedicacaoAdiciona.ButtonVolta}
+                                    />
+                            </TouchableOpacity>
+                        </View>
                         <View style={styleExamesStack.viewTextoPrincipal}>
                             <Text style={styleExamesStack.textoPrincipalWhite}>Modo de Adicionar Exames</Text>
                         </View>
@@ -35,6 +53,14 @@ export default function ExamesStack() {
                     </ScrollView>
                 ) : (
                     <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', backgroundColor: "#1C1C1E" }}>
+                        <View>
+                            <TouchableOpacity onPress={handleVoltar}>
+                                    <Image
+                                    source={require("../../../assets/setaBranca.png")}
+                                    style={styleMedicacaoAdiciona.ButtonVolta}
+                                    />
+                            </TouchableOpacity>
+                        </View>
                         <View style={styleExamesStack.viewTextoPrincipal}>
                             <Text style={styleExamesStack.textoPrincipal}>Modo de Adicionar Exames</Text>
                         </View>
