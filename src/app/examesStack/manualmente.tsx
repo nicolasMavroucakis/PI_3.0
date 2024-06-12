@@ -1,70 +1,92 @@
-import { Link, useNavigation } from 'expo-router';
+import { Link } from 'expo-router';
 import React, { useContext, useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingView } from 'react-native';
+import { View, Text, TouchableOpacity, StyleSheet, KeyboardAvoidingView, FlatList, TextInput, Dimensions, Image } from 'react-native';
 import { GlobalContext } from '../context/aaaa';
+import { useNavigation } from "expo-router";
+
+
+const { width: screenWidth, height: screenHeight } = Dimensions.get('window');
+
+// Importe os dados do JSON
+import examData from './exames_traduzidos.json';
+import styleMedicacaoAdiciona from '../styles/styleMedicacaoAdiciona';
 
 const AddExamScreen = () => {
   const [examName, setExamName] = useState('');
-  const [examOptions, setExamOptions] = useState([]);
-  const [optionName, setOptionName] = useState('');
-  const [optionValue, setOptionValue] = useState('');
-  const {exames, setExames} = useContext(GlobalContext);
+  const [examValue, setExamValue] = useState('');
+  const [isListVisible, setIsListVisible] = useState(false);
+  const { exames, setExames } = useContext(GlobalContext);
+  const navigation = useNavigation();
 
-  const addOption = () => {
-    if (optionName !== '' && optionValue !== '') {
-      setExamOptions([...examOptions, { [optionName]: optionValue }]);
-      setOptionName('');
-      setOptionValue('');
-    }
-  };
 
-  const addExam = () => {
-    if (examName !== '' && examOptions.length > 0) {
-      const newExam = {
-        name: examName,
-        options: examOptions.reduce((acc, option) => {
-          const [key, value] = Object.entries(option)[0];
-          acc[key] = value;
-          return acc;
-        }, {})
+  // Use os dados importados do JSON para preencher a lista de exames
+  const examItems = examData.map((exam, index) => ({
+    id: index.toString(),
+    name: exam["Nome Exame"]
+  }));
+
+  const handleAddExame = () => {
+    if (examName && examValue) {
+      const novoExame = {
+        nomeExame: examName,
+        valor: examValue,
       };
-      // Adiciona o novo exame ao array de exames
-      setExames([...exames, newExam]);
-      // Reinicializa os campos após adicionar o exame
+      setExames(prevExames => [...prevExames, novoExame]);
+      console.log("Exames atualizados:", [...exames, novoExame]);
       setExamName('');
-      setExamOptions([]);
+      setExamValue('');
+    } else {
+      console.warn("Por favor, selecione um exame e insira um valor.");
     }
   };
+
+  const handleSelectItem = (item) => {
+    setExamName(item.name);
+    setIsListVisible(false);
+  };
+
+  const renderItem = ({ item }) => (
+    <TouchableOpacity style={styles.item} onPress={() => handleSelectItem(item)}>
+      <Text style={styles.itemText}>{item.name}</Text>
+    </TouchableOpacity>
+  );
+
+  const handleVoltar = () => {
+    navigation.goBack();
+};
 
   return (
     <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
-      <View style={{justifyContent: "center", alignItems:"center", marginTop: 40}}>
-        <Text style={{fontSize: 30}}>Adicionar</Text>
+      <View>
+        <TouchableOpacity onPress={handleVoltar}>
+          <Image source={require("../../../assets/seta-direita.png")} style={styleMedicacaoAdiciona.ButtonVoltaClaro}/>
+          </TouchableOpacity>
+      </View>
+      <View style={{ justifyContent: "center", alignItems: "center", marginTop: 40 }}>
+        <Text style={{ fontSize: 30 }}>Adicionar</Text>
       </View>
       <View style={styles.container}>
-        <Link href={'../(tabs)/exames'} style={{marginBottom: 10, color: "blue"}}>Voltar para Exames.</Link>
-        <TextInput
+        <TouchableOpacity
           style={styles.input}
-          placeholder="Nome do exame"
-          value={examName}
-          onChangeText={text => setExamName(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Nome da opção"
-          value={optionName}
-          onChangeText={text => setOptionName(text)}
-        />
-        <TextInput
-          style={styles.input}
-          placeholder="Valor da opção"
-          value={optionValue}
-          onChangeText={text => setOptionValue(text)}
-        />
-        <TouchableOpacity style={styles.button} onPress={addOption}>
-          <Text style={styles.buttonText}>Adicionar Opção</Text>
+          onPress={() => setIsListVisible(!isListVisible)}
+        >
+          <Text style={styles.inputText}>{examName || "Selecione um exame"}</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.button} onPress={addExam}>
+        {isListVisible && (
+          <FlatList
+            data={examItems}
+            renderItem={renderItem}
+            keyExtractor={item => item.id}
+            style={styles.flatList}
+          />
+        )}
+        <TextInput
+          style={styles.input}
+          placeholder="Valor do Exame"
+          value={examValue}
+          onChangeText={setExamValue}
+        />
+        <TouchableOpacity style={styles.button} onPress={handleAddExame}>
           <Text style={styles.buttonText}>Adicionar Exame</Text>
         </TouchableOpacity>
       </View>
@@ -74,28 +96,52 @@ const AddExamScreen = () => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 20
+    display: "flex",
+    alignItems: "center",
+    paddingTop: screenHeight * 0.05,
+    height: screenHeight,
+    gap: 10
   },
   input: {
+    width: screenWidth * 0.75,
+    height: 50,
+    borderRadius: 20,
+    backgroundColor: '#bdbdbd',
+    paddingLeft: 5,
+    marginTop: 10
+  },
+  inputText: {
+    color: '#333',
+    margin: 'auto',
+  },
+  flatList: {
+    maxHeight: 150,
+    width: '100%',
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 5,
+    backgroundColor: '#fff',
+  },
+  item: {
     padding: 10,
-    marginBottom: 10,
-    width: '100%'
+    borderBottomWidth: 1,
+    borderBottomColor: '#ddd',
+  },
+  itemText: {
+    fontSize: 18,
   },
   button: {
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
     marginTop: 10,
-    width: '100%'
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 300,
+    height: 60,
+    color: 'white',
+    backgroundColor: '#71A981',
+    borderRadius: 10
   },
   buttonText: {
-    color: 'white',
+    color: 'black',
     textAlign: 'center'
   }
 });

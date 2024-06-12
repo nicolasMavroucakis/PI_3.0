@@ -1,16 +1,15 @@
 import React, { createContext, useState, useEffect, Dispatch, SetStateAction, ReactNode, useContext } from "react";
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Tipo específico para o estado do usuário
 interface UsuarioType {
     nome: string;
     e_mail: string;
     altura: string;
     peso: string;
-    nascimento: string; // Data de nascimento no formato DD/MM/YYYY
+    nascimento: string;
     idade: number;
     imc: number;
-    classIMC: string; // Novo campo para a classificação do IMC
+    classIMC: string;
 }
 
 interface GlobalContextType {
@@ -22,7 +21,7 @@ interface GlobalContextType {
     setModoEscuro: Dispatch<SetStateAction<boolean>>;
     consulta: any[];
     setConsulta: Dispatch<SetStateAction<any[]>>;
-    exames: any[]
+    exames: any[];
     setExames: Dispatch<SetStateAction<any[]>>;
 }
 
@@ -51,8 +50,8 @@ export const GlobalContext = createContext<GlobalContextType>({
 export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     const [medicacao, setMedicacao] = useState<any[]>([]);
     const [usuario, setUsuario] = useState<UsuarioType>({
-        nome: "asdasd",
-        e_mail: "asdasdasd",
+        nome: "",
+        e_mail: "",
         altura: "",
         peso: "",
         nascimento: "",
@@ -98,12 +97,12 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
         const loadAsyncData = async () => {
             try {
                 const savedMedicacao = await AsyncStorage.getItem('medicacao');
-                if (savedMedicacao) {
+                if (savedMedicacao !== null) {
                     setMedicacao(JSON.parse(savedMedicacao));
                 }
 
                 const savedUsuario = await AsyncStorage.getItem('usuario');
-                if (savedUsuario) {
+                if (savedUsuario !== null) {
                     const parsedUsuario = JSON.parse(savedUsuario);
                     const imc = calcularIMC(parsedUsuario.altura, parsedUsuario.peso);
                     setUsuario({
@@ -115,17 +114,18 @@ export const GlobalContextProvider: React.FC<{ children: ReactNode }> = ({ child
                 }
 
                 const savedModoEscuro = await AsyncStorage.getItem('modoEscuro');
-                if (savedModoEscuro) {
+                if (savedModoEscuro !== null) {
                     setModoEscuro(JSON.parse(savedModoEscuro));
                 }
 
                 const savedConsulta = await AsyncStorage.getItem('consulta');
-                if (savedConsulta) {
+                if (savedConsulta !== null) {
                     setConsulta(JSON.parse(savedConsulta));
                 }
-                const savedExames = await AsyncStorage.getItem('exames')
-                if (savedExames) {
-                    setExames(JSON.parse(savedExames))
+
+                const savedExames = await AsyncStorage.getItem('exames');
+                if (savedExames !== null) {
+                    setExames(JSON.parse(savedExames));
                 }
             } catch (error) {
                 console.error('Erro ao carregar dados do AsyncStorage:', error);

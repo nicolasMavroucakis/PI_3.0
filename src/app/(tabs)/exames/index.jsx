@@ -1,49 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
-import { Text, View, TouchableOpacity, ScrollView, Image, StyleSheet } from "react-native";
+import React, { useContext, useEffect } from "react";
+import { Text, View, TouchableOpacity, ScrollView } from "react-native";
 import { AntDesign } from '@expo/vector-icons';
-import { useNavigation } from "@react-navigation/native"; 
-import { Link } from "expo-router";
-import { GlobalContext } from "../../context/aaaa";
-import Header from "../../components/Header";
-import styles from "../../styles/stylesMedicacao";
-
-const Item = ({ item, onPress, onDelete, onToggle }) => (
-    <View style={styles.containerTextActive}>
-        <ScrollView contentContainerStyle={[styles.scrollContent, {justifyContent: "space-between"}]}>
-            <View>
-                <Text style={{ fontSize: 16, margin: 'auto' }}>Nome: {item.name}</Text>
-                {Object.entries(item.options).map(([key, value]) => (
-                    <View key={key}>
-                    <Text style={{ fontSize: 16 }}>{key}: {value}</Text>
-                    </View>
-                ))}
-            </View>
-            <View>
-                <View>
-                    <TouchableOpacity onPress={onDelete}>
-                    <Image style={styles.lixoImage} source={require('../../../../assets/excluir.png')} />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.a}>
-                    <TouchableOpacity onPress={onToggle}>
-                    <Image style={styles.arrowImage} source={require('../../../../assets/seta-direita.png')} />
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </ScrollView>
-    </View>
-);
+import { useNavigation } from "@react-navigation/native";
+import { GlobalContext } from "../../context/aaaa"; // Ajuste o caminho conforme necessário
+import Header from "../../components/Header"; // Ajuste o caminho conforme necessário
+import styles from "../../styles/stylesMedicacao"; // Ajuste o caminho conforme necessário
+import { Link } from 'expo-router'; // Certifique-se de que o Link está sendo importado corretamente
+import Item from "../../components/item"; // Ajuste o caminho conforme necessário
 
 const Exames = () => {
   const { exames, setExames } = useContext(GlobalContext);
-  const [reload, setReload] = useState(false);
   const navigation = useNavigation();
-  const { usuario, setUsuario } = useContext(GlobalContext);
-  const { modoEscuro } = useContext(GlobalContext);
 
   useEffect(() => {
     const unsubscribe = navigation.addListener('focus', () => {
-      setReload(prevState => !prevState);
+      // Recarregar a lista quando a página ganhar o foco
     });
 
     return unsubscribe;

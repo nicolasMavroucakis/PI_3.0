@@ -13,73 +13,60 @@ import { useRouter } from "expo-router";
 
 export default function ExamesStack() {
     const { modoEscuro } = useContext(GlobalContext);
-
     const router = useRouter();
     
     const handleVoltar = () => { 
         router.back();
-      };
+    };
+
+    const renderContent = () => {
+        const backgroundColor = modoEscuro ? "#1C1C1E" : "#FFFFFF";
+        const textColor = modoEscuro ? "white" : "black";
+        const setaImage = modoEscuro
+            ? require("../../../assets/setaBranca.png")
+            : require("../../../assets/seta-direita.png");
+        const buttonVoltaStyle = modoEscuro
+            ? styleMedicacaoAdiciona.ButtonVolta
+            : styleMedicacaoAdiciona.ButtonVoltaClaro;
+        const textoPrincipalStyle = modoEscuro
+            ? styleExamesStack.textoPrincipal
+            : styleExamesStack.textoPrincipalWhite;
+
+        return (
+            <ScrollView contentContainerStyle={{ flexGrow: 1, backgroundColor }}>
+                <View style={{ alignItems: 'flex-start' }}>
+                    <TouchableOpacity onPress={handleVoltar}>
+                        <Image source={setaImage} style={buttonVoltaStyle} />
+                    </TouchableOpacity>
+                </View>
+                <View style={{alignItems:'center'}}>
+                    <View style={styleExamesStack.viewTextoPrincipal}>
+                        <Text style={textoPrincipalStyle}>Modo de Adicionar Exames</Text>
+                    </View>
+                    <View style={styleExamesStack.viewSelecionaEscolha}>
+                        <View style={styleExamesStack.linkEscolha}>
+                            <Link href={"./manualmente"} style={{ color: textColor, fontSize: 20 }}>
+                                Manualmente
+                            </Link>
+                        </View>
+                        <Text style={{ color: textColor }}>Ou</Text>
+                        <View style={styleExamesStack.linkEscolha}>
+                            <Link href={"./ImageTextExtractor"} style={{ color: textColor, fontSize: 20 }}>
+                                Scanner
+                            </Link>
+                        </View>
+                    </View>
+                </View>
+            </ScrollView>
+        );
+    };
 
     return (
-        <View style={{ flex: 1, height:"100%" }}>
+        <View style={{ flex: 1, height: "100%" }}>
             <Header />
             <View style={{ flex: 1 }}>
-                {!modoEscuro ? (
-                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: "center", backgroundColor: "#FFFFFF" }}>
-                        <View>
-                            <TouchableOpacity onPress={handleVoltar}>
-                                    <Image
-                                    source={require("../../../assets/setaBranca.png")}
-                                    style={styleMedicacaoAdiciona.ButtonVolta}
-                                    />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styleExamesStack.viewTextoPrincipal}>
-                            <Text style={styleExamesStack.textoPrincipalWhite}>Modo de Adicionar Exames</Text>
-                        </View>
-                        <View style={styleExamesStack.viewSelecionaEscolha}>
-                            <View style={styleExamesStack.linkEscolha}>
-                                <Link href={"./manualmente"} style={{color: "white", fontSize: 20}}>
-                                    Manualmente
-                                </Link>
-                            </View>
-                            <Text style={{color: "white"}}>Ou</Text>
-                            <View style={styleExamesStack.linkEscolha}>
-                                <Link href={"./ImageTextExtractor"} style={{color: "white", fontSize: 20}}>
-                                    Scanner
-                                </Link>
-                            </View>
-                        </View>
-                    </ScrollView>
-                ) : (
-                    <ScrollView contentContainerStyle={{ flexGrow: 1, alignItems: 'center', backgroundColor: "#1C1C1E" }}>
-                        <View>
-                            <TouchableOpacity onPress={handleVoltar}>
-                                    <Image
-                                    source={require("../../../assets/setaBranca.png")}
-                                    style={styleMedicacaoAdiciona.ButtonVolta}
-                                    />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={styleExamesStack.viewTextoPrincipal}>
-                            <Text style={styleExamesStack.textoPrincipal}>Modo de Adicionar Exames</Text>
-                        </View>
-                        <View style={styleExamesStack.viewSelecionaEscolha}>
-                            <View style={styleExamesStack.linkEscolha}>
-                                <Link href={"./manualmente"} style={{color: "white"}}>
-                                    Manualmente
-                                </Link>
-                            </View>
-                            <Text style={{color: "white"}}>Ou</Text>
-                            <View style={styleExamesStack.linkEscolha}>
-                                <Link href={"./ImageTextExtractor"} style={{color: "white"}}>
-                                    Scanner
-                                </Link>
-                            </View>
-                        </View>
-                    </ScrollView>
-                )}
+                {renderContent()}
             </View>
         </View>
-    )
+    );
 }

@@ -60,7 +60,7 @@ const stylesMedicacao = StyleSheet.create({
         height: widthAddButton,
         display:'flex',
         textAlign:'center',
-        backgroundColor: '#A1D5B0',
+        backgroundColor: '#71A981',
         borderRadius: 50,
         justifyContent: 'center',
         alignItems: 'center',
@@ -72,6 +72,14 @@ const stylesMedicacao = StyleSheet.create({
     containerTextActive: {
         width: widthHeaderText,
         height: widthHeaderText,
+        backgroundColor: '#bdbdbd',
+        borderRadius: 20,
+        padding: 20,
+        margin: 'auto',
+        marginBottom: 50
+    },
+    containerTextActive2: {
+        width: widthHeaderText,
         backgroundColor: '#bdbdbd',
         borderRadius: 20,
         padding: 20,
