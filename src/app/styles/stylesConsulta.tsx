@@ -46,7 +46,7 @@ const stylesConsulta = StyleSheet.create({
         marginLeft: '30%'
     },
     addButton: {
-        backgroundColor: '#A1D5B0',
+        backgroundColor: '#71A981',
         borderRadius: 50,
         width: 50,
         height: 50,
@@ -137,7 +137,7 @@ const stylesConsulta = StyleSheet.create({
         width: 30,
     },
     modalButton: {
-        backgroundColor: '#A1D5B0',
+        backgroundColor: '#71A981',
         padding: 10,
         margin: 5,
         borderRadius: 5,
@@ -150,7 +150,7 @@ const stylesConsulta = StyleSheet.create({
         padding: 10,
         borderRadius: 10,
         alignItems: 'center',
-        backgroundColor: '#A1D5B0'
+        backgroundColor: '#71A981'
     }
 });
 export default stylesConsulta

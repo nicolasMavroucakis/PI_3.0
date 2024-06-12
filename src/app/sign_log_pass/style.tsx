@@ -24,9 +24,19 @@ const style = StyleSheet.create({
         width:300,
         height:60,
         color:'white',
-        backgroundColor:'#A1D5B0',
+        backgroundColor:'#71A981',
         borderRadius:10
-    },   
+    },
+    ButtonViewStyle2:{
+        marginTop:35,
+        justifyContent:'center',
+        alignItems:'center',
+        width:300,
+        height:60,
+        color:'white',
+        backgroundColor:'#C9C9C9',
+        borderRadius:10
+    },      
     ButtonLinkStyle:{
         display:'flex',
         flexDirection:'row',

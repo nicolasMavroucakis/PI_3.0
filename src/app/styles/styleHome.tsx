@@ -75,7 +75,7 @@ const styleHome = StyleSheet.create({
         alignItems:'center',
         padding: screenWidth * 0.03,
         marginVertical: screenWidth * 0.04,
-        backgroundColor: '#A1D5B0',
+        backgroundColor: '#71A981',
         borderRadius: 15,
         width:screenWidth * 0.55,
         marginHorizontal:"auto",
@@ -103,7 +103,7 @@ const styleHome = StyleSheet.create({
         textAlign:'center'
     },
     statusFooter:{
-        backgroundColor: '#A1D5B0',
+        backgroundColor: '#71A981',
         borderRadius: 10,
         alignItems: 'center',
         justifyContent: 'center',
@@ -167,7 +167,7 @@ const styleHome = StyleSheet.create({
         padding: 10
     },
     linkLogin: {
-        backgroundColor: "#A1D5B0",
+        backgroundColor: "#71A981",
         width: screenWidth * 0.35,
         margin: "auto",
         height: 40,

@@ -132,7 +132,7 @@ export default function Cadastro() {
             </View>
             <View>
               <Link href={'./Login'} asChild style={{fontSize: 20, ...textStyle }}>
-                <Button title="Faça Login"/>
+                <Button color={'#71A981'} title="Faça Login"/>
               </Link>
             </View>
           </View>
